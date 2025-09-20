@@ -8,12 +8,12 @@ public class SimpleSpawner : MonoBehaviour
     private Camera m_Camera;
     private float m_Timer;
     
-    void Awake()
+    private void Awake()
     {
         m_Camera = Camera.main;
     }
     
-    void Update()
+    private void Update()
     {
         m_Timer += Time.deltaTime;
         if (m_Timer >= m_SpawnInterval)
@@ -28,7 +28,7 @@ public class SimpleSpawner : MonoBehaviour
         Vector3 min = m_Camera.ViewportToWorldPoint(new Vector3(0, 1, 0));
         Vector3 max = m_Camera.ViewportToWorldPoint(new Vector3(1, 1, 0));
         float x = Random.Range(min.x, max.x);
-        Vector3 spawnPos = new Vector3(x, max.y + 1f, 0);
+        Vector3 spawnPos = new(x, max.y + 1f, 0);
         Instantiate(m_EnemyPrefab, spawnPos, Quaternion.identity);
     }
 }

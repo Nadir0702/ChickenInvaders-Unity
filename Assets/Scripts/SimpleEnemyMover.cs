@@ -5,12 +5,12 @@ public class SimpleEnemyMover : MonoBehaviour
     [SerializeField] private float m_Speed = 2.5f;
     private Camera m_Camera;
     
-    void Awake()
+    private void Awake()
     {
         m_Camera = Camera.main;
     }
     
-    void Update()
+    private void Update()
     {
         transform.Translate( m_Speed * Time.deltaTime * Vector2.down, Space.World);
         

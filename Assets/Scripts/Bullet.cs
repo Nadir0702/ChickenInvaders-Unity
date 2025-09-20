@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(Time.deltaTime * m_Speed * m_Direction , Space.World);
         if(Time.time >= m_DeathTime)
         {
-            Deactivate();
+            deactivate();
         }
     }
 
@@ -39,14 +39,14 @@ public class Bullet : MonoBehaviour
                 damageable.TakeDamage(m_Damage);
             }
             
-            Deactivate();
+            deactivate();
         }
     }
 
-    public void Deactivate()
+    private void deactivate()
     {
         m_Active = false;
-        BulletPool.Instance.ReturnBullet(this);
+        BulletPool.Instance.Release(this);
     }
 }
 

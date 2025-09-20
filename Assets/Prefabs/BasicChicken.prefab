@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1003937040893976186}
   - component: {fileID: 114234392455083920}
   - component: {fileID: 2275158918202941166}
-  - component: {fileID: 819767763932362269}
   - component: {fileID: 2210563827632038667}
+  - component: {fileID: -3002575455542920309}
   m_Layer: 7
   m_Name: BasicChicken
   m_TagString: Untagged
@@ -131,19 +131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxHp: 3
---- !u!114 &819767763932362269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7400819539430153167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a6cfc6f09ae884fbbf3ef61a2e982d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Speed: 2.5
 --- !u!60 &2210563827632038667
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -363,3 +350,22 @@ PolygonCollider2D:
       - {x: -0.057000004, y: -0.43400002}
       - {x: -0.059000004, y: -0.42000002}
   m_UseDelaunayMesh: 0
+--- !u!114 &-3002575455542920309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7400819539430153167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6ec21280f210240a72985e4aefe07c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MoveType: 0
+  m_Speed: 2.5
+  m_SineAmplitude: 1.2
+  m_SineFrequency: 2
+  m_DiveDelay: 0.6
+  m_DiveSpeed: 7
+  m_SpawnTime: 0

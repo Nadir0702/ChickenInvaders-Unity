@@ -5,7 +5,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField] private int m_MaxHp = 3;
     private int m_Hp;
     
-    void onEnable() => m_Hp = m_MaxHp;
+    private void onEnable() => m_Hp = m_MaxHp;
     
     public void TakeDamage(int i_Amount)
     {

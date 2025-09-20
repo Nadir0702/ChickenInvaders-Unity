@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI m_ScoreText;
     [SerializeField] private TextMeshProUGUI m_LivesText;
     
-    private int m_Score = 0;
+    private int m_Score;
     private int m_Lives = 3;
 
     private void Awake()

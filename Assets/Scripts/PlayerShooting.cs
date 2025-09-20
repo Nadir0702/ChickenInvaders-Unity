@@ -19,7 +19,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void spawnBullet()
     {
-        var bullet = BulletPool.Instance.GetBullet();
+        var bullet = BulletPool.Instance.Get();
         bullet.transform.position = m_Muzzle.position;
         bullet.transform.rotation = m_Muzzle.rotation;
         bullet.Fire(Vector2.up); // player bullets go up
