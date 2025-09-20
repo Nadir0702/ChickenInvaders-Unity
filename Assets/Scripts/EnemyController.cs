@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void die()
     {
         // For now: Destroy. (We’ll pool enemies later.)
+        GameManager.Instance?.AddScore(100);
         Destroy(gameObject);
-        UIManager.Instance.AddScore(10);
     }
 }

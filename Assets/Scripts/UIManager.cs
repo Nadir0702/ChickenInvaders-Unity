@@ -5,30 +5,31 @@ public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private TextMeshProUGUI m_ScoreText;
     [SerializeField] private TextMeshProUGUI m_LivesText;
-    
-    private int m_Score;
-    private int m_Lives = 3;
+    [SerializeField] private GameObject m_GameOverPanel;
+    [SerializeField] private GameObject m_PausePanel;
 
-    private void Awake()
+    private void Start()
     {
-        updateHUD();
+        SetScore(0);
+        SetLives(3);
+        m_GameOverPanel.SetActive(false);
+        m_PausePanel.SetActive(false);
+        ShowState(eGameState.Playing);
     }
     
-    public void AddScore(int i_Amount)
+    public void SetScore(int i_Value)
     {
-        m_Score += i_Amount;
-        updateHUD();
+        if (m_ScoreText) m_ScoreText.text = $"Score: {i_Value}";
     }
     
     public void SetLives(int i_Value)
     {
-        m_Lives = i_Value;
-        updateHUD();
+        if (m_LivesText) m_LivesText.text = $"Lives: {i_Value}";
     }       
 
-    private void updateHUD()
+    public void ShowState(eGameState i_GameState)
     {
-        if (m_ScoreText) m_ScoreText.text = $"Score: {m_Score}";
-        if (m_LivesText) m_LivesText.text = $"Lives: {m_Lives}";
+        if (m_GameOverPanel) m_GameOverPanel.SetActive(i_GameState == eGameState.GameOver);
+        if (m_PausePanel) m_PausePanel.SetActive(i_GameState == eGameState.Paused);
     }
 }
