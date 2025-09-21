@@ -30,10 +30,10 @@ public class GameManager : Singleton<GameManager>
         Lives = Mathf.Max(0, Lives - i_Amount);
         UIManager.Instance?.SetLives(Lives);
         
-        if (Lives <= 0) setGameState(eGameState.GameOver);
+        if (Lives <= 0) SetGameState(eGameState.GameOver);
     }
 
-    private void setGameState(eGameState i_GameState)
+    public void SetGameState(eGameState i_GameState)
     {
         if (GameState == i_GameState) return;
         
@@ -56,5 +56,5 @@ public class GameManager : Singleton<GameManager>
 
     }
     
-    public void ResumeGame() => setGameState(eGameState.Playing);
+    public void ResumeGame() => SetGameState(eGameState.Playing);
 }

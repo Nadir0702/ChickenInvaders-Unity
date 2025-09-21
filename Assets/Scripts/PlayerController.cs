@@ -16,6 +16,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
+        if (GameManager.Instance.GameState != eGameState.Playing) return;
         // Old Input Manager
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
@@ -24,6 +25,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.GameState != eGameState.Playing) return;
+        
         Vector2 targetVel = m_Input * m_MoveSpeed;
         m_Rigidbody2D.linearVelocity = targetVel;
 

@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void TakeDamage(int i_Amount)
     {
         m_Hp -= i_Amount;
+        AudioManager.Instance?.Play(eSFXId.EnemyHit, 0.5f);
         if (m_Hp <= 0)
         {
             die();

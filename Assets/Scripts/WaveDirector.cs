@@ -24,7 +24,7 @@ public class WaveDirector : MonoBehaviour
     private IEnumerator runWaves()
     {
         int waveNumber = 1;
-        while(true)
+        while(GameManager.Instance && GameManager.Instance.GameState == eGameState.Playing)
         {
             if(waveNumber % 3 == 1) yield return StartCoroutine(Wave_Line(waveNumber));
             else if(waveNumber % 3 == 2) yield return StartCoroutine(Wave_Arc(waveNumber));
@@ -38,6 +38,7 @@ public class WaveDirector : MonoBehaviour
             waveNumber++;
         }
         
+        yield return null;
     }
     
     private IEnumerator waitForWaveClear(float i_Timeout)
