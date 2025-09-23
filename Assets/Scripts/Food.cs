@@ -144,10 +144,8 @@ public class Food : MonoBehaviour
         }
     }
     
-    private void OnCollisionEnter2D(Collision2D i_Other)
+    private void OnTriggerEnter2D(Collider2D i_Other)
     {
-        if (!i_Other.collider.CompareTag("Player")) return;
-
         // Grant 50 points for food collection
         GameManager.Instance?.AddScore(50);
         

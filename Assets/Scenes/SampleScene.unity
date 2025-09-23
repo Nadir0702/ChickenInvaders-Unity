@@ -1725,7 +1725,9 @@ MonoBehaviour:
   m_PlayerHit: {fileID: 8300000, guid: 7c635dcfcd6621e46a9a7589e6a7c788, type: 3}
   m_UIClick: {fileID: 8300000, guid: bb8c9e045652cf842864dad9c3f41851, type: 3}
   m_Pickup: {fileID: 8300000, guid: 91f58494537f42c419b71a6b89007255, type: 3}
-  m_Explosion: {fileID: 0}
+  m_Explosion: {fileID: 8300000, guid: 7c635dcfcd6621e46a9a7589e6a7c788, type: 3}
+  m_Eat: {fileID: 8300000, guid: d677106e5d01d744895fbc42c4790634, type: 3}
+  m_GameOver: {fileID: 8300000, guid: 009c6332295ebd14cb33f6ebaf776ceb, type: 3}
   m_AudioSource: {fileID: 1941854441}
 --- !u!82 &1941854441
 AudioSource:
@@ -1870,7 +1872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyPrefab: {fileID: 2275158918202941166, guid: 09eac6185011fea45ac2a279b540e290, type: 3}
   m_Player: {fileID: 2203350261333695675}
-  m_InterWaveDelay: 2.5
+  m_InterWaveDelay: 3
 --- !u!4 &2028685966
 Transform:
   m_ObjectHideFlags: 0
@@ -1896,6 +1898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2080025538}
   - component: {fileID: 2080025537}
+  - component: {fileID: 2080025539}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1931,6 +1934,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2080025539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080025536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba53c28d29a943c4dbcd9f7b646f098e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WeaponPowerUpPrefab: {fileID: 5909170434643636570, guid: b6ea5ea742f27f645838c5c49fd19ced, type: 3}
+  m_FoodPrefab: {fileID: 6702647831489249232, guid: ccf46c79466e1334288812d21ef78753, type: 3}
 --- !u!1001 &1926017128556253592
 PrefabInstance:
   m_ObjectHideFlags: 0
