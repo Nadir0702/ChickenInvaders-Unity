@@ -46,9 +46,11 @@ GameObject:
   - component: {fileID: 2995199961601171481}
   - component: {fileID: 6688824349264191237}
   - component: {fileID: 8473103990664201727}
+  - component: {fileID: 8130210163839383358}
+  - component: {fileID: 7713917183015832607}
   m_Layer: 6
   m_Name: Player_Prefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,6 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e9587f67d045a478916e3800f7181f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerStats: {fileID: 8130210163839383358}
   m_Muzzle: {fileID: 7478271042995907218}
   m_FireRate: 8
 --- !u!114 &8473103990664201727
@@ -264,3 +267,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428de9f6d8ccad2428d5292d31b8c633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerStats: {fileID: 8130210163839383358}
+--- !u!114 &8130210163839383358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298992267385027600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a080c5d4dede9488905945bb9d6ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WeaponLevel: 1
+  m_ShieldDuration: 4
+  m_ShieldVisualPrefab: {fileID: 108652443171982129, guid: d6f6712e72c703d4cbab02bef2484ab5, type: 3}
+  m_BombCount: 0
+--- !u!114 &7713917183015832607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298992267385027600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dfda82aa901b45449ec081916083f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerStats: {fileID: 8130210163839383358}
+  m_BombDamage: 999

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class WaveDirector : MonoBehaviour
 {
@@ -26,9 +28,14 @@ public class WaveDirector : MonoBehaviour
         int waveNumber = 1;
         while(GameManager.Instance && GameManager.Instance.GameState == eGameState.Playing)
         {
-            if(waveNumber % 3 == 1) yield return StartCoroutine(Wave_Line(waveNumber));
-            else if(waveNumber % 3 == 2) yield return StartCoroutine(Wave_Arc(waveNumber));
-            else yield return StartCoroutine(Wave_Dive(waveNumber));
+            // Notify pickup manager of new wave
+            PickupManager.Instance?.OnWaveStart();
+            
+            if(waveNumber % 5 == 1) yield return StartCoroutine(Wave_Line(waveNumber));
+            else if(waveNumber % 5 == 2) yield return StartCoroutine(Wave_Arc(waveNumber));
+            else if(waveNumber % 5 == 3) yield return StartCoroutine(Wave_Dive(waveNumber));
+            else if(waveNumber % 5 == 4) yield return StartCoroutine(Wave_Columns(waveNumber));
+            else if(waveNumber % 5 == 0) yield return StartCoroutine(Wave_Pincer(waveNumber));
             
             // Wait for clear or timeout (safety)
             yield return StartCoroutine(waitForWaveClear(8f));
@@ -134,6 +141,70 @@ public class WaveDirector : MonoBehaviour
             }
             
             yield return new WaitForSeconds(0.8f);
+        }
+    }
+    
+    // ---------- Pattern 4: Columns ----------
+    private IEnumerator Wave_Columns(int i_WaveNumber)
+    {
+        int columns = Mathf.Clamp(3 + i_WaveNumber / 3, 3, 6);
+        int rosPerColumn = Mathf.Clamp(3 + i_WaveNumber / 2, 3, 8);
+        float columnSpacing = 1.6f;
+        float rowSpacing = 0.8f;
+        
+        Vector3 center = m_Camera.ViewportToWorldPoint(new Vector3(0.5f, 1f, 0));
+        float startX = center.x - (columns - 1) * columnSpacing * 0.5f;
+        
+        for (int col = 0; col < columns; col++)
+        {
+            for (int row = 0; row < rosPerColumn; row++)
+            {
+                Vector3 position = new Vector3(startX + col * columnSpacing, center.y + 0.5f + row * rowSpacing, 0f);
+                var enemy = Instantiate(m_EnemyPrefab, position, Quaternion.identity);
+                var mover = enemy.GetComponent<EnemyMover>();
+                mover.m_MoveType = eEnemyMoveType.StraightDown;
+                mover.Speed = 2.5f + 0.15f * i_WaveNumber;
+                r_ActiveEnemies.Add(enemy);
+            }
+            
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+    
+    // ---------- Pattern 5: Pincer ----------
+    private IEnumerator Wave_Pincer(int i_WaveNumber)
+    {
+        int pairs = Mathf.Clamp(4 + i_WaveNumber / 2, 4, 10);
+        float yTop = m_Camera.ViewportToWorldPoint(new Vector3(0, 1f, 0)).y;
+        float yBottom = m_Camera.ViewportToWorldPoint(new Vector3(0, 0f, 0)).y;
+        float xLeft = m_Camera.ViewportToWorldPoint(new Vector3(0f, 0f, 0)).x;
+        float xRight = m_Camera.ViewportToWorldPoint(new Vector3(1f, 0f, 0)).x;
+        
+        // Calculate radius for semicircle (half the screen width)
+        float screenHeightWorldUnits = yTop - yBottom;
+        float radius = screenHeightWorldUnits * 0.5f;
+        
+        for(int p = 0; p < pairs; p++)
+        {
+            float y = yTop + 0.5f + p * 0.5f;
+            
+            // Left enemy starts at top-left, moves in semicircle clockwise to bottom-right
+            var leftEnemy = Instantiate(m_EnemyPrefab, new Vector3(xLeft, y, 0f), Quaternion.identity);
+            var leftMover = leftEnemy.GetComponent<EnemyMover>();
+            leftMover.m_MoveType = eEnemyMoveType.SemicircleArc;
+            leftMover.Speed = 2f + 0.2f * i_WaveNumber;
+            leftMover.InitSemicircle(new Vector2(xLeft, 0f), radius, true, Mathf.PI); // Start at top-left of circle (PI radians)
+            r_ActiveEnemies.Add(leftEnemy);
+            
+            // Right enemy starts at top-right, moves in semicircle counter-clockwise to bottom-left
+            var rightEnemy = Instantiate(m_EnemyPrefab, new Vector3(xRight, y + 0.2f, 0f), Quaternion.identity);
+            var rightMover = rightEnemy.GetComponent<EnemyMover>();
+            rightMover.m_MoveType = eEnemyMoveType.SemicircleArc;
+            rightMover.Speed = 2f + 0.2f * i_WaveNumber;
+            rightMover.InitSemicircle(new Vector2(xRight, 0f), radius, false, 0f); // Start at top-right of circle (0 radians)
+            r_ActiveEnemies.Add(rightEnemy);
+            
+            yield return new WaitForSeconds(0.18f);
         }
     }
 }

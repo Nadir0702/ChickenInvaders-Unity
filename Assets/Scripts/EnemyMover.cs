@@ -20,6 +20,13 @@ public class EnemyMover : MonoBehaviour
     private Transform m_Target;
     private Vector2 m_DiveDirection;
     private bool m_Dived;
+
+    [Header("Semicircle")]
+    private Vector2 m_SemicircleCenter;
+    private float m_SemicircleRadius = 3f;
+    private bool m_SemicircleClockwise = true;
+    private float m_SemicircleCurrentAngle;
+    private float m_SemicircleAngularSpeed;
     
     private Camera m_Camera;
     
@@ -39,6 +46,15 @@ public class EnemyMover : MonoBehaviour
         m_Target = i_Target;
         m_Dived = false;
     }
+    
+    public void InitSemicircle(Vector2 i_Center, float i_Radius, bool i_Clockwise, float i_StartAngle)
+    {
+        m_SemicircleCenter = i_Center;
+        m_SemicircleRadius = i_Radius;
+        m_SemicircleClockwise = i_Clockwise;
+        m_SemicircleCurrentAngle = i_StartAngle;
+        m_SemicircleAngularSpeed = Speed / i_Radius; // Convert linear speed to angular speed
+    }
 
     private void Update()
     {
@@ -52,6 +68,9 @@ public class EnemyMover : MonoBehaviour
                 break;
             case(eEnemyMoveType.DiveAtPlayer):
                 handleDiveAtPlayerWave();
+                break;
+            case(eEnemyMoveType.SemicircleArc):
+                handleSemicircleArcWave();
                 break;
             default:
                 Debug.LogError("EnemyMover: Unknown move type " + m_MoveType);
@@ -87,11 +106,24 @@ public class EnemyMover : MonoBehaviour
         transform.Translate(Time.deltaTime * Speed * Vector2.down, Space.World); 
     }
 
+    private void handleSemicircleArcWave()
+    {
+        // Update the current angle based on angular speed
+        float angleDirection = m_SemicircleClockwise ? -1f : 1f;
+        m_SemicircleCurrentAngle += m_SemicircleAngularSpeed * angleDirection * Time.deltaTime;
+        
+        // Calculate the new position based on the current angle
+        float x = m_SemicircleCenter.x + m_SemicircleRadius * Mathf.Cos(m_SemicircleCurrentAngle);
+        float y = m_SemicircleCenter.y + m_SemicircleRadius * Mathf.Sin(m_SemicircleCurrentAngle);
+        
+        transform.position = new Vector3(x, y, transform.position.z);
+    }
+
     private void handleOffScreen()
     {
         // Destroy if out of screen
         Vector3 viewPortPosition = m_Camera.WorldToViewportPoint(transform.position);
-        if (viewPortPosition.y < -0.15f || viewPortPosition.x < -0.15f || viewPortPosition.x > 1.15f)
+        if (viewPortPosition.y < -0.15f || viewPortPosition.x < -1f || viewPortPosition.x > 2f)
         {
             Destroy(gameObject);
         }

@@ -2,5 +2,6 @@
 {
     StraightDown,
     SineHorizontal,
-    DiveAtPlayer
+    DiveAtPlayer,
+    SemicircleArc
 }

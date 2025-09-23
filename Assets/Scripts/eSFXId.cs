@@ -3,5 +3,9 @@
     Shoot,
     EnemyHit,
     PlayerHit,
-    UIClick
+    UIClick,
+    Pickup, 
+    Explosion,
+    Eat,
+    GameOver
 }

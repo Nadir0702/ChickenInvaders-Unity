@@ -1,0 +1,3624 @@
+fileFormatVersion: 2
+guid: 4445194525bcc7a44a27dfb49a0f302d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2365462045279649563
+    second: Stars Small_1_0
+  - first:
+      213: -5547738440955467720
+    second: Stars Small_1_1
+  - first:
+      213: 5821727795149352875
+    second: Stars Small_1_2
+  - first:
+      213: -286835545632719270
+    second: Stars Small_1_3
+  - first:
+      213: -4325758056297083563
+    second: Stars Small_1_4
+  - first:
+      213: 4707415969762441209
+    second: Stars Small_1_5
+  - first:
+      213: -5805466523700261109
+    second: Stars Small_1_6
+  - first:
+      213: 7751521500638000424
+    second: Stars Small_1_7
+  - first:
+      213: -870816684251635562
+    second: Stars Small_1_8
+  - first:
+      213: -3690743945235493246
+    second: Stars Small_1_9
+  - first:
+      213: 5308493929526472957
+    second: Stars Small_1_10
+  - first:
+      213: -1615004604418989539
+    second: Stars Small_1_11
+  - first:
+      213: -4971936390497155942
+    second: Stars Small_1_12
+  - first:
+      213: -6089003398992374969
+    second: Stars Small_1_13
+  - first:
+      213: -8727611057055216903
+    second: Stars Small_1_14
+  - first:
+      213: -7927486677612084164
+    second: Stars Small_1_15
+  - first:
+      213: 1127399029273026424
+    second: Stars Small_1_16
+  - first:
+      213: -942179568340435612
+    second: Stars Small_1_17
+  - first:
+      213: -120134435507866826
+    second: Stars Small_1_18
+  - first:
+      213: -2589960811422241552
+    second: Stars Small_1_19
+  - first:
+      213: 1093230607123736197
+    second: Stars Small_1_20
+  - first:
+      213: -2344513857590255381
+    second: Stars Small_1_21
+  - first:
+      213: 7419428906259651454
+    second: Stars Small_1_22
+  - first:
+      213: -7591945419657625615
+    second: Stars Small_1_23
+  - first:
+      213: 7658765157519852321
+    second: Stars Small_1_24
+  - first:
+      213: 5737069336916249937
+    second: Stars Small_1_25
+  - first:
+      213: -6208670975987663634
+    second: Stars Small_1_26
+  - first:
+      213: 6201223045093340691
+    second: Stars Small_1_27
+  - first:
+      213: -473085935211659863
+    second: Stars Small_1_28
+  - first:
+      213: 4097964535076864823
+    second: Stars Small_1_29
+  - first:
+      213: 8752383711754855572
+    second: Stars Small_1_30
+  - first:
+      213: 3768215726967441402
+    second: Stars Small_1_31
+  - first:
+      213: -4574802786708649059
+    second: Stars Small_1_32
+  - first:
+      213: -5395033920550071560
+    second: Stars Small_1_33
+  - first:
+      213: 1207419279970925787
+    second: Stars Small_1_34
+  - first:
+      213: 2539506365155920467
+    second: Stars Small_1_35
+  - first:
+      213: -5822481738816293155
+    second: Stars Small_1_36
+  - first:
+      213: -7518518514327982099
+    second: Stars Small_1_37
+  - first:
+      213: 4133491175415572316
+    second: Stars Small_1_38
+  - first:
+      213: 4416142362489370795
+    second: Stars Small_1_39
+  - first:
+      213: 2828236401435591611
+    second: Stars Small_1_40
+  - first:
+      213: -9127070513795817795
+    second: Stars Small_1_41
+  - first:
+      213: -8032164380966139547
+    second: Stars Small_1_42
+  - first:
+      213: 2298596089659491805
+    second: Stars Small_1_43
+  - first:
+      213: 1396871422103288666
+    second: Stars Small_1_44
+  - first:
+      213: -6209983465164913208
+    second: Stars Small_1_45
+  - first:
+      213: -8417996296385957712
+    second: Stars Small_1_46
+  - first:
+      213: -5787154602941624438
+    second: Stars Small_1_47
+  - first:
+      213: 8985987454448112813
+    second: Stars Small_1_48
+  - first:
+      213: 2423073597646994458
+    second: Stars Small_1_49
+  - first:
+      213: 272826479849810612
+    second: Stars Small_1_50
+  - first:
+      213: 8085919319522393120
+    second: Stars Small_1_51
+  - first:
+      213: -5316742481064129058
+    second: Stars Small_1_52
+  - first:
+      213: -637388015308068710
+    second: Stars Small_1_53
+  - first:
+      213: -4438427964593377181
+    second: Stars Small_1_54
+  - first:
+      213: -8832298948278288225
+    second: Stars Small_1_55
+  - first:
+      213: 7323119639988127516
+    second: Stars Small_1_56
+  - first:
+      213: 8989006109251880113
+    second: Stars Small_1_57
+  - first:
+      213: -300367832174465836
+    second: Stars Small_1_58
+  - first:
+      213: 3665226558231289262
+    second: Stars Small_1_59
+  - first:
+      213: 3799757668497152429
+    second: Stars Small_1_60
+  - first:
+      213: 7374801762177971802
+    second: Stars Small_1_61
+  - first:
+      213: -7988497819953323252
+    second: Stars Small_1_62
+  - first:
+      213: -5632416397627796573
+    second: Stars Small_1_63
+  - first:
+      213: 7590958807769573062
+    second: Stars Small_1_64
+  - first:
+      213: -4840839827788716085
+    second: Stars Small_1_65
+  - first:
+      213: -3878983321323242716
+    second: Stars Small_1_66
+  - first:
+      213: 3389605661360381259
+    second: Stars Small_1_67
+  - first:
+      213: 1472480768927563632
+    second: Stars Small_1_68
+  - first:
+      213: -7508153492516646483
+    second: Stars Small_1_69
+  - first:
+      213: 7337564036730924175
+    second: Stars Small_1_70
+  - first:
+      213: -3945991268498555198
+    second: Stars Small_1_71
+  - first:
+      213: -3543125343878480297
+    second: Stars Small_1_72
+  - first:
+      213: -1440824392084267457
+    second: Stars Small_1_73
+  - first:
+      213: -5456045843886518611
+    second: Stars Small_1_74
+  - first:
+      213: -8595040694499564470
+    second: Stars Small_1_75
+  - first:
+      213: 7389735423591936236
+    second: Stars Small_1_76
+  - first:
+      213: 3877447582100941379
+    second: Stars Small_1_77
+  - first:
+      213: 8501530666437738831
+    second: Stars Small_1_78
+  - first:
+      213: 3360008804173888712
+    second: Stars Small_1_79
+  - first:
+      213: 2963949448133235456
+    second: Stars Small_1_80
+  - first:
+      213: 2298483719156220950
+    second: Stars Small_1_81
+  - first:
+      213: -6415395102508346805
+    second: Stars Small_1_82
+  - first:
+      213: 622134817204020961
+    second: Stars Small_1_83
+  - first:
+      213: -4050040998794412515
+    second: Stars Small_1_84
+  - first:
+      213: -296465293897840897
+    second: Stars Small_1_85
+  - first:
+      213: 975117851629609302
+    second: Stars Small_1_86
+  - first:
+      213: -6983298797308977068
+    second: Stars Small_1_87
+  - first:
+      213: -2366900737571539238
+    second: Stars Small_1_88
+  - first:
+      213: 5941844791806383755
+    second: Stars Small_1_89
+  - first:
+      213: 3599101341240000524
+    second: Stars Small_1_90
+  - first:
+      213: 7084398673877142266
+    second: Stars Small_1_91
+  - first:
+      213: -6540464069066039211
+    second: Stars Small_1_92
+  - first:
+      213: 9052599594945058093
+    second: Stars Small_1_93
+  - first:
+      213: -5825799411156401831
+    second: Stars Small_1_94
+  - first:
+      213: -8224510438596878781
+    second: Stars Small_1_95
+  - first:
+      213: 7761739172790554378
+    second: Stars Small_1_96
+  - first:
+      213: 3030286648431866466
+    second: Stars Small_1_97
+  - first:
+      213: -8174662092917893427
+    second: Stars Small_1_98
+  - first:
+      213: 8894027969527240602
+    second: Stars Small_1_99
+  - first:
+      213: 2605651958818240919
+    second: Stars Small_1_100
+  - first:
+      213: 7925874190177452598
+    second: Stars Small_1_101
+  - first:
+      213: -7510587188636583168
+    second: Stars Small_1_102
+  - first:
+      213: 3350003503508417232
+    second: Stars Small_1_103
+  - first:
+      213: -929481674938048243
+    second: Stars Small_1_104
+  - first:
+      213: 5596224044055441387
+    second: Stars Small_1_105
+  - first:
+      213: -7422363590980313612
+    second: Stars Small_1_106
+  - first:
+      213: 1712362383920552037
+    second: Stars Small_1_107
+  - first:
+      213: -1737788352945143225
+    second: Stars Small_1_108
+  - first:
+      213: -3327580942106731801
+    second: Stars Small_1_109
+  - first:
+      213: -6239968738930287489
+    second: Stars Small_1_110
+  - first:
+      213: 4783999541946644438
+    second: Stars Small_1_111
+  - first:
+      213: -5680135347754047452
+    second: Stars Small_1_112
+  - first:
+      213: 6624573351543694147
+    second: Stars Small_1_113
+  - first:
+      213: 6539399600349408852
+    second: Stars Small_1_114
+  - first:
+      213: -1918646665597498217
+    second: Stars Small_1_115
+  - first:
+      213: 7901490769288543537
+    second: Stars Small_1_116
+  - first:
+      213: -63540094825758095
+    second: Stars Small_1_117
+  - first:
+      213: 5099423400338153065
+    second: Stars Small_1_118
+  - first:
+      213: 7632558575473122004
+    second: Stars Small_1_119
+  - first:
+      213: -1123126116474479327
+    second: Stars Small_1_120
+  - first:
+      213: 2748028455843682850
+    second: Stars Small_1_121
+  - first:
+      213: 1985287451315180724
+    second: Stars Small_1_122
+  - first:
+      213: 3339265103686258552
+    second: Stars Small_1_123
+  - first:
+      213: -2612046184910502872
+    second: Stars Small_1_124
+  - first:
+      213: 807339332760790180
+    second: Stars Small_1_125
+  - first:
+      213: 5883033392059381040
+    second: Stars Small_1_126
+  - first:
+      213: -5056763461335470543
+    second: Stars Small_1_127
+  - first:
+      213: 2297744328973000424
+    second: Stars Small_1_128
+  - first:
+      213: -6960281692053291149
+    second: Stars Small_1_129
+  - first:
+      213: -664680924143006588
+    second: Stars Small_1_130
+  - first:
+      213: 1340901109572787408
+    second: Stars Small_1_131
+  - first:
+      213: 2430018054301793289
+    second: Stars Small_1_132
+  - first:
+      213: -8099597671504690732
+    second: Stars Small_1_133
+  - first:
+      213: -3007770364985078704
+    second: Stars Small_1_134
+  - first:
+      213: 5726837101326841192
+    second: Stars Small_1_135
+  - first:
+      213: 6119573609868827148
+    second: Stars Small_1_136
+  - first:
+      213: -6203676305940445698
+    second: Stars Small_1_137
+  - first:
+      213: -8055579408479117211
+    second: Stars Small_1_138
+  - first:
+      213: -5231017120266303955
+    second: Stars Small_1_139
+  - first:
+      213: -2476174737652657845
+    second: Stars Small_1_140
+  - first:
+      213: 7478202393500788648
+    second: Stars Small_1_141
+  - first:
+      213: 2316178050936507992
+    second: Stars Small_1_142
+  - first:
+      213: -7366897903630378448
+    second: Stars Small_1_143
+  - first:
+      213: -3460480613808547993
+    second: Stars Small_1_144
+  - first:
+      213: -1911453112281461502
+    second: Stars Small_1_145
+  - first:
+      213: 5399814443055386007
+    second: Stars Small_1_146
+  - first:
+      213: -5962357016016312200
+    second: Stars Small_1_147
+  - first:
+      213: 7877884923934913360
+    second: Stars Small_1_148
+  - first:
+      213: 1594538383515144423
+    second: Stars Small_1_149
+  - first:
+      213: 334087925504058270
+    second: Stars Small_1_150
+  - first:
+      213: 4003696614675200970
+    second: Stars Small_1_151
+  - first:
+      213: -1158497522973774220
+    second: Stars Small_1_152
+  - first:
+      213: -8258000142909852955
+    second: Stars Small_1_153
+  - first:
+      213: -6536761739162718292
+    second: Stars Small_1_154
+  - first:
+      213: -8213844223574903486
+    second: Stars Small_1_155
+  - first:
+      213: 2107022587013745136
+    second: Stars Small_1_156
+  - first:
+      213: 5946681547192750263
+    second: Stars Small_1_157
+  - first:
+      213: 706235235696507313
+    second: Stars Small_1_158
+  - first:
+      213: -3644134948068642413
+    second: Stars Small_1_159
+  - first:
+      213: -3803387201861213918
+    second: Stars Small_1_160
+  - first:
+      213: 156910580104628137
+    second: Stars Small_1_161
+  - first:
+      213: -1232490063151637880
+    second: Stars Small_1_162
+  - first:
+      213: 4427255457825043989
+    second: Stars Small_1_163
+  - first:
+      213: 1019692327697829783
+    second: Stars Small_1_164
+  - first:
+      213: 2018512953980359914
+    second: Stars Small_1_165
+  - first:
+      213: 4490350412302321016
+    second: Stars Small_1_166
+  - first:
+      213: 3915573943859887135
+    second: Stars Small_1_167
+  - first:
+      213: 7329868560939710313
+    second: Stars Small_1_168
+  - first:
+      213: -4575206228557139720
+    second: Stars Small_1_169
+  - first:
+      213: 4848008599806551157
+    second: Stars Small_1_170
+  - first:
+      213: -172992921389732178
+    second: Stars Small_1_171
+  - first:
+      213: 4697537831158671594
+    second: Stars Small_1_172
+  - first:
+      213: -2672735231255364443
+    second: Stars Small_1_173
+  - first:
+      213: 2620378805223884202
+    second: Stars Small_1_174
+  - first:
+      213: -2089645972392487157
+    second: Stars Small_1_175
+  - first:
+      213: 8779805192968321456
+    second: Stars Small_1_176
+  - first:
+      213: 4134778574584480710
+    second: Stars Small_1_177
+  - first:
+      213: -1527631322368613078
+    second: Stars Small_1_178
+  - first:
+      213: -6771953605215596868
+    second: Stars Small_1_179
+  - first:
+      213: 6119116135676742019
+    second: Stars Small_1_180
+  - first:
+      213: -4128321491273346990
+    second: Stars Small_1_181
+  - first:
+      213: -6791062096189250170
+    second: Stars Small_1_182
+  - first:
+      213: -7439449408572948011
+    second: Stars Small_1_183
+  - first:
+      213: -530798125235179544
+    second: Stars Small_1_184
+  - first:
+      213: 7612917183395898169
+    second: Stars Small_1_185
+  - first:
+      213: -6316682359442518757
+    second: Stars Small_1_186
+  - first:
+      213: 8670718648764247038
+    second: Stars Small_1_187
+  - first:
+      213: 4881120072291557133
+    second: Stars Small_1_188
+  - first:
+      213: 6988387902169053860
+    second: Stars Small_1_189
+  - first:
+      213: -4529723758641141824
+    second: Stars Small_1_190
+  - first:
+      213: 7734339152512345953
+    second: Stars Small_1_191
+  - first:
+      213: 4405593446318202818
+    second: Stars Small_1_192
+  - first:
+      213: 5420572594130644286
+    second: Stars Small_1_193
+  - first:
+      213: 8784439216083165429
+    second: Stars Small_1_194
+  - first:
+      213: -1177688941238145068
+    second: Stars Small_1_195
+  - first:
+      213: 5047404465020865302
+    second: Stars Small_1_196
+  - first:
+      213: 5080249948692073170
+    second: Stars Small_1_197
+  - first:
+      213: -6743950677341009947
+    second: Stars Small_1_198
+  - first:
+      213: 8392486343272695521
+    second: Stars Small_1_199
+  - first:
+      213: -4975261134396936822
+    second: Stars Small_1_200
+  - first:
+      213: 8677978151437813300
+    second: Stars Small_1_201
+  - first:
+      213: 4916502427139288575
+    second: Stars Small_1_202
+  - first:
+      213: -8917894202636934983
+    second: Stars Small_1_203
+  - first:
+      213: 9068688375225929937
+    second: Stars Small_1_204
+  - first:
+      213: 35602938553324605
+    second: Stars Small_1_205
+  - first:
+      213: -2897776078827843590
+    second: Stars Small_1_206
+  - first:
+      213: 3779075299741081038
+    second: Stars Small_1_207
+  - first:
+      213: -220629391826451419
+    second: Stars Small_1_208
+  - first:
+      213: 4848461099105444417
+    second: Stars Small_1_209
+  - first:
+      213: -6543729968644982776
+    second: Stars Small_1_210
+  - first:
+      213: -1244701366950585838
+    second: Stars Small_1_211
+  - first:
+      213: 5453361408283678511
+    second: Stars Small_1_212
+  - first:
+      213: 6918573732980079063
+    second: Stars Small_1_213
+  - first:
+      213: 5949250344352329091
+    second: Stars Small_1_214
+  - first:
+      213: 1890772228179627025
+    second: Stars Small_1_215
+  - first:
+      213: 4966593193048738632
+    second: Stars Small_1_216
+  - first:
+      213: 4713002222734549175
+    second: Stars Small_1_217
+  - first:
+      213: -1617742123349219689
+    second: Stars Small_1_218
+  - first:
+      213: 1968837447104011713
+    second: Stars Small_1_219
+  - first:
+      213: -3917338354273901790
+    second: Stars Small_1_220
+  - first:
+      213: 2639716549457023059
+    second: Stars Small_1_221
+  - first:
+      213: 2466911810553591169
+    second: Stars Small_1_222
+  - first:
+      213: -3735362558930564362
+    second: Stars Small_1_223
+  - first:
+      213: 5926443186727295287
+    second: Stars Small_1_224
+  - first:
+      213: -5747318195059705565
+    second: Stars Small_1_225
+  - first:
+      213: 9057250479633307927
+    second: Stars Small_1_226
+  - first:
+      213: 1405154442351174145
+    second: Stars Small_1_227
+  - first:
+      213: -5136170567053730086
+    second: Stars Small_1_228
+  - first:
+      213: -968361814739251393
+    second: Stars Small_1_229
+  - first:
+      213: -9197310176516074425
+    second: Stars Small_1_230
+  - first:
+      213: 5172452178360802721
+    second: Stars Small_1_231
+  - first:
+      213: 5875918977386408946
+    second: Stars Small_1_232
+  - first:
+      213: -8956944064204522613
+    second: Stars Small_1_233
+  - first:
+      213: 5196125404248748990
+    second: Stars Small_1_234
+  - first:
+      213: -4507127031742585965
+    second: Stars Small_1_235
+  - first:
+      213: -6887890308592832381
+    second: Stars Small_1_236
+  - first:
+      213: -4538206252525468316
+    second: Stars Small_1_237
+  - first:
+      213: 3308023592784110556
+    second: Stars Small_1_238
+  - first:
+      213: -1240180051262252358
+    second: Stars Small_1_239
+  - first:
+      213: 4866397683142951367
+    second: Stars Small_1_240
+  - first:
+      213: -7206858080401947758
+    second: Stars Small_1_241
+  - first:
+      213: -8373687849467647677
+    second: Stars Small_1_242
+  - first:
+      213: 8342114114116761459
+    second: Stars Small_1_243
+  - first:
+      213: 4171019837424264205
+    second: Stars Small_1_244
+  - first:
+      213: 2744371869122682567
+    second: Stars Small_1_245
+  - first:
+      213: 2617574312787898596
+    second: Stars Small_1_246
+  - first:
+      213: -702659703916463799
+    second: Stars Small_1_247
+  - first:
+      213: 8588325694441621601
+    second: Stars Small_1_248
+  - first:
+      213: -112850662643260793
+    second: Stars Small_1_249
+  - first:
+      213: -894244641263584529
+    second: Stars Small_1_250
+  - first:
+      213: -7162052982262904390
+    second: Stars Small_1_251
+  - first:
+      213: -553948519587300977
+    second: Stars Small_1_252
+  - first:
+      213: 7127466309133508442
+    second: Stars Small_1_253
+  - first:
+      213: 2556896424639585571
+    second: Stars Small_1_254
+  - first:
+      213: -5892093845871176921
+    second: Stars Small_1_255
+  - first:
+      213: -1319796748573427820
+    second: Stars Small_1_256
+  - first:
+      213: -8550499295646613914
+    second: Stars Small_1_257
+  - first:
+      213: 37299035272661606
+    second: Stars Small_1_258
+  - first:
+      213: -4489953224517755126
+    second: Stars Small_1_259
+  - first:
+      213: -6534104148619063500
+    second: Stars Small_1_260
+  - first:
+      213: -3291344297423419367
+    second: Stars Small_1_261
+  - first:
+      213: -8375900460751857156
+    second: Stars Small_1_262
+  - first:
+      213: 5431543777401027339
+    second: Stars Small_1_263
+  - first:
+      213: 1293056961615890033
+    second: Stars Small_1_264
+  - first:
+      213: -4852433013093056159
+    second: Stars Small_1_265
+  - first:
+      213: 7616665889167545291
+    second: Stars Small_1_266
+  - first:
+      213: 7435798574479794534
+    second: Stars Small_1_267
+  - first:
+      213: -7999821932679303864
+    second: Stars Small_1_268
+  - first:
+      213: -6550570452996706160
+    second: Stars Small_1_269
+  - first:
+      213: -4265223036143600378
+    second: Stars Small_1_270
+  - first:
+      213: 7808043435695391643
+    second: Stars Small_1_271
+  - first:
+      213: 8613784665951086114
+    second: Stars Small_1_272
+  - first:
+      213: 7471591837776341310
+    second: Stars Small_1_273
+  - first:
+      213: 9002390891052302814
+    second: Stars Small_1_274
+  - first:
+      213: -6815167645034314804
+    second: Stars Small_1_275
+  - first:
+      213: 2991706621583077191
+    second: Stars Small_1_276
+  - first:
+      213: -435537048608460731
+    second: Stars Small_1_277
+  - first:
+      213: -2876368133549188698
+    second: Stars Small_1_278
+  - first:
+      213: -3017172937227352123
+    second: Stars Small_1_279
+  - first:
+      213: 5102136326400442713
+    second: Stars Small_1_280
+  - first:
+      213: 1287864033115817117
+    second: Stars Small_1_281
+  - first:
+      213: -3972911436536012543
+    second: Stars Small_1_282
+  - first:
+      213: -7216412745289262653
+    second: Stars Small_1_283
+  - first:
+      213: 2359794680879068035
+    second: Stars Small_1_284
+  - first:
+      213: 7948379267400032020
+    second: Stars Small_1_285
+  - first:
+      213: -2990168261203192837
+    second: Stars Small_1_286
+  - first:
+      213: 4162278146306122159
+    second: Stars Small_1_287
+  - first:
+      213: 1454546964966592736
+    second: Stars Small_1_288
+  - first:
+      213: 1527454618717940884
+    second: Stars Small_1_289
+  - first:
+      213: -5213446133564194827
+    second: Stars Small_1_290
+  - first:
+      213: 8463192459236715065
+    second: Stars Small_1_291
+  - first:
+      213: 5143159273658256227
+    second: Stars Small_1_292
+  - first:
+      213: -1858520423378879983
+    second: Stars Small_1_293
+  - first:
+      213: 356064514488242028
+    second: Stars Small_1_294
+  - first:
+      213: -8226011987027718206
+    second: Stars Small_1_295
+  - first:
+      213: 483254321292487994
+    second: Stars Small_1_296
+  - first:
+      213: -1947779585341532447
+    second: Stars Small_1_297
+  - first:
+      213: -6780488396425756090
+    second: Stars Small_1_298
+  - first:
+      213: 2812746265100489321
+    second: Stars Small_1_299
+  - first:
+      213: 7857769097048753745
+    second: Stars Small_1_300
+  - first:
+      213: -3182445531277456640
+    second: Stars Small_1_301
+  - first:
+      213: 9051425350142631257
+    second: Stars Small_1_302
+  - first:
+      213: 1666818251423686052
+    second: Stars Small_1_303
+  - first:
+      213: 1350898444036883742
+    second: Stars Small_1_304
+  - first:
+      213: 1715988706415357199
+    second: Stars Small_1_305
+  - first:
+      213: 6748162913491039761
+    second: Stars Small_1_306
+  - first:
+      213: -782762830665101608
+    second: Stars Small_1_307
+  - first:
+      213: 8859183059416223768
+    second: Stars Small_1_308
+  - first:
+      213: -2888415946060393957
+    second: Stars Small_1_309
+  - first:
+      213: -5162999705614295823
+    second: Stars Small_1_310
+  - first:
+      213: 6562294422288315049
+    second: Stars Small_1_311
+  - first:
+      213: 557673562742030913
+    second: Stars Small_1_312
+  - first:
+      213: -233981138641090500
+    second: Stars Small_1_313
+  - first:
+      213: -2748390014591103442
+    second: Stars Small_1_314
+  - first:
+      213: 2446763989776542649
+    second: Stars Small_1_315
+  - first:
+      213: 3288299823545092227
+    second: Stars Small_1_316
+  - first:
+      213: 7108041194911665322
+    second: Stars Small_1_317
+  - first:
+      213: 2245953085772230045
+    second: Stars Small_1_318
+  - first:
+      213: 5351186920679324965
+    second: Stars Small_1_319
+  - first:
+      213: 6823575605830751138
+    second: Stars Small_1_320
+  - first:
+      213: 2338735950180082195
+    second: Stars Small_1_321
+  - first:
+      213: 4713643731270194808
+    second: Stars Small_1_322
+  - first:
+      213: -136442885317674843
+    second: Stars Small_1_323
+  - first:
+      213: -1329616300190736273
+    second: Stars Small_1_324
+  - first:
+      213: 2184820570934737486
+    second: Stars Small_1_325
+  - first:
+      213: 4323532634081671522
+    second: Stars Small_1_326
+  - first:
+      213: -6319101023782001207
+    second: Stars Small_1_327
+  - first:
+      213: 1303478816408222320
+    second: Stars Small_1_328
+  - first:
+      213: 7301261059690983433
+    second: Stars Small_1_329
+  - first:
+      213: 1196208005331828015
+    second: Stars Small_1_330
+  - first:
+      213: 6873043138744498271
+    second: Stars Small_1_331
+  - first:
+      213: -247749561962423094
+    second: Stars Small_1_332
+  - first:
+      213: -8828738858760559712
+    second: Stars Small_1_333
+  - first:
+      213: 1424511651755728120
+    second: Stars Small_1_334
+  - first:
+      213: -4435938592772761192
+    second: Stars Small_1_335
+  - first:
+      213: 1480009316333228571
+    second: Stars Small_1_336
+  - first:
+      213: 1754015410755621192
+    second: Stars Small_1_337
+  - first:
+      213: -5965528862103053642
+    second: Stars Small_1_338
+  - first:
+      213: 2052179872521905925
+    second: Stars Small_1_339
+  - first:
+      213: -4116527706456862460
+    second: Stars Small_1_340
+  - first:
+      213: -9010102784539113216
+    second: Stars Small_1_341
+  - first:
+      213: -2201575798085277430
+    second: Stars Small_1_342
+  - first:
+      213: 1635389343780388197
+    second: Stars Small_1_343
+  - first:
+      213: -796832718231017002
+    second: Stars Small_1_344
+  - first:
+      213: -4226661265074564340
+    second: Stars Small_1_345
+  - first:
+      213: -4039412376009335543
+    second: Stars Small_1_346
+  - first:
+      213: 7583626272778323823
+    second: Stars Small_1_347
+  - first:
+      213: 75131583899268150
+    second: Stars Small_1_348
+  - first:
+      213: -8411850640429609216
+    second: Stars Small_1_349
+  - first:
+      213: 925534655843034865
+    second: Stars Small_1_350
+  - first:
+      213: -6687629252910052326
+    second: Stars Small_1_351
+  - first:
+      213: -6484323307005258406
+    second: Stars Small_1_352
+  - first:
+      213: -6588688942760859394
+    second: Stars Small_1_353
+  - first:
+      213: 6193550634166574264
+    second: Stars Small_1_354
+  - first:
+      213: -1399499628459418738
+    second: Stars Small_1_355
+  - first:
+      213: -922858200240549169
+    second: Stars Small_1_356
+  - first:
+      213: 4864464847380986865
+    second: Stars Small_1_357
+  - first:
+      213: 7213214300694323910
+    second: Stars Small_1_358
+  - first:
+      213: 1769878972168338341
+    second: Stars Small_1_359
+  - first:
+      213: 2842439786365710442
+    second: Stars Small_1_360
+  - first:
+      213: 996845275431787259
+    second: Stars Small_1_361
+  - first:
+      213: 7698888439645378820
+    second: Stars Small_1_362
+  - first:
+      213: -938561213225570737
+    second: Stars Small_1_363
+  - first:
+      213: -3701424074744708137
+    second: Stars Small_1_364
+  - first:
+      213: -7905541267272296899
+    second: Stars Small_1_365
+  - first:
+      213: -5651945960143979902
+    second: Stars Small_1_366
+  - first:
+      213: -3295173109829411909
+    second: Stars Small_1_367
+  - first:
+      213: 7404655234155189146
+    second: Stars Small_1_368
+  - first:
+      213: 7505739454547245137
+    second: Stars Small_1_369
+  - first:
+      213: -8739105594421574011
+    second: Stars Small_1_370
+  - first:
+      213: -1430124080553102222
+    second: Stars Small_1_371
+  - first:
+      213: 1424867371494812185
+    second: Stars Small_1_372
+  - first:
+      213: -4529942061026489627
+    second: Stars Small_1_373
+  - first:
+      213: -5389351519802232724
+    second: Stars Small_1_374
+  - first:
+      213: 6262116312677213234
+    second: Stars Small_1_375
+  - first:
+      213: 5852048460918407036
+    second: Stars Small_1_376
+  - first:
+      213: -1446379459408135772
+    second: Stars Small_1_377
+  - first:
+      213: 844770007923624095
+    second: Stars Small_1_378
+  - first:
+      213: -8311071709315354278
+    second: Stars Small_1_379
+  - first:
+      213: 1744341687215048365
+    second: Stars Small_1_380
+  - first:
+      213: -5958450982411893039
+    second: Stars Small_1_381
+  - first:
+      213: 1863375561800048304
+    second: Stars Small_1_382
+  - first:
+      213: -8415344152171816531
+    second: Stars Small_1_383
+  - first:
+      213: 3782004327408338073
+    second: Stars Small_1_384
+  - first:
+      213: 8375223256776747247
+    second: Stars Small_1_385
+  - first:
+      213: -5808144392080453044
+    second: Stars Small_1_386
+  - first:
+      213: -4534494777004339895
+    second: Stars Small_1_387
+  - first:
+      213: -6106214203023909656
+    second: Stars Small_1_388
+  - first:
+      213: 8084928148879870126
+    second: Stars Small_1_389
+  - first:
+      213: -7871344052565741060
+    second: Stars Small_1_390
+  - first:
+      213: 6369761040504755199
+    second: Stars Small_1_391
+  - first:
+      213: -294692905767037684
+    second: Stars Small_1_392
+  - first:
+      213: 8401495435990498380
+    second: Stars Small_1_393
+  - first:
+      213: 6550503454529445625
+    second: Stars Small_1_394
+  - first:
+      213: -6670841189162550161
+    second: Stars Small_1_395
+  - first:
+      213: 2331082263970761409
+    second: Stars Small_1_396
+  - first:
+      213: 5531939101399614809
+    second: Stars Small_1_397
+  - first:
+      213: 7626269846784505412
+    second: Stars Small_1_398
+  - first:
+      213: 5020198204723215910
+    second: Stars Small_1_399
+  - first:
+      213: -3490373315005403973
+    second: Stars Small_1_400
+  - first:
+      213: -4644842050118090937
+    second: Stars Small_1_401
+  - first:
+      213: -2318767240636177484
+    second: Stars Small_1_402
+  - first:
+      213: 5372408520882859889
+    second: Stars Small_1_403
+  - first:
+      213: 8938276769132053297
+    second: Stars Small_1_404
+  - first:
+      213: 238231857678744042
+    second: Stars Small_1_405
+  - first:
+      213: -6791363347699971974
+    second: Stars Small_1_406
+  - first:
+      213: -3045147952660024980
+    second: Stars Small_1_407
+  - first:
+      213: -474655771791057004
+    second: Stars Small_1_408
+  - first:
+      213: -8201816502759058688
+    second: Stars Small_1_409
+  - first:
+      213: -7951282014578724775
+    second: Stars Small_1_410
+  - first:
+      213: -7379017456611675264
+    second: Stars Small_1_411
+  - first:
+      213: 175206745541882149
+    second: Stars Small_1_412
+  - first:
+      213: -3891994305935760268
+    second: Stars Small_1_413
+  - first:
+      213: 7250755314206777936
+    second: Stars Small_1_414
+  - first:
+      213: -3743158920164536213
+    second: Stars Small_1_415
+  - first:
+      213: 1874024583612741280
+    second: Stars Small_1_416
+  - first:
+      213: -754656912547076969
+    second: Stars Small_1_417
+  - first:
+      213: -6322748980637558189
+    second: Stars Small_1_418
+  - first:
+      213: 38378854217396777
+    second: Stars Small_1_419
+  - first:
+      213: -5947106124102261511
+    second: Stars Small_1_420
+  - first:
+      213: -4331271497382055795
+    second: Stars Small_1_421
+  - first:
+      213: -6281499016806710300
+    second: Stars Small_1_422
+  - first:
+      213: 5198861859644766893
+    second: Stars Small_1_423
+  - first:
+      213: 7035600153791167115
+    second: Stars Small_1_424
+  - first:
+      213: 4354382480186489063
+    second: Stars Small_1_425
+  - first:
+      213: -7018250679927847231
+    second: Stars Small_1_426
+  - first:
+      213: 5632125089903938803
+    second: Stars Small_1_427
+  - first:
+      213: -1483688197974879123
+    second: Stars Small_1_428
+  - first:
+      213: 5587270102846671818
+    second: Stars Small_1_429
+  - first:
+      213: 3099540563610975564
+    second: Stars Small_1_430
+  - first:
+      213: -2756447516569015516
+    second: Stars Small_1_431
+  - first:
+      213: -4121229350293896685
+    second: Stars Small_1_432
+  - first:
+      213: -769545500376666869
+    second: Stars Small_1_433
+  - first:
+      213: -1355589106837524003
+    second: Stars Small_1_434
+  - first:
+      213: -788572765501209759
+    second: Stars Small_1_435
+  - first:
+      213: -5653857727165692642
+    second: Stars Small_1_436
+  - first:
+      213: 9056100938421875833
+    second: Stars Small_1_437
+  - first:
+      213: -3321418077016445212
+    second: Stars Small_1_438
+  - first:
+      213: -528761264156775660
+    second: Stars Small_1_439
+  - first:
+      213: -5590893486567098180
+    second: Stars Small_1_440
+  - first:
+      213: 4345249871042707911
+    second: Stars Small_1_441
+  - first:
+      213: -4579202884618343223
+    second: Stars Small_1_442
+  - first:
+      213: -8259909361220682129
+    second: Stars Small_1_443
+  - first:
+      213: -6621089865298827073
+    second: Stars Small_1_444
+  - first:
+      213: -8272559147707210134
+    second: Stars Small_1_445
+  - first:
+      213: -1566172775072777206
+    second: Stars Small_1_446
+  - first:
+      213: 607453003197276317
+    second: Stars Small_1_447
+  - first:
+      213: 3157234861324937032
+    second: Stars Small_1_448
+  - first:
+      213: 8582083964878061278
+    second: Stars Small_1_449
+  - first:
+      213: 1519318260465350110
+    second: Stars Small_1_450
+  - first:
+      213: 8506009429142504715
+    second: Stars Small_1_451
+  - first:
+      213: -1532850040121939858
+    second: Stars Small_1_452
+  - first:
+      213: 8691374997841921913
+    second: Stars Small_1_453
+  - first:
+      213: -7888178811451252547
+    second: Stars Small_1_454
+  - first:
+      213: -2717907501088667734
+    second: Stars Small_1_455
+  - first:
+      213: -925979444320906597
+    second: Stars Small_1_456
+  - first:
+      213: 3586431626559309574
+    second: Stars Small_1_457
+  - first:
+      213: -6816935208115914961
+    second: Stars Small_1_458
+  - first:
+      213: 5924695806849088382
+    second: Stars Small_1_459
+  - first:
+      213: 4339415826878051090
+    second: Stars Small_1_460
+  - first:
+      213: -4699235528191960106
+    second: Stars Small_1_461
+  - first:
+      213: 8943697915170589601
+    second: Stars Small_1_462
+  - first:
+      213: 2575918057202088472
+    second: Stars Small_1_463
+  - first:
+      213: 2044778971265610248
+    second: Stars Small_1_464
+  - first:
+      213: 6790342703905284569
+    second: Stars Small_1_465
+  - first:
+      213: -1415521753825400135
+    second: Stars Small_1_466
+  - first:
+      213: -2770782741211739972
+    second: Stars Small_1_467
+  - first:
+      213: 8694228181379265120
+    second: Stars Small_1_468
+  - first:
+      213: -7217391127328876470
+    second: Stars Small_1_469
+  - first:
+      213: -2846055260212984122
+    second: Stars Small_1_470
+  - first:
+      213: 9191213167525031261
+    second: Stars Small_1_471
+  - first:
+      213: -4834276455610588981
+    second: Stars Small_1_472
+  - first:
+      213: 2749179923012334684
+    second: Stars Small_1_473
+  - first:
+      213: 4863380141792141690
+    second: Stars Small_1_474
+  - first:
+      213: -5323331430408840573
+    second: Stars Small_1_475
+  - first:
+      213: -3511864433701525454
+    second: Stars Small_1_476
+  - first:
+      213: -2466236949919719512
+    second: Stars Small_1_477
+  - first:
+      213: 3767636171484509698
+    second: Stars Small_1_478
+  - first:
+      213: -6646103914660923862
+    second: Stars Small_1_479
+  - first:
+      213: 2971275054513892190
+    second: Stars Small_1_480
+  - first:
+      213: 8221211035431783557
+    second: Stars Small_1_481
+  - first:
+      213: 9207149143414111090
+    second: Stars Small_1_482
+  - first:
+      213: 1227823126717012481
+    second: Stars Small_1_483
+  - first:
+      213: 7048248004096337154
+    second: Stars Small_1_484
+  - first:
+      213: -2616295097048900070
+    second: Stars Small_1_485
+  - first:
+      213: 7251254807187316223
+    second: Stars Small_1_486
+  - first:
+      213: 7244633687451175511
+    second: Stars Small_1_487
+  - first:
+      213: -6811270823826713668
+    second: Stars Small_1_488
+  - first:
+      213: 4535618935506860342
+    second: Stars Small_1_489
+  - first:
+      213: 5590162254858211086
+    second: Stars Small_1_490
+  - first:
+      213: -1736175757349941077
+    second: Stars Small_1_491
+  - first:
+      213: 8314033865521819769
+    second: Stars Small_1_492
+  - first:
+      213: 4927487037340292155
+    second: Stars Small_1_493
+  - first:
+      213: -4590376246329839983
+    second: Stars Small_1_494
+  - first:
+      213: 6412578334479873944
+    second: Stars Small_1_495
+  - first:
+      213: 3180236108115674467
+    second: Stars Small_1_496
+  - first:
+      213: -6641432693554776172
+    second: Stars Small_1_497
+  - first:
+      213: -1882341222017740117
+    second: Stars Small_1_498
+  - first:
+      213: -1927359261581213875
+    second: Stars Small_1_499
+  - first:
+      213: 6387580175102950332
+    second: Stars Small_1_500
+  - first:
+      213: -3413141101050292546
+    second: Stars Small_1_501
+  - first:
+      213: 7904140550119512148
+    second: Stars Small_1_502
+  - first:
+      213: -8609832454229732350
+    second: Stars Small_1_503
+  - first:
+      213: 2518926252996013763
+    second: Stars Small_1_504
+  - first:
+      213: -5672920725070167729
+    second: Stars Small_1_505
+  - first:
+      213: -5818758590649039721
+    second: Stars Small_1_506
+  - first:
+      213: 301500656647384214
+    second: Stars Small_1_507
+  - first:
+      213: 4837327002904635682
+    second: Stars Small_1_508
+  - first:
+      213: 4214670983703138054
+    second: Stars Small_1_509
+  - first:
+      213: 4233185485732761679
+    second: Stars Small_1_510
+  - first:
+      213: -2075620958192452912
+    second: Stars Small_1_511
+  - first:
+      213: -2840682504859681219
+    second: Stars Small_1_512
+  - first:
+      213: 3994864134977320620
+    second: Stars Small_1_513
+  - first:
+      213: -8808868564205624340
+    second: Stars Small_1_514
+  - first:
+      213: -936432737247013082
+    second: Stars Small_1_515
+  - first:
+      213: -887865840543285647
+    second: Stars Small_1_516
+  - first:
+      213: 852381706226633523
+    second: Stars Small_1_517
+  - first:
+      213: 115560363674246904
+    second: Stars Small_1_518
+  - first:
+      213: 8180257274934253844
+    second: Stars Small_1_519
+  - first:
+      213: -9118142056600637762
+    second: Stars Small_1_520
+  - first:
+      213: -4814591735081480031
+    second: Stars Small_1_521
+  - first:
+      213: 6656142707229408030
+    second: Stars Small_1_522
+  - first:
+      213: 6085627023876166100
+    second: Stars Small_1_523
+  - first:
+      213: 2260154522613940703
+    second: Stars Small_1_524
+  - first:
+      213: -2345377099337877517
+    second: Stars Small_1_525
+  - first:
+      213: -48891694415299678
+    second: Stars Small_1_526
+  - first:
+      213: -5835253246297986636
+    second: Stars Small_1_527
+  - first:
+      213: -336635749156235903
+    second: Stars Small_1_528
+  - first:
+      213: -7058084275961856728
+    second: Stars Small_1_529
+  - first:
+      213: 4486161651194532717
+    second: Stars Small_1_530
+  - first:
+      213: -7120270172302365758
+    second: Stars Small_1_531
+  - first:
+      213: 426815634210006697
+    second: Stars Small_1_532
+  - first:
+      213: 8558192372612212069
+    second: Stars Small_1_533
+  - first:
+      213: -8945948882482166138
+    second: Stars Small_1_534
+  - first:
+      213: -6273145971081902345
+    second: Stars Small_1_535
+  - first:
+      213: -6359236803010947547
+    second: Stars Small_1_536
+  - first:
+      213: -1530275889205874844
+    second: Stars Small_1_537
+  - first:
+      213: -2406115397569837142
+    second: Stars Small_1_538
+  - first:
+      213: -1198720515486473016
+    second: Stars Small_1_539
+  - first:
+      213: -7873774835231914167
+    second: Stars Small_1_540
+  - first:
+      213: 3093971051808124436
+    second: Stars Small_1_541
+  - first:
+      213: 5049788938720451154
+    second: Stars Small_1_542
+  - first:
+      213: 8469808671910373453
+    second: Stars Small_1_543
+  - first:
+      213: -914180866493445751
+    second: Stars Small_1_544
+  - first:
+      213: 5171561610306490377
+    second: Stars Small_1_545
+  - first:
+      213: 3865612141777769889
+    second: Stars Small_1_546
+  - first:
+      213: 1641258006049092092
+    second: Stars Small_1_547
+  - first:
+      213: -1717198559572026368
+    second: Stars Small_1_548
+  - first:
+      213: -1045854059064644583
+    second: Stars Small_1_549
+  - first:
+      213: -2988718230705107423
+    second: Stars Small_1_550
+  - first:
+      213: -9220929663882101869
+    second: Stars Small_1_551
+  - first:
+      213: 3418683759612662165
+    second: Stars Small_1_552
+  - first:
+      213: -1990484504192301906
+    second: Stars Small_1_553
+  - first:
+      213: 3664924112843686239
+    second: Stars Small_1_554
+  - first:
+      213: -2497073406800107918
+    second: Stars Small_1_555
+  - first:
+      213: -2486752110371072709
+    second: Stars Small_1_556
+  - first:
+      213: -8773863111568864961
+    second: Stars Small_1_557
+  - first:
+      213: 1254731202190517755
+    second: Stars Small_1_558
+  - first:
+      213: -6306663929600254607
+    second: Stars Small_1_559
+  - first:
+      213: -7710745134236022428
+    second: Stars Small_1_560
+  - first:
+      213: -7803219757659874508
+    second: Stars Small_1_561
+  - first:
+      213: -4989853061124676182
+    second: Stars Small_1_562
+  - first:
+      213: -5156106400093997262
+    second: Stars Small_1_563
+  - first:
+      213: 5102781922095535269
+    second: Stars Small_1_564
+  - first:
+      213: 1747891451296915601
+    second: Stars Small_1_565
+  - first:
+      213: 5614063988883468224
+    second: Stars Small_1_566
+  - first:
+      213: -63076798894974559
+    second: Stars Small_1_567
+  - first:
+      213: 4154575147508610539
+    second: Stars Small_1_568
+  - first:
+      213: -3721023147659731241
+    second: Stars Small_1_569
+  - first:
+      213: 3019415728469588430
+    second: Stars Small_1_570
+  - first:
+      213: -6355480412121493305
+    second: Stars Small_1_571
+  - first:
+      213: -3413268563570198196
+    second: Stars Small_1_572
+  - first:
+      213: 6215599767248473669
+    second: Stars Small_1_573
+  - first:
+      213: -1149835520089422471
+    second: Stars Small_1_574
+  - first:
+      213: 636859531989252804
+    second: Stars Small_1_575
+  - first:
+      213: -7023072815273235307
+    second: Stars Small_1_576
+  - first:
+      213: -1942290232835884979
+    second: Stars Small_1_577
+  - first:
+      213: 59095960490515972
+    second: Stars Small_1_578
+  - first:
+      213: -3884703041322211488
+    second: Stars Small_1_579
+  - first:
+      213: 4137722529724415458
+    second: Stars Small_1_580
+  - first:
+      213: 7937885595740650311
+    second: Stars Small_1_581
+  - first:
+      213: -3337450521319501361
+    second: Stars Small_1_582
+  - first:
+      213: 292283920896453726
+    second: Stars Small_1_583
+  - first:
+      213: 7153376428193114585
+    second: Stars Small_1_584
+  - first:
+      213: -5454204348552812121
+    second: Stars Small_1_585
+  - first:
+      213: 8875382038923188762
+    second: Stars Small_1_586
+  - first:
+      213: -2280014202955529175
+    second: Stars Small_1_587
+  - first:
+      213: -4283161814224655319
+    second: Stars Small_1_588
+  - first:
+      213: 2091859935789462476
+    second: Stars Small_1_589
+  - first:
+      213: -4601975630174883626
+    second: Stars Small_1_590
+  - first:
+      213: 2647321344281269077
+    second: Stars Small_1_591
+  - first:
+      213: 1989690082820361988
+    second: Stars Small_1_592
+  - first:
+      213: -1822373526098191281
+    second: Stars Small_1_593
+  - first:
+      213: 5343953133718961930
+    second: Stars Small_1_594
+  - first:
+      213: 881160826284419947
+    second: Stars Small_1_595
+  - first:
+      213: -4672747008919319996
+    second: Stars Small_1_596
+  - first:
+      213: 156095692582941945
+    second: Stars Small_1_597
+  - first:
+      213: -5103172461857220894
+    second: Stars Small_1_598
+  - first:
+      213: -4404018005712713219
+    second: Stars Small_1_599
+  - first:
+      213: 5400425913818218904
+    second: Stars Small_1_600
+  - first:
+      213: 2266683941838878924
+    second: Stars Small_1_601
+  - first:
+      213: -3726059125452597304
+    second: Stars Small_1_602
+  - first:
+      213: -1051467937986853719
+    second: Stars Small_1_603
+  - first:
+      213: -5620865059569120312
+    second: Stars Small_1_604
+  - first:
+      213: -9193383337839024687
+    second: Stars Small_1_605
+  - first:
+      213: 8870069682106582198
+    second: Stars Small_1_606
+  - first:
+      213: -9090320136802575683
+    second: Stars Small_1_607
+  - first:
+      213: 4296214247982226222
+    second: Stars Small_1_608
+  - first:
+      213: 8900180232408201272
+    second: Stars Small_1_609
+  - first:
+      213: -7820594801117231948
+    second: Stars Small_1_610
+  - first:
+      213: -2919873772751152466
+    second: Stars Small_1_611
+  - first:
+      213: -2174988018897631623
+    second: Stars Small_1_612
+  - first:
+      213: 7523582700694540660
+    second: Stars Small_1_613
+  - first:
+      213: -2319876823480651443
+    second: Stars Small_1_614
+  - first:
+      213: 3726015938781862438
+    second: Stars Small_1_615
+  - first:
+      213: 2095227138056568638
+    second: Stars Small_1_616
+  - first:
+      213: -2836827802439360944
+    second: Stars Small_1_617
+  - first:
+      213: -2705846811832537193
+    second: Stars Small_1_618
+  - first:
+      213: -542485668871464833
+    second: Stars Small_1_619
+  - first:
+      213: 2455769113407092777
+    second: Stars Small_1_620
+  - first:
+      213: 4632844451874676832
+    second: Stars Small_1_621
+  - first:
+      213: 5788716747936961717
+    second: Stars Small_1_622
+  - first:
+      213: -753890520642237494
+    second: Stars Small_1_623
+  - first:
+      213: 4773561891577472506
+    second: Stars Small_1_624
+  - first:
+      213: -8943510770894673637
+    second: Stars Small_1_625
+  - first:
+      213: 4240855171097833390
+    second: Stars Small_1_626
+  - first:
+      213: 3554503358182773761
+    second: Stars Small_1_627
+  - first:
+      213: 4751589329694704688
+    second: Stars Small_1_628
+  - first:
+      213: -2089147026464025385
+    second: Stars Small_1_629
+  - first:
+      213: 5584487650675995300
+    second: Stars Small_1_630
+  - first:
+      213: -7789133448857547966
+    second: Stars Small_1_631
+  - first:
+      213: 1585461757614280910
+    second: Stars Small_1_632
+  - first:
+      213: -2558273100227801790
+    second: Stars Small_1_633
+  - first:
+      213: -7372876678076045032
+    second: Stars Small_1_634
+  - first:
+      213: -771201792635474276
+    second: Stars Small_1_635
+  - first:
+      213: 3731965593021434404
+    second: Stars Small_1_636
+  - first:
+      213: 6391643798015607232
+    second: Stars Small_1_637
+  - first:
+      213: -257089795855930494
+    second: Stars Small_1_638
+  - first:
+      213: -6744902656381188782
+    second: Stars Small_1_639
+  - first:
+      213: 7065817020764300088
+    second: Stars Small_1_640
+  - first:
+      213: -3861927986062887301
+    second: Stars Small_1_641
+  - first:
+      213: 8647873924437024642
+    second: Stars Small_1_642
+  - first:
+      213: 2312295024359400146
+    second: Stars Small_1_643
+  - first:
+      213: 1392163016509668739
+    second: Stars Small_1_644
+  - first:
+      213: 3388305706264138745
+    second: Stars Small_1_645
+  - first:
+      213: 350708752006542237
+    second: Stars Small_1_646
+  - first:
+      213: -8385418160310287841
+    second: Stars Small_1_647
+  - first:
+      213: -7943556388873394156
+    second: Stars Small_1_648
+  - first:
+      213: 2773708572724934292
+    second: Stars Small_1_649
+  - first:
+      213: 5576319212707028278
+    second: Stars Small_1_650
+  - first:
+      213: -3481076395248812614
+    second: Stars Small_1_651
+  - first:
+      213: -3430306369981381821
+    second: Stars Small_1_652
+  - first:
+      213: -3861436087121385033
+    second: Stars Small_1_653
+  - first:
+      213: -1960628366239573724
+    second: Stars Small_1_654
+  - first:
+      213: -5762034984243645162
+    second: Stars Small_1_655
+  - first:
+      213: -4108518114729324109
+    second: Stars Small_1_656
+  - first:
+      213: 6074894552762578528
+    second: Stars Small_1_657
+  - first:
+      213: 4752281100230742668
+    second: Stars Small_1_658
+  - first:
+      213: 2908752670712292939
+    second: Stars Small_1_659
+  - first:
+      213: 5574652273599151256
+    second: Stars Small_1_660
+  - first:
+      213: -3643276394056317727
+    second: Stars Small_1_661
+  - first:
+      213: -2870232141783522182
+    second: Stars Small_1_662
+  - first:
+      213: 5348751080827853643
+    second: Stars Small_1_663
+  - first:
+      213: 8165112735028029197
+    second: Stars Small_1_664
+  - first:
+      213: 5117063968687890159
+    second: Stars Small_1_665
+  - first:
+      213: -4355562673992251050
+    second: Stars Small_1_666
+  - first:
+      213: -1041652890606553684
+    second: Stars Small_1_667
+  - first:
+      213: -3889943152372265068
+    second: Stars Small_1_668
+  - first:
+      213: -8648740764845978079
+    second: Stars Small_1_669
+  - first:
+      213: 3292465990145373689
+    second: Stars Small_1_670
+  - first:
+      213: -4590854460849477382
+    second: Stars Small_1_671
+  - first:
+      213: -1676052122267331475
+    second: Stars Small_1_672
+  - first:
+      213: 8073235348334483871
+    second: Stars Small_1_673
+  - first:
+      213: -4656129466015353147
+    second: Stars Small_1_674
+  - first:
+      213: 5047961780648764061
+    second: Stars Small_1_675
+  - first:
+      213: -3564267885768462422
+    second: Stars Small_1_676
+  - first:
+      213: -6137171625443992292
+    second: Stars Small_1_677
+  - first:
+      213: 1943982261947612675
+    second: Stars Small_1_678
+  - first:
+      213: 200593803492494451
+    second: Stars Small_1_679
+  - first:
+      213: -2306349805608628804
+    second: Stars Small_1_680
+  - first:
+      213: -1330700694413539299
+    second: Stars Small_1_681
+  - first:
+      213: -2778470731781352186
+    second: Stars Small_1_682
+  - first:
+      213: -7338660067030718355
+    second: Stars Small_1_683
+  - first:
+      213: -4311195050682156609
+    second: Stars Small_1_684
+  - first:
+      213: 2291036332130052697
+    second: Stars Small_1_685
+  - first:
+      213: -6104737692546251408
+    second: Stars Small_1_686
+  - first:
+      213: 2258457923797383897
+    second: Stars Small_1_687
+  - first:
+      213: 2032385653059392082
+    second: Stars Small_1_688
+  - first:
+      213: 7606275105959601848
+    second: Stars Small_1_689
+  - first:
+      213: -7465726070399556355
+    second: Stars Small_1_690
+  - first:
+      213: -4885443021406087587
+    second: Stars Small_1_691
+  - first:
+      213: 3199216441115843761
+    second: Stars Small_1_692
+  - first:
+      213: -5844225470870729497
+    second: Stars Small_1_693
+  - first:
+      213: 3146587763548674755
+    second: Stars Small_1_694
+  - first:
+      213: 7882488954938431536
+    second: Stars Small_1_695
+  - first:
+      213: 7920909034549149051
+    second: Stars Small_1_696
+  - first:
+      213: 574065067322785698
+    second: Stars Small_1_697
+  - first:
+      213: -1432439490548809228
+    second: Stars Small_1_698
+  - first:
+      213: 4641158622924294162
+    second: Stars Small_1_699
+  - first:
+      213: -5922593347161978936
+    second: Stars Small_1_700
+  - first:
+      213: 1191048721444223589
+    second: Stars Small_1_701
+  - first:
+      213: 8741343716600719009
+    second: Stars Small_1_702
+  - first:
+      213: -5558109762613625039
+    second: Stars Small_1_703
+  - first:
+      213: -4185525231685463596
+    second: Stars Small_1_704
+  - first:
+      213: -1256122929492654970
+    second: Stars Small_1_705
+  - first:
+      213: 680267392966365302
+    second: Stars Small_1_706
+  - first:
+      213: -251441631039410600
+    second: Stars Small_1_707
+  - first:
+      213: -423574520038254374
+    second: Stars Small_1_708
+  - first:
+      213: 3118395814711343765
+    second: Stars Small_1_709
+  - first:
+      213: -212838338832835306
+    second: Stars Small_1_710
+  - first:
+      213: -4519574261998760005
+    second: Stars Small_1_711
+  - first:
+      213: 1078297668435546588
+    second: Stars Small_1_712
+  - first:
+      213: 719668120210071005
+    second: Stars Small_1_713
+  - first:
+      213: 2995394574440074438
+    second: Stars Small_1_714
+  - first:
+      213: -5081456446113035871
+    second: Stars Small_1_715
+  - first:
+      213: 8731116667585340253
+    second: Stars Small_1_716
+  - first:
+      213: 3855608856732742240
+    second: Stars Small_1_717
+  - first:
+      213: 4402110757863520729
+    second: Stars Small_1_718
+  - first:
+      213: 1257809539650538578
+    second: Stars Small_1_719
+  - first:
+      213: -4371062117915513398
+    second: Stars Small_1_720
+  - first:
+      213: 5258179513031111048
+    second: Stars Small_1_721
+  - first:
+      213: 2706283960007009218
+    second: Stars Small_1_722
+  - first:
+      213: -6085257710884262483
+    second: Stars Small_1_723
+  - first:
+      213: -5891959946790733815
+    second: Stars Small_1_724
+  - first:
+      213: 8688276729677869004
+    second: Stars Small_1_725
+  - first:
+      213: 6316498470498377574
+    second: Stars Small_1_726
+  - first:
+      213: -1113255740779709513
+    second: Stars Small_1_727
+  - first:
+      213: -315421709610879574
+    second: Stars Small_1_728
+  - first:
+      213: 811807697264251187
+    second: Stars Small_1_729
+  - first:
+      213: 6935487246658982870
+    second: Stars Small_1_730
+  - first:
+      213: 8565545024145707029
+    second: Stars Small_1_731
+  - first:
+      213: 1788936023729254294
+    second: Stars Small_1_732
+  - first:
+      213: -3985989217817674457
+    second: Stars Small_1_733
+  - first:
+      213: 5996152402318360432
+    second: Stars Small_1_734
+  - first:
+      213: 6599566164725845257
+    second: Stars Small_1_735
+  - first:
+      213: -1056575256487859157
+    second: Stars Small_1_736
+  - first:
+      213: -600450836201756368
+    second: Stars Small_1_737
+  - first:
+      213: 6600077570085281732
+    second: Stars Small_1_738
+  - first:
+      213: -5452524442825162398
+    second: Stars Small_1_739
+  - first:
+      213: -1907870825641093936
+    second: Stars Small_1_740
+  - first:
+      213: 3350682484107569552
+    second: Stars Small_1_741
+  - first:
+      213: -1220079032216993954
+    second: Stars Small_1_742
+  - first:
+      213: -5499751183603986074
+    second: Stars Small_1_743
+  - first:
+      213: 8344892548743457642
+    second: Stars Small_1_744
+  - first:
+      213: 816550275738239967
+    second: Stars Small_1_745
+  - first:
+      213: 2289643473508428247
+    second: Stars Small_1_746
+  - first:
+      213: 1809326704225896868
+    second: Stars Small_1_747
+  - first:
+      213: -834596970543900993
+    second: Stars Small_1_748
+  - first:
+      213: 8140608802486454490
+    second: Stars Small_1_749
+  - first:
+      213: 6646454517381141389
+    second: Stars Small_1_750
+  - first:
+      213: -7725976906628336183
+    second: Stars Small_1_751
+  - first:
+      213: -2199220197662464189
+    second: Stars Small_1_752
+  - first:
+      213: -1387907260186198104
+    second: Stars Small_1_753
+  - first:
+      213: -8633972272312529810
+    second: Stars Small_1_754
+  - first:
+      213: 1144595493536039840
+    second: Stars Small_1_755
+  - first:
+      213: -3911072778859172666
+    second: Stars Small_1_756
+  - first:
+      213: -5019948700095713185
+    second: Stars Small_1_757
+  - first:
+      213: -6586019234288602340
+    second: Stars Small_1_758
+  - first:
+      213: -5188578379653308830
+    second: Stars Small_1_759
+  - first:
+      213: 3412949240088757170
+    second: Stars Small_1_760
+  - first:
+      213: 8772951508933954313
+    second: Stars Small_1_761
+  - first:
+      213: 4572722943494673034
+    second: Stars Small_1_762
+  - first:
+      213: -3831197668471980543
+    second: Stars Small_1_763
+  - first:
+      213: -7365497385492570331
+    second: Stars Small_1_764
+  - first:
+      213: 277994239173734879
+    second: Stars Small_1_765
+  - first:
+      213: -8641033108191302671
+    second: Stars Small_1_766
+  - first:
+      213: -295227512935598320
+    second: Stars Small_1_767
+  - first:
+      213: 7382263850984844813
+    second: Stars Small_1_768
+  - first:
+      213: 9216607432135144049
+    second: Stars Small_1_769
+  - first:
+      213: -8561822979851889638
+    second: Stars Small_1_770
+  - first:
+      213: 8395782426773209460
+    second: Stars Small_1_771
+  - first:
+      213: -8671862130380872905
+    second: Stars Small_1_772
+  - first:
+      213: -2388582323624746621
+    second: Stars Small_1_773
+  - first:
+      213: 5072479640901716427
+    second: Stars Small_1_774
+  - first:
+      213: 8411900928562071573
+    second: Stars Small_1_775
+  - first:
+      213: -5168456829603648859
+    second: Stars Small_1_776
+  - first:
+      213: 7821314170627714400
+    second: Stars Small_1_777
+  - first:
+      213: 8620788815613976749
+    second: Stars Small_1_778
+  - first:
+      213: 9010076791946028458
+    second: Stars Small_1_779
+  - first:
+      213: 4845776753680077774
+    second: Stars Small_1_780
+  - first:
+      213: 5779827987100864430
+    second: Stars Small_1_781
+  - first:
+      213: 3846549052712060892
+    second: Stars Small_1_782
+  - first:
+      213: 7225769378698801432
+    second: Stars Small_1_783
+  - first:
+      213: 5922425817330060442
+    second: Stars Small_1_784
+  - first:
+      213: -3055215304838861695
+    second: Stars Small_1_785
+  - first:
+      213: -2500341412824978161
+    second: Stars Small_1_786
+  - first:
+      213: 3131969820398626218
+    second: Stars Small_1_787
+  - first:
+      213: 1707684408119229100
+    second: Stars Small_1_788
+  - first:
+      213: 4507033925025813039
+    second: Stars Small_1_789
+  - first:
+      213: -5251961093098900937
+    second: Stars Small_1_790
+  - first:
+      213: 7059928816346975901
+    second: Stars Small_1_791
+  - first:
+      213: 3836367123445914236
+    second: Stars Small_1_792
+  - first:
+      213: -8349725729955958568
+    second: Stars Small_1_793
+  - first:
+      213: -1708601252969348631
+    second: Stars Small_1_794
+  - first:
+      213: 5750980157371721101
+    second: Stars Small_1_795
+  - first:
+      213: 8992003637169751565
+    second: Stars Small_1_796
+  - first:
+      213: 2733261325868972416
+    second: Stars Small_1_797
+  - first:
+      213: -2409964862551971335
+    second: Stars Small_1_798
+  - first:
+      213: -4187031268930790624
+    second: Stars Small_1_799
+  - first:
+      213: 1385023061333530224
+    second: Stars Small_1_800
+  - first:
+      213: -6044299253800531030
+    second: Stars Small_1_801
+  - first:
+      213: 7571254314932366441
+    second: Stars Small_1_802
+  - first:
+      213: 7952501341261920536
+    second: Stars Small_1_803
+  - first:
+      213: 1991698557141938079
+    second: Stars Small_1_804
+  - first:
+      213: 2468489901500192099
+    second: Stars Small_1_805
+  - first:
+      213: 1891787114170962891
+    second: Stars Small_1_806
+  - first:
+      213: 5733236782503791887
+    second: Stars Small_1_807
+  - first:
+      213: -7465978587940552758
+    second: Stars Small_1_808
+  - first:
+      213: -2978377124295536984
+    second: Stars Small_1_809
+  - first:
+      213: 26418251630882108
+    second: Stars Small_1_810
+  - first:
+      213: -7436007581653123669
+    second: Stars Small_1_811
+  - first:
+      213: -5117411505543577825
+    second: Stars Small_1_812
+  - first:
+      213: 219723635895358581
+    second: Stars Small_1_813
+  - first:
+      213: -8737660355727440288
+    second: Stars Small_1_814
+  - first:
+      213: 8171231036696683305
+    second: Stars Small_1_815
+  - first:
+      213: -8709209235569290350
+    second: Stars Small_1_816
+  - first:
+      213: 94944852593233608
+    second: Stars Small_1_817
+  - first:
+      213: 1455920778945669680
+    second: Stars Small_1_818
+  - first:
+      213: 2641280407815224380
+    second: Stars Small_1_819
+  - first:
+      213: -6248721792268839931
+    second: Stars Small_1_820
+  - first:
+      213: -2417543106170209793
+    second: Stars Small_1_821
+  - first:
+      213: -2638686920349123278
+    second: Stars Small_1_822
+  - first:
+      213: -5977338510464242631
+    second: Stars Small_1_823
+  - first:
+      213: 1760872555421408045
+    second: Stars Small_1_824
+  - first:
+      213: -2411446851728724583
+    second: Stars Small_1_825
+  - first:
+      213: -9104462269179033978
+    second: Stars Small_1_826
+  - first:
+      213: 4902896416774610690
+    second: Stars Small_1_827
+  - first:
+      213: 1301129561761402374
+    second: Stars Small_1_828
+  - first:
+      213: -800071255857141438
+    second: Stars Small_1_829
+  - first:
+      213: 650298911647721502
+    second: Stars Small_1_830
+  - first:
+      213: -5999657507676659132
+    second: Stars Small_1_831
+  - first:
+      213: 4994254054454533883
+    second: Stars Small_1_832
+  - first:
+      213: -3251547989085149040
+    second: Stars Small_1_833
+  - first:
+      213: -6356787189692901376
+    second: Stars Small_1_834
+  - first:
+      213: 6743582722291948028
+    second: Stars Small_1_835
+  - first:
+      213: -431239343825905401
+    second: Stars Small_1_836
+  - first:
+      213: -884103293800429578
+    second: Stars Small_1_837
+  - first:
+      213: 8667177450213177174
+    second: Stars Small_1_838
+  - first:
+      213: 6882261856659853548
+    second: Stars Small_1_839
+  - first:
+      213: 4733317766658997881
+    second: Stars Small_1_840
+  - first:
+      213: -7625830294757402097
+    second: Stars Small_1_841
+  - first:
+      213: 890352809320444062
+    second: Stars Small_1_842
+  - first:
+      213: -5377717284726988726
+    second: Stars Small_1_843
+  - first:
+      213: 6466415885483625823
+    second: Stars Small_1_844
+  - first:
+      213: -5661377160083356589
+    second: Stars Small_1_845
+  - first:
+      213: 3732496399504744027
+    second: Stars Small_1_846
+  - first:
+      213: 6128392782620995679
+    second: Stars Small_1_847
+  - first:
+      213: -4973341643123196800
+    second: Stars Small_1_848
+  - first:
+      213: -3331386139587921736
+    second: Stars Small_1_849
+  - first:
+      213: -1003414470658503924
+    second: Stars Small_1_850
+  - first:
+      213: -3477804397296553171
+    second: Stars Small_1_851
+  - first:
+      213: 925456434993766073
+    second: Stars Small_1_852
+  - first:
+      213: 1713696912021478269
+    second: Stars Small_1_853
+  - first:
+      213: -4624950919763288343
+    second: Stars Small_1_854
+  - first:
+      213: -1793105784476875844
+    second: Stars Small_1_855
+  - first:
+      213: 8081951184310665181
+    second: Stars Small_1_856
+  - first:
+      213: 4386752682698132085
+    second: Stars Small_1_857
+  - first:
+      213: 8291109010907632117
+    second: Stars Small_1_858
+  - first:
+      213: -3912554256144955142
+    second: Stars Small_1_859
+  - first:
+      213: -2536165768554735342
+    second: Stars Small_1_860
+  - first:
+      213: -3855926999094472896
+    second: Stars Small_1_861
+  - first:
+      213: 2873844032263426152
+    second: Stars Small_1_862
+  - first:
+      213: -5319373085219232544
+    second: Stars Small_1_863
+  - first:
+      213: -6196848731199107178
+    second: Stars Small_1_864
+  - first:
+      213: 3225139307679912374
+    second: Stars Small_1_865
+  - first:
+      213: 504883449802640264
+    second: Stars Small_1_866
+  - first:
+      213: -5545137178922058944
+    second: Stars Small_1_867
+  - first:
+      213: 4324843286576419105
+    second: Stars Small_1_868
+  - first:
+      213: -3472575370459976522
+    second: Stars Small_1_869
+  - first:
+      213: -5261783329534851227
+    second: Stars Small_1_870
+  - first:
+      213: -750558695478827982
+    second: Stars Small_1_871
+  - first:
+      213: -3451860281576528931
+    second: Stars Small_1_872
+  - first:
+      213: -435149672942223510
+    second: Stars Small_1_873
+  - first:
+      213: -1749527079257957232
+    second: Stars Small_1_874
+  - first:
+      213: 8870530483003513999
+    second: Stars Small_1_875
+  - first:
+      213: 1361855112054302724
+    second: Stars Small_1_876
+  - first:
+      213: 6892588831798433798
+    second: Stars Small_1_877
+  - first:
+      213: 701468784267624880
+    second: Stars Small_1_878
+  - first:
+      213: -7770712980229712864
+    second: Stars Small_1_879
+  - first:
+      213: -2014963557895481843
+    second: Stars Small_1_880
+  - first:
+      213: -4282665460567589366
+    second: Stars Small_1_881
+  - first:
+      213: 5009933315895298399
+    second: Stars Small_1_882
+  - first:
+      213: 1438557967139385908
+    second: Stars Small_1_883
+  - first:
+      213: -7912733167197409024
+    second: Stars Small_1_884
+  - first:
+      213: -442663800759255262
+    second: Stars Small_1_885
+  - first:
+      213: 7477952882166093143
+    second: Stars Small_1_886
+  - first:
+      213: -7242433356450432065
+    second: Stars Small_1_887
+  - first:
+      213: 8023786625708006893
+    second: Stars Small_1_888
+  - first:
+      213: 8722347546096034752
+    second: Stars Small_1_889
+  - first:
+      213: 6178275068245478536
+    second: Stars Small_1_890
+  - first:
+      213: -8317349375668776306
+    second: Stars Small_1_891
+  - first:
+      213: 6716123395760412394
+    second: Stars Small_1_892
+  - first:
+      213: -872284902729708091
+    second: Stars Small_1_893
+  - first:
+      213: 884688656381775772
+    second: Stars Small_1_894
+  - first:
+      213: 949526192194460907
+    second: Stars Small_1_895
+  - first:
+      213: -5088198874729210066
+    second: Stars Small_1_896
+  - first:
+      213: -7147533913036239903
+    second: Stars Small_1_897
+  - first:
+      213: 266431055917850676
+    second: Stars Small_1_898
+  - first:
+      213: 2472145297993960530
+    second: Stars Small_1_899
+  - first:
+      213: -6840773447113333405
+    second: Stars Small_1_900
+  - first:
+      213: -997940965435551381
+    second: Stars Small_1_901
+  - first:
+      213: 5353312665674488029
+    second: Stars Small_1_902
+  - first:
+      213: 8096959827035496295
+    second: Stars Small_1_903
+  - first:
+      213: 1932640792693759721
+    second: Stars Small_1_904
+  - first:
+      213: 2464827569823438710
+    second: Stars Small_1_905
+  - first:
+      213: -28780227375563956
+    second: Stars Small_1_906
+  - first:
+      213: 1502412267970588360
+    second: Stars Small_1_907
+  - first:
+      213: 8685052532662832396
+    second: Stars Small_1_908
+  - first:
+      213: 7656786294651166541
+    second: Stars Small_1_909
+  - first:
+      213: 6894792243808109185
+    second: Stars Small_1_910
+  - first:
+      213: -7092744870648584236
+    second: Stars Small_1_911
+  - first:
+      213: 6940470806758811287
+    second: Stars Small_1_912
+  - first:
+      213: 4189604983707998374
+    second: Stars Small_1_913
+  - first:
+      213: -6841526704224028266
+    second: Stars Small_1_914
+  - first:
+      213: 7230389752812191520
+    second: Stars Small_1_915
+  - first:
+      213: -6817955967337717122
+    second: Stars Small_1_916
+  - first:
+      213: 6248592237295399495
+    second: Stars Small_1_917
+  - first:
+      213: 3022998574449545894
+    second: Stars Small_1_918
+  - first:
+      213: -5165807495024525078
+    second: Stars Small_1_919
+  - first:
+      213: 2793615769171338228
+    second: Stars Small_1_920
+  - first:
+      213: -7577213496329449150
+    second: Stars Small_1_921
+  - first:
+      213: 2407756918785943566
+    second: Stars Small_1_922
+  - first:
+      213: 6380727568057180075
+    second: Stars Small_1_923
+  - first:
+      213: 6916273053979917091
+    second: Stars Small_1_924
+  - first:
+      213: 8599601455148382706
+    second: Stars Small_1_925
+  - first:
+      213: 7756630329248616958
+    second: Stars Small_1_926
+  - first:
+      213: -4593393153273360257
+    second: Stars Small_1_927
+  - first:
+      213: -7958448904244715747
+    second: Stars Small_1_928
+  - first:
+      213: -859679819902820681
+    second: Stars Small_1_929
+  - first:
+      213: -4423249890324878533
+    second: Stars Small_1_930
+  - first:
+      213: -6069177428977638151
+    second: Stars Small_1_931
+  - first:
+      213: 987981013028941460
+    second: Stars Small_1_932
+  - first:
+      213: 3446199050685127747
+    second: Stars Small_1_933
+  - first:
+      213: -5096911784562127985
+    second: Stars Small_1_934
+  - first:
+      213: 4379856015279939326
+    second: Stars Small_1_935
+  - first:
+      213: 4038853476431510482
+    second: Stars Small_1_936
+  - first:
+      213: 358353564762358967
+    second: Stars Small_1_937
+  - first:
+      213: -2350000672269522953
+    second: Stars Small_1_938
+  - first:
+      213: -5563122715577748835
+    second: Stars Small_1_939
+  - first:
+      213: -3642909976013829849
+    second: Stars Small_1_940
+  - first:
+      213: -2746033683372364954
+    second: Stars Small_1_941
+  - first:
+      213: -7711391758671529307
+    second: Stars Small_1_942
+  - first:
+      213: 7534036851426976351
+    second: Stars Small_1_943
+  - first:
+      213: 3923335881390587085
+    second: Stars Small_1_944
+  - first:
+      213: -17656231982776518
+    second: Stars Small_1_945
+  - first:
+      213: -3207659826188628701
+    second: Stars Small_1_946
+  - first:
+      213: 5443051893109588432
+    second: Stars Small_1_947
+  - first:
+      213: -9123247438406799043
+    second: Stars Small_1_948
+  - first:
+      213: -5361591059171457847
+    second: Stars Small_1_949
+  - first:
+      213: -6727048787063563800
+    second: Stars Small_1_950
+  - first:
+      213: -6316264871328275391
+    second: Stars Small_1_951
+  - first:
+      213: -9111477789485086150
+    second: Stars Small_1_952
+  - first:
+      213: -5543693055479566342
+    second: Stars Small_1_953
+  - first:
+      213: 8094407093260466218
+    second: Stars Small_1_954
+  - first:
+      213: -4682612055761385253
+    second: Stars Small_1_955
+  - first:
+      213: -9124234155693580157
+    second: Stars Small_1_956
+  - first:
+      213: 5742792674712543533
+    second: Stars Small_1_957
+  - first:
+      213: 5678387495494092375
+    second: Stars Small_1_958
+  - first:
+      213: 8285701079909976984
+    second: Stars Small_1_959
+  - first:
+      213: 7649867367693131265
+    second: Stars Small_1_960
+  - first:
+      213: 8251732661917253711
+    second: Stars Small_1_961
+  - first:
+      213: -268845638737981869
+    second: Stars Small_1_962
+  - first:
+      213: -7827969936293884629
+    second: Stars Small_1_963
+  - first:
+      213: 506892183733714249
+    second: Stars Small_1_964
+  - first:
+      213: -7819771758870414572
+    second: Stars Small_1_965
+  - first:
+      213: 6780211927557706641
+    second: Stars Small_1_966
+  - first:
+      213: 4204080429062059204
+    second: Stars Small_1_967
+  - first:
+      213: 7000623278696629006
+    second: Stars Small_1_968
+  - first:
+      213: -2576480453366387347
+    second: Stars Small_1_969
+  - first:
+      213: -1769408875616420349
+    second: Stars Small_1_970
+  - first:
+      213: 5542143780073224860
+    second: Stars Small_1_971
+  - first:
+      213: -709911727020979171
+    second: Stars Small_1_972
+  - first:
+      213: 6402647128137515325
+    second: Stars Small_1_973
+  - first:
+      213: -519608004577106664
+    second: Stars Small_1_974
+  - first:
+      213: -4906612777977963376
+    second: Stars Small_1_975
+  - first:
+      213: 8423278033249513561
+    second: Stars Small_1_976
+  - first:
+      213: -4896258035267119470
+    second: Stars Small_1_977
+  - first:
+      213: 3059814222079613014
+    second: Stars Small_1_978
+  - first:
+      213: -1429213318559289178
+    second: Stars Small_1_979
+  - first:
+      213: 4775009029413781207
+    second: Stars Small_1_980
+  - first:
+      213: -5948742792562599933
+    second: Stars Small_1_981
+  - first:
+      213: -9062181466453371302
+    second: Stars Small_1_982
+  - first:
+      213: -6240405633963192803
+    second: Stars Small_1_983
+  - first:
+      213: 1397475035580150119
+    second: Stars Small_1_984
+  - first:
+      213: 432599417946586869
+    second: Stars Small_1_985
+  - first:
+      213: -6323634300516142043
+    second: Stars Small_1_986
+  - first:
+      213: 3393824801228337715
+    second: Stars Small_1_987
+  - first:
+      213: -1703132847050914223
+    second: Stars Small_1_988
+  - first:
+      213: 6069913953195272147
+    second: Stars Small_1_989
+  - first:
+      213: 7620886289251781771
+    second: Stars Small_1_990
+  - first:
+      213: -3135706841765115093
+    second: Stars Small_1_991
+  - first:
+      213: 4077822695296605321
+    second: Stars Small_1_992
+  - first:
+      213: 4388979878977561050
+    second: Stars Small_1_993
+  - first:
+      213: 4023726918993002603
+    second: Stars Small_1_994
+  - first:
+      213: -180232560847371995
+    second: Stars Small_1_995
+  - first:
+      213: 3180283830430101583
+    second: Stars Small_1_996
+  - first:
+      213: 580259572368254309
+    second: Stars Small_1_997
+  - first:
+      213: -9013794662144153793
+    second: Stars Small_1_998
+  - first:
+      213: 2533767523578540863
+    second: Stars Small_1_999
+  - first:
+      213: -7571786059813806979
+    second: Stars Small_1_1000
+  - first:
+      213: -1521358598878239626
+    second: Stars Small_1_1001
+  - first:
+      213: -4060709314735860756
+    second: Stars Small_1_1002
+  - first:
+      213: 605742122779817319
+    second: Stars Small_1_1003
+  - first:
+      213: 2174308291260507578
+    second: Stars Small_1_1004
+  - first:
+      213: 5008184452264362432
+    second: Stars Small_1_1005
+  - first:
+      213: -4010759302484776220
+    second: Stars Small_1_1006
+  - first:
+      213: 2394533063638048840
+    second: Stars Small_1_1007
+  - first:
+      213: 1933663650415279956
+    second: Stars Small_1_1008
+  - first:
+      213: -8189626224736839410
+    second: Stars Small_1_1009
+  - first:
+      213: -7231935450336337288
+    second: Stars Small_1_1010
+  - first:
+      213: 6979658235828442470
+    second: Stars Small_1_1011
+  - first:
+      213: 8710609239498056432
+    second: Stars Small_1_1012
+  - first:
+      213: -3904605650117321664
+    second: Stars Small_1_1013
+  - first:
+      213: 6242505208365139162
+    second: Stars Small_1_1014
+  - first:
+      213: -6739676518615567657
+    second: Stars Small_1_1015
+  - first:
+      213: 3581635780071764498
+    second: Stars Small_1_1016
+  - first:
+      213: -7101335726183141920
+    second: Stars Small_1_1017
+  - first:
+      213: 4961209272894666240
+    second: Stars Small_1_1018
+  - first:
+      213: -4676030066980144749
+    second: Stars Small_1_1019
+  - first:
+      213: -7145647283144290602
+    second: Stars Small_1_1020
+  - first:
+      213: -2823794777621852621
+    second: Stars Small_1_1021
+  - first:
+      213: 8128547641392001228
+    second: Stars Small_1_1022
+  - first:
+      213: -6194301823243709682
+    second: Stars Small_1_1023
+  - first:
+      213: -9092845463285126606
+    second: Stars Small_1_1024
+  - first:
+      213: 8580219791790222443
+    second: Stars Small_1_1025
+  - first:
+      213: -7752141367147919361
+    second: Stars Small_1_1026
+  - first:
+      213: 4641806906824658013
+    second: Stars Small_1_1027
+  - first:
+      213: 1966231135145283980
+    second: Stars Small_1_1028
+  - first:
+      213: -4331238627724793002
+    second: Stars Small_1_1029
+  - first:
+      213: 9180093344889119707
+    second: Stars Small_1_1030
+  - first:
+      213: 5336016628867242019
+    second: Stars Small_1_1031
+  - first:
+      213: -189285014298719904
+    second: Stars Small_1_1032
+  - first:
+      213: -4831065377145920981
+    second: Stars Small_1_1033
+  - first:
+      213: 8755687514280761890
+    second: Stars Small_1_1034
+  - first:
+      213: -3910320430224886247
+    second: Stars Small_1_1035
+  - first:
+      213: 6531366078904798442
+    second: Stars Small_1_1036
+  - first:
+      213: 3394882068567042066
+    second: Stars Small_1_1037
+  - first:
+      213: 3997411394302707661
+    second: Stars Small_1_1038
+  - first:
+      213: 3590667517855651296
+    second: Stars Small_1_1039
+  - first:
+      213: 2032258892564043445
+    second: Stars Small_1_1040
+  - first:
+      213: 4433843344890738996
+    second: Stars Small_1_1041
+  - first:
+      213: -5397150459914548572
+    second: Stars Small_1_1042
+  - first:
+      213: -1169228737297406940
+    second: Stars Small_1_1043
+  - first:
+      213: -5961162475950786399
+    second: Stars Small_1_1044
+  - first:
+      213: -593861309927824136
+    second: Stars Small_1_1045
+  - first:
+      213: 1568859536777935103
+    second: Stars Small_1_1046
+  - first:
+      213: -4480932037366277721
+    second: Stars Small_1_1047
+  - first:
+      213: 789810460662850530
+    second: Stars Small_1_1048
+  - first:
+      213: 5700607175933738783
+    second: Stars Small_1_1049
+  - first:
+      213: 8302852831868714732
+    second: Stars Small_1_1050
+  - first:
+      213: -329063970847509841
+    second: Stars Small_1_1051
+  - first:
+      213: -4168879833816177784
+    second: Stars Small_1_1052
+  - first:
+      213: 6809698865341877361
+    second: Stars Small_1_1053
+  - first:
+      213: -6448664940395528855
+    second: Stars Small_1_1054
+  - first:
+      213: 8639168488941976780
+    second: Stars Small_1_1055
+  - first:
+      213: -733360335594635272
+    second: Stars Small_1_1056
+  - first:
+      213: -2100529825004402202
+    second: Stars Small_1_1057
+  - first:
+      213: 3805836280933841187
+    second: Stars Small_1_1058
+  - first:
+      213: 8205612621570890135
+    second: Stars Small_1_1059
+  - first:
+      213: 8868824864366301486
+    second: Stars Small_1_1060
+  - first:
+      213: -6381169642203810527
+    second: Stars Small_1_1061
+  - first:
+      213: 1740900313143025100
+    second: Stars Small_1_1062
+  - first:
+      213: 1140447548145152730
+    second: Stars Small_1_1063
+  - first:
+      213: 1176122367226662040
+    second: Stars Small_1_1064
+  - first:
+      213: -1129815004041499576
+    second: Stars Small_1_1065
+  - first:
+      213: 8095129328049110776
+    second: Stars Small_1_1066
+  - first:
+      213: 3830423055082985065
+    second: Stars Small_1_1067
+  - first:
+      213: -993441947290472555
+    second: Stars Small_1_1068
+  - first:
+      213: 6414274897457653286
+    second: Stars Small_1_1069
+  - first:
+      213: -6027560241461730234
+    second: Stars Small_1_1070
+  - first:
+      213: 5154843296843795398
+    second: Stars Small_1_1071
+  - first:
+      213: -7780259448788476807
+    second: Stars Small_1_1072
+  - first:
+      213: -1252421796542130413
+    second: Stars Small_1_1073
+  - first:
+      213: 1478936635400906674
+    second: Stars Small_1_1074
+  - first:
+      213: -3692174966266192897
+    second: Stars Small_1_1075
+  - first:
+      213: 1935842876105784338
+    second: Stars Small_1_1076
+  - first:
+      213: 974549828325238497
+    second: Stars Small_1_1077
+  - first:
+      213: -8466441695997619061
+    second: Stars Small_1_1078
+  - first:
+      213: 4009866426106917076
+    second: Stars Small_1_1079
+  - first:
+      213: -5888258672025046372
+    second: Stars Small_1_1080
+  - first:
+      213: 5991897380177437587
+    second: Stars Small_1_1081
+  - first:
+      213: 9080905488361678075
+    second: Stars Small_1_1082
+  - first:
+      213: -190916605782673752
+    second: Stars Small_1_1083
+  - first:
+      213: 2623341468580170311
+    second: Stars Small_1_1084
+  - first:
+      213: -412922080548822449
+    second: Stars Small_1_1085
+  - first:
+      213: -6824727881439185078
+    second: Stars Small_1_1086
+  - first:
+      213: 6078261790495560239
+    second: Stars Small_1_1087
+  - first:
+      213: -5781382302994225232
+    second: Stars Small_1_1088
+  - first:
+      213: -8276531798670457856
+    second: Stars Small_1_1089
+  - first:
+      213: 870556332381497002
+    second: Stars Small_1_1090
+  - first:
+      213: 2202642343120356472
+    second: Stars Small_1_1091
+  - first:
+      213: -208294219977098207
+    second: Stars Small_1_1092
+  - first:
+      213: -107924905440623064
+    second: Stars Small_1_1093
+  - first:
+      213: 1877587616372238974
+    second: Stars Small_1_1094
+  - first:
+      213: -707288227195040216
+    second: Stars Small_1_1095
+  - first:
+      213: 7259654140228486401
+    second: Stars Small_1_1096
+  - first:
+      213: -5282164893636153758
+    second: Stars Small_1_1097
+  - first:
+      213: 1116596411928184713
+    second: Stars Small_1_1098
+  - first:
+      213: 4234833034250079325
+    second: Stars Small_1_1099
+  - first:
+      213: -7773135038718536563
+    second: Stars Small_1_1100
+  - first:
+      213: -673369525598869360
+    second: Stars Small_1_1101
+  - first:
+      213: -6939684142936886252
+    second: Stars Small_1_1102
+  - first:
+      213: 6397297035141461416
+    second: Stars Small_1_1103
+  - first:
+      213: -1613796249122231724
+    second: Stars Small_1_1104
+  - first:
+      213: 3854931405232590465
+    second: Stars Small_1_1105
+  - first:
+      213: 7585892231152331927
+    second: Stars Small_1_1106
+  - first:
+      213: -5904380488166637842
+    second: Stars Small_1_1107
+  - first:
+      213: -5031271155120145358
+    second: Stars Small_1_1108
+  - first:
+      213: 6419024470704502811
+    second: Stars Small_1_1109
+  - first:
+      213: 6092909934995370030
+    second: Stars Small_1_1110
+  - first:
+      213: 4519357441548443002
+    second: Stars Small_1_1111
+  - first:
+      213: 2542009529242985835
+    second: Stars Small_1_1112
+  - first:
+      213: -7990802962367379020
+    second: Stars Small_1_1113
+  - first:
+      213: -4210532238909464267
+    second: Stars Small_1_1114
+  - first:
+      213: -9034469102067652238
+    second: Stars Small_1_1115
+  - first:
+      213: -2669290584233595095
+    second: Stars Small_1_1116
+  - first:
+      213: -8627244541728604812
+    second: Stars Small_1_1117
+  - first:
+      213: 6506533869217545076
+    second: Stars Small_1_1118
+  - first:
+      213: 4167088941125595980
+    second: Stars Small_1_1119
+  - first:
+      213: -4920646370484197423
+    second: Stars Small_1_1120
+  - first:
+      213: -5140664526591225675
+    second: Stars Small_1_1121
+  - first:
+      213: -7066366811987020603
+    second: Stars Small_1_1122
+  - first:
+      213: -4460580615705468238
+    second: Stars Small_1_1123
+  - first:
+      213: -2746201407180415564
+    second: Stars Small_1_1124
+  - first:
+      213: 1673134075647713629
+    second: Stars Small_1_1125
+  - first:
+      213: -4668181159956134700
+    second: Stars Small_1_1126
+  - first:
+      213: 5364975620683217365
+    second: Stars Small_1_1127
+  - first:
+      213: 2391807804932981200
+    second: Stars Small_1_1128
+  - first:
+      213: 7708654128159542958
+    second: Stars Small_1_1129
+  - first:
+      213: 5289577791645697372
+    second: Stars Small_1_1130
+  - first:
+      213: 48266839852434395
+    second: Stars Small_1_1131
+  - first:
+      213: -611927628588436971
+    second: Stars Small_1_1132
+  - first:
+      213: -1929564524644716057
+    second: Stars Small_1_1133
+  - first:
+      213: 4509142477973847730
+    second: Stars Small_1_1134
+  - first:
+      213: 4065274095144477115
+    second: Stars Small_1_1135
+  - first:
+      213: -7200443335400130533
+    second: Stars Small_1_1136
+  - first:
+      213: 8379700504714659116
+    second: Stars Small_1_1137
+  - first:
+      213: -2495931338141997999
+    second: Stars Small_1_1138
+  - first:
+      213: -5229453072581381053
+    second: Stars Small_1_1139
+  - first:
+      213: 4920905052709088926
+    second: Stars Small_1_1140
+  - first:
+      213: -3597541379756604291
+    second: Stars Small_1_1141
+  - first:
+      213: 8636867476025933664
+    second: Stars Small_1_1142
+  - first:
+      213: -1879101127936928315
+    second: Stars Small_1_1143
+  - first:
+      213: -7069350994969622232
+    second: Stars Small_1_1144
+  - first:
+      213: 7936878467812612116
+    second: Stars Small_1_1145
+  - first:
+      213: -5187611674262882016
+    second: Stars Small_1_1146
+  - first:
+      213: 2591706018343791624
+    second: Stars Small_1_1147
+  - first:
+      213: 3125059178208382957
+    second: Stars Small_1_1148
+  - first:
+      213: 3695349231218017415
+    second: Stars Small_1_1149
+  - first:
+      213: -4523520592944491693
+    second: Stars Small_1_1150
+  - first:
+      213: 8244545530562928422
+    second: Stars Small_1_1151
+  - first:
+      213: -5624610737513061443
+    second: Stars Small_1_1152
+  - first:
+      213: 4583843080132443163
+    second: Stars Small_1_1153
+  - first:
+      213: -3517084725731530843
+    second: Stars Small_1_1154
+  - first:
+      213: 2878588415567707988
+    second: Stars Small_1_1155
+  - first:
+      213: 8493753372128442986
+    second: Stars Small_1_1156
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 325
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Stars Small_1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 4096
+        height: 4096
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e000757dc03c2fd0800000000000000
+      internalID: -2365462045279649563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 66a73e39799817843815991e4b38e0a9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Stars Small_1_0: -2365462045279649563
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

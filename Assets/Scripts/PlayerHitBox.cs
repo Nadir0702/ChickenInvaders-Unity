@@ -2,13 +2,19 @@ using UnityEngine;
 
 public class PlayerHitBox : MonoBehaviour
 {
+    [SerializeField] private PlayerStats m_PlayerStats;
+    
     private void OnCollisionEnter2D(Collision2D i_Other)
     {
         if (i_Other.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            GameManager.Instance?.DamagePlayer(1);
-            playDamageSFX();
-            // (Optional) flash/hit VFX hook here
+            if(!m_PlayerStats.ShieldActive)
+            {
+                GameManager.Instance?.DamagePlayer(1);
+                playDamageSFX();
+                // (Optional) flash/hit VFX hook here
+            }
+
         }
     }
 
@@ -16,9 +22,12 @@ public class PlayerHitBox : MonoBehaviour
     {
         if (i_Other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            GameManager.Instance?.DamagePlayer(1);
-            playDamageSFX();
-            // (Optional) flash/hit VFX hook here
+            if(!m_PlayerStats.ShieldActive)
+            {
+                GameManager.Instance?.DamagePlayer(1);
+                playDamageSFX();
+                // (Optional) flash/hit VFX hook here
+            }
         }
     }
     

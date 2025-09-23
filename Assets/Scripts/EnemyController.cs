@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
+    [SerializeField] private GameObject[] m_DropPrefabs;
+    [SerializeField, Range(0,1)] private float m_DropChance = 0.25f;
     [SerializeField] private int m_MaxHp = 3;
     private int m_Hp;
     
@@ -20,8 +22,12 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void die()
     {
-        // For now: Destroy. (We’ll pool enemies later.)
+        // For now: Destroy. (We'll pool enemies later.)
         GameManager.Instance?.AddScore(100);
+        
+        // Use new pickup system
+        PickupManager.Instance?.OnEnemyKilled(transform.position);
+        
         Destroy(gameObject);
     }
 }

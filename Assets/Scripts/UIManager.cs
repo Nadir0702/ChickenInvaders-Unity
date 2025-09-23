@@ -5,6 +5,8 @@ public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private TextMeshProUGUI m_ScoreText;
     [SerializeField] private TextMeshProUGUI m_LivesText;
+    [SerializeField] private TextMeshProUGUI m_WeaponLevelText;
+    [SerializeField] private TextMeshProUGUI m_BombsAmountText;
     [SerializeField] private GameObject m_GameOverPanel;
     [SerializeField] private GameObject m_PausePanel;
 
@@ -31,5 +33,15 @@ public class UIManager : Singleton<UIManager>
     {
         if (m_GameOverPanel) m_GameOverPanel.SetActive(i_GameState == eGameState.GameOver);
         if (m_PausePanel) m_PausePanel.SetActive(i_GameState == eGameState.Paused);
+    }
+
+    public void SetWeaponLevel(int i_WeaponLevel)
+    {
+        if(m_WeaponLevelText) m_WeaponLevelText.text = $"Wpn Lvl: {i_WeaponLevel}";
+    }
+    
+    public void SetBombs(int i_Amount)
+    {
+        if (m_BombsAmountText) m_BombsAmountText.text = $"Bombs: {i_Amount}";
     }
 }
