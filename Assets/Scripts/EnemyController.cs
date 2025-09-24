@@ -1,13 +1,24 @@
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, IDamageable
+public class EnemyController : MonoBehaviour, IDamageable, IPoolable
 {
     [SerializeField] private GameObject[] m_DropPrefabs;
-    [SerializeField, Range(0,1)] private float m_DropChance = 0.25f;
-    [SerializeField] private int m_MaxHp = 3;
-    private int m_Hp;
+    // [SerializeField, Range(0,1)] private float m_DropChance = 0.25f;
+    [SerializeField] private int m_MaxHp = 5;
+    private int m_Hp = 1;
     
-    private void onEnable() => m_Hp = m_MaxHp;
+    private void OnEnable() => m_Hp = m_MaxHp;
+    
+    public void OnPoolGet()
+    {
+        m_Hp = 1;
+        // Reset any other state if needed
+    }
+    
+    public void OnPoolReturn()
+    {
+        // Clean up any state before returning to pool
+    }
     
     public void TakeDamage(int i_Amount)
     {
@@ -22,12 +33,8 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void die()
     {
-        // For now: Destroy. (We'll pool enemies later.)
         GameManager.Instance?.AddScore(100);
-        
-        // Use new pickup system
         PickupManager.Instance?.OnEnemyKilled(transform.position);
-        
-        Destroy(gameObject);
+        PoolManager.Instance?.ReturnEnemy(this);
     }
 }

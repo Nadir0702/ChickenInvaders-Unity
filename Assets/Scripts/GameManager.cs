@@ -66,7 +66,11 @@ public class GameManager : Singleton<GameManager>
         {
             // Automatically activate shield on death (not game over)
             var playerStats = FindFirstObjectByType<PlayerStats>();
-            if (playerStats) playerStats.ActivateShield(4f);
+            if(playerStats)
+            {
+                playerStats.ActivateShield();
+                playerStats.AddWeaponLevel(playerStats.WeaponLevel / 2 * -1);
+            }
         }
     }
 

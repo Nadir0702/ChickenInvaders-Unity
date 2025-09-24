@@ -40,9 +40,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void spawnBullet(Vector2 i_Direction, float i_AngleOffset)
     {
-        var bullet = BulletPool.Instance.Get();
-        bullet.transform.position = m_Muzzle.position;
-        bullet.transform.rotation = Quaternion.identity;
+        var bullet = PoolManager.Instance.GetBullet(m_Muzzle.position, Quaternion.identity);
         var angle = Quaternion.Euler(0, 0, i_AngleOffset) * i_Direction;
         bullet.Fire(angle);
     }

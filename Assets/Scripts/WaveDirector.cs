@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,8 +36,8 @@ public class WaveDirector : MonoBehaviour
             else if(waveNumber % 5 == 4) yield return StartCoroutine(Wave_Columns(waveNumber));
             else if(waveNumber % 5 == 0) yield return StartCoroutine(Wave_Pincer(waveNumber));
             
-            // Wait for clear or timeout (safety)
-            yield return StartCoroutine(waitForWaveClear(8f));
+            // Wait for complete wave clear
+            yield return StartCoroutine(waitForWaveClear());
             
             // Banner/UI hook later (e.g., "Wave X cleared!")
             yield return new WaitForSeconds(m_InterWaveDelay);
@@ -48,14 +47,15 @@ public class WaveDirector : MonoBehaviour
         yield return null;
     }
     
-    private IEnumerator waitForWaveClear(float i_Timeout)
+    private IEnumerator waitForWaveClear()
     {
-        float waitTime = 0f;
-        r_ActiveEnemies.RemoveAll(i_Enemy => i_Enemy == null); // Clean up null references
-        while(r_ActiveEnemies.Count > 0 && waitTime < i_Timeout)
+        // Clean up enemies that are inactive (returned to pool)
+        r_ActiveEnemies.RemoveAll(i_Enemy => !i_Enemy.gameObject.activeInHierarchy);
+        
+        while(r_ActiveEnemies.Count > 0)
         {
-            r_ActiveEnemies.RemoveAll(i_Enemy => i_Enemy == null); // Clean up null references
-            waitTime += Time.deltaTime;
+            // Continuously clean up enemies that have been returned to pool
+            r_ActiveEnemies.RemoveAll(i_Enemy => !i_Enemy.gameObject.activeInHierarchy);
             yield return null;
         }
     } 
@@ -73,11 +73,14 @@ public class WaveDirector : MonoBehaviour
         {
             float t = count == 1 ? 0.5f : i / (float)(count - 1);
             float x = Mathf.Lerp(topMin.x, topMax.x, t);
-            var enemy = Instantiate(m_EnemyPrefab, new Vector3(x, topMax.y + 0.5f, 0), Quaternion.identity);
-            var mover = enemy.GetComponent<EnemyMover>();
-            mover.m_MoveType = eEnemyMoveType.StraightDown;
-            mover.Speed = speed;
-            r_ActiveEnemies.Add(enemy);
+            var enemy = PoolManager.Instance.GetEnemy(new Vector3(x, topMax.y + 0.5f, 0), Quaternion.identity);
+            if (enemy != null)
+            {
+                var mover = enemy.GetComponent<EnemyMover>();
+                mover.m_MoveType = eEnemyMoveType.StraightDown;
+                mover.Speed = speed;
+                r_ActiveEnemies.Add(enemy);
+            }
         }
         
         yield return null;
@@ -101,14 +104,16 @@ public class WaveDirector : MonoBehaviour
                 float x = Mathf.Lerp(topMin.x, topMax.x, t);
                 float y = topMax.y + 0.5f + r * 0.8f;
                 
-                var enemy = Instantiate(m_EnemyPrefab, new Vector3(x, y, 0f), Quaternion.identity);
-                var mover = enemy.GetComponent<EnemyMover>();
-                
-                mover.m_MoveType = eEnemyMoveType.SineHorizontal;
-                mover.Speed = baseSpeed;
-                mover.SineAmplitude = 1f + r * 0.4f;
-                mover.SineFrequency = 2f + r * 0.3f;
-                r_ActiveEnemies.Add(enemy);
+                var enemy = PoolManager.Instance.GetEnemy(new Vector3(x, y, 0f), Quaternion.identity);
+                if (enemy != null)
+                {
+                    var mover = enemy.GetComponent<EnemyMover>();
+                    mover.m_MoveType = eEnemyMoveType.SineHorizontal;
+                    mover.Speed = baseSpeed;
+                    mover.SineAmplitude = 1f + r * 0.4f;
+                    mover.SineFrequency = 2f + r * 0.3f;
+                    r_ActiveEnemies.Add(enemy);
+                }
             }
             
             yield return new WaitForSeconds(0.4f);
@@ -130,14 +135,17 @@ public class WaveDirector : MonoBehaviour
             for(int i = 0; i < perBurst; i++)
             {
                 float x = Random.Range(left.x, right.x);
-                var enemy = Instantiate(m_EnemyPrefab, new Vector3(x, right.y + 0.7f, 0f), Quaternion.identity);
-                var mover = enemy.GetComponent<EnemyMover>();
-                mover.m_MoveType = eEnemyMoveType.DiveAtPlayer;
-                mover.Speed = entrySpeed;
-                mover.DiveDelay = Random.Range(0.4f, 0.9f);
-                mover.DiveSpeed = 7f + Random.Range(-0.5f, 0.5f);
-                mover.InitDive(m_Player);
-                r_ActiveEnemies.Add(enemy);
+                var enemy = PoolManager.Instance.GetEnemy(new Vector3(x, right.y + 0.7f, 0f), Quaternion.identity);
+                if (enemy != null)
+                {
+                    var mover = enemy.GetComponent<EnemyMover>();
+                    mover.m_MoveType = eEnemyMoveType.DiveAtPlayer;
+                    mover.Speed = entrySpeed;
+                    mover.DiveDelay = Random.Range(0.4f, 0.9f);
+                    mover.DiveSpeed = 7f + Random.Range(-0.5f, 0.5f);
+                    mover.InitDive(m_Player);
+                    r_ActiveEnemies.Add(enemy);
+                }
             }
             
             yield return new WaitForSeconds(0.8f);
@@ -160,11 +168,14 @@ public class WaveDirector : MonoBehaviour
             for (int row = 0; row < rosPerColumn; row++)
             {
                 Vector3 position = new Vector3(startX + col * columnSpacing, center.y + 0.5f + row * rowSpacing, 0f);
-                var enemy = Instantiate(m_EnemyPrefab, position, Quaternion.identity);
-                var mover = enemy.GetComponent<EnemyMover>();
-                mover.m_MoveType = eEnemyMoveType.StraightDown;
-                mover.Speed = 2.5f + 0.15f * i_WaveNumber;
-                r_ActiveEnemies.Add(enemy);
+                var enemy = PoolManager.Instance.GetEnemy(position, Quaternion.identity);
+                if (enemy != null)
+                {
+                    var mover = enemy.GetComponent<EnemyMover>();
+                    mover.m_MoveType = eEnemyMoveType.StraightDown;
+                    mover.Speed = 2.5f + 0.15f * i_WaveNumber;
+                    r_ActiveEnemies.Add(enemy);
+                }
             }
             
             yield return new WaitForSeconds(0.25f);
@@ -189,20 +200,26 @@ public class WaveDirector : MonoBehaviour
             float y = yTop + 0.5f + p * 0.5f;
             
             // Left enemy starts at top-left, moves in semicircle clockwise to bottom-right
-            var leftEnemy = Instantiate(m_EnemyPrefab, new Vector3(xLeft, y, 0f), Quaternion.identity);
-            var leftMover = leftEnemy.GetComponent<EnemyMover>();
-            leftMover.m_MoveType = eEnemyMoveType.SemicircleArc;
-            leftMover.Speed = 2f + 0.2f * i_WaveNumber;
-            leftMover.InitSemicircle(new Vector2(xLeft, 0f), radius, true, Mathf.PI); // Start at top-left of circle (PI radians)
-            r_ActiveEnemies.Add(leftEnemy);
+            var leftEnemy = PoolManager.Instance.GetEnemy(new Vector3(xLeft, y, 0f), Quaternion.identity);
+            if (leftEnemy != null)
+            {
+                var leftMover = leftEnemy.GetComponent<EnemyMover>();
+                leftMover.m_MoveType = eEnemyMoveType.SemicircleArc;
+                leftMover.Speed = 2f + 0.2f * i_WaveNumber;
+                leftMover.InitSemicircle(new Vector2(xLeft, 0f), radius, true, Mathf.PI); // Start at top-left of circle (PI radians)
+                r_ActiveEnemies.Add(leftEnemy);
+            }
             
             // Right enemy starts at top-right, moves in semicircle counter-clockwise to bottom-left
-            var rightEnemy = Instantiate(m_EnemyPrefab, new Vector3(xRight, y + 0.2f, 0f), Quaternion.identity);
-            var rightMover = rightEnemy.GetComponent<EnemyMover>();
-            rightMover.m_MoveType = eEnemyMoveType.SemicircleArc;
-            rightMover.Speed = 2f + 0.2f * i_WaveNumber;
-            rightMover.InitSemicircle(new Vector2(xRight, 0f), radius, false, 0f); // Start at top-right of circle (0 radians)
-            r_ActiveEnemies.Add(rightEnemy);
+            var rightEnemy = PoolManager.Instance.GetEnemy(new Vector3(xRight, y + 0.2f, 0f), Quaternion.identity);
+            if (rightEnemy != null)
+            {
+                var rightMover = rightEnemy.GetComponent<EnemyMover>();
+                rightMover.m_MoveType = eEnemyMoveType.SemicircleArc;
+                rightMover.Speed = 2f + 0.2f * i_WaveNumber;
+                rightMover.InitSemicircle(new Vector2(xRight, 0f), radius, false, 0f); // Start at top-right of circle (0 radians)
+                r_ActiveEnemies.Add(rightEnemy);
+            }
             
             yield return new WaitForSeconds(0.18f);
         }

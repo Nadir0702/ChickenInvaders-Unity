@@ -14,6 +14,7 @@ public class PlayerStats : MonoBehaviour
     
     [Header("Bombs")]
     [SerializeField] private int m_BombCount;
+    private const int k_MaxBombs = 10;
 
     private void Start()
     {
@@ -45,14 +46,14 @@ public class PlayerStats : MonoBehaviour
     
     public void AddBomb(int i_Delta)
     {
-        m_BombCount = Mathf.Max(0, m_BombCount + i_Delta);
+        m_BombCount = Mathf.Clamp(m_BombCount + i_Delta, 0, k_MaxBombs);
         UIManager.Instance?.SetBombs(m_BombCount);
     }
     
-    public void ActivateShield(float i_Duration)
+    public void ActivateShield()
     {
         if (ShieldActive) StopAllCoroutines();
-        StartCoroutine(shieldCR(i_Duration));
+        StartCoroutine(shieldCR(m_ShieldDuration));
     }
 
     private IEnumerator shieldCR(float i_Duration)

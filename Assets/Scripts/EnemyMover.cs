@@ -121,11 +121,16 @@ public class EnemyMover : MonoBehaviour
 
     private void handleOffScreen()
     {
-        // Destroy if out of screen
+        // Return to pool if out of screen
         Vector3 viewPortPosition = m_Camera.WorldToViewportPoint(transform.position);
         if (viewPortPosition.y < -0.15f || viewPortPosition.x < -1f || viewPortPosition.x > 2f)
         {
-            Destroy(gameObject);
+            // Return enemy to pool instead of destroying
+            var enemyController = GetComponent<EnemyController>();
+            if (enemyController != null)
+            {
+                PoolManager.Instance?.ReturnEnemy(enemyController);
+            }
         }
     }
 }

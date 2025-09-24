@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6702647831489249232}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.89, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166,11 +166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf85f5108b6c484c8a2e6a1cfd000e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Rigidbody: {fileID: 2230952218924022421}
   m_EjectionForceMin: 2
   m_EjectionForceMax: 4
-  m_Gravity: -9.8
   m_BounceDamping: 0.6
-  m_FrictionDeceleration: 2
   m_MinVelocityThreshold: 0.5
+  m_FrictionForce: 5
   m_FallSpeed: 2
   m_SettleTime: 1

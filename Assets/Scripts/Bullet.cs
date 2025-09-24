@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPoolable
 {
     [SerializeField] private float m_Speed = 18f;
     [SerializeField] private float m_LifeTime = 2f; // seconds
@@ -15,7 +15,22 @@ public class Bullet : MonoBehaviour
         m_Direction = i_Direction.normalized;
         m_DeathTime = Time.time + m_LifeTime;
         m_Active = true;
-        gameObject.SetActive(true);
+        // Don't set active here - pool will handle it
+    }
+    
+    public void OnPoolGet()
+    {
+        // Reset state when retrieved from pool
+        m_Active = false;
+        m_Direction = Vector2.zero;
+        m_DeathTime = 0f;
+    }
+    
+    public void OnPoolReturn()
+    {
+        // Clean up state before returning to pool
+        m_Active = false;
+        m_Direction = Vector2.zero;
     }
 
     void Update()
@@ -46,7 +61,7 @@ public class Bullet : MonoBehaviour
     private void deactivate()
     {
         m_Active = false;
-        BulletPool.Instance.Release(this);
+        PoolManager.Instance?.ReturnBullet(this);
     }
 }
 
