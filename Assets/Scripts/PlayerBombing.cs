@@ -21,5 +21,6 @@ public class PlayerBombing : MonoBehaviour
 
         m_PlayerStats.AddBomb(-1);
         PoolManager.Instance?.GetBomb(transform.position);
+        AudioManager.Instance?.Play(eSFXId.BombLaunch, 0.7f);
     }
 }

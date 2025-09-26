@@ -7,5 +7,6 @@
     Pickup, 
     Explosion,
     Eat,
-    GameOver
+    GameOver,
+    BombLaunch,
 }

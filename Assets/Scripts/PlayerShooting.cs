@@ -22,7 +22,8 @@ public class PlayerShooting : MonoBehaviour
     
     private void firePattern(int i_WeaponLevel)
     {
-        spawnBullet(Vector2.up, 0f);
+        if(i_WeaponLevel % 2 == 0) spawnBullet(Vector2.up, 0f, true);
+        else spawnBullet(Vector2.up, 0f);
         
         if (i_WeaponLevel >= 3) spawnDirectionSpread(2, 7f);
         if (i_WeaponLevel >= 5) spawnDirectionSpread(3, 13f);
@@ -38,8 +39,16 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    private void spawnBullet(Vector2 i_Direction, float i_AngleOffset)
+    private void spawnBullet(Vector2 i_Direction, float i_AngleOffset, bool i_DoubleCenter = false)
     {
+        if(i_DoubleCenter)
+        {
+            var bullet1 = PoolManager.Instance.GetBullet(m_Muzzle.position + Vector3.left * 0.2f, Quaternion.identity);
+            var bullet2 = PoolManager.Instance.GetBullet(m_Muzzle.position + Vector3.right * 0.2f, Quaternion.identity);
+            bullet1.Fire(Vector2.up);
+            bullet2.Fire(Vector2.up);
+            return;
+        }
         var bullet = PoolManager.Instance.GetBullet(m_Muzzle.position, Quaternion.identity);
         var angle = Quaternion.Euler(0, 0, i_AngleOffset) * i_Direction;
         bullet.Fire(angle);

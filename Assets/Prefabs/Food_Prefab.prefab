@@ -174,3 +174,4 @@ MonoBehaviour:
   m_FrictionForce: 5
   m_FallSpeed: 2
   m_SettleTime: 1
+  m_LifeTime: 4

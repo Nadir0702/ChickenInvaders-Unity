@@ -4,7 +4,7 @@ public class PoolManager : Singleton<PoolManager>
 {
     [Header("Enemy Pooling")]
     [SerializeField] private EnemyController m_EnemyPrefab;
-    [SerializeField] private int m_EnemyPoolSize = 20;
+    [SerializeField] private int m_EnemyPoolSize = 30; // Increased from 20 to handle larger formations
     
     [Header("Food Pooling")]
     [SerializeField] private Food m_FoodPrefab;
@@ -40,7 +40,18 @@ public class PoolManager : Singleton<PoolManager>
     
     public EnemyController GetEnemy(Vector3 i_Position, Quaternion i_Rotation = default)
     {
-        return m_EnemyPool.Get(i_Position, i_Rotation);
+        if (m_EnemyPool.PoolSize == 0)
+        {
+            Debug.LogWarning($"PoolManager: Enemy pool is empty! Created: {m_EnemyPool.TotalCreated}, Available: {m_EnemyPool.PoolSize}");
+        }
+        
+        var enemy = m_EnemyPool.Get(i_Position, i_Rotation);
+        if (enemy == null)
+        {
+            Debug.LogError("PoolManager: Failed to get enemy from pool - returned null!");
+        }
+        
+        return enemy;
     }
     
     public void ReturnEnemy(EnemyController i_Enemy)
@@ -81,6 +92,26 @@ public class PoolManager : Singleton<PoolManager>
     // Debug info
     public void LogPoolStats()
     {
-        Debug.Log($"Pool Stats - Enemies: {m_EnemyPool.PoolSize}, Food: {m_FoodPool.PoolSize}, Bullets: {m_BulletPool.PoolSize}");
+        Debug.Log($"Pool Stats - " +
+                  $"Enemies: {m_EnemyPool.PoolSize}/{m_EnemyPool.TotalCreated}, " +
+                  $"Food: {m_FoodPool.PoolSize}/{m_FoodPool.TotalCreated}, " +
+                  $"Bullets: {m_BulletPool.PoolSize}/{m_BulletPool.TotalCreated}, " +
+                  $"Bombs: {m_BombPool.PoolSize}/{m_BombPool.TotalCreated}");
+    }
+    
+    // Method to check if we have enough enemies available for a formation
+    public bool HasEnoughEnemies(int i_RequiredCount)
+    {
+        bool hasEnough = m_EnemyPool.PoolSize >= i_RequiredCount;
+        if (!hasEnough)
+        {
+            Debug.LogWarning($"PoolManager: Not enough enemies available! Required: {i_RequiredCount}, Available: {m_EnemyPool.PoolSize}");
+        }
+        return hasEnough;
+    }
+    
+    public int GetAvailableEnemyCount()
+    {
+        return m_EnemyPool.PoolSize;
     }
 }

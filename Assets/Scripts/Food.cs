@@ -14,10 +14,12 @@ public class Food : MonoBehaviour, IPoolable
     [Header("Collection")]
     [SerializeField] private float m_FallSpeed = 2f;
     [SerializeField] private float m_SettleTime = 1f;
+    [SerializeField] private float m_LifeTime = 7f; // Total time before food disappears if not collected
     
     private bool m_IsPhysicsActive = true;
     private bool m_IsGrounded;
     private float m_SettleTimer;
+    private float m_LifeTimer; 
     private Camera m_Camera;
     private float m_GroundY;
     
@@ -47,6 +49,7 @@ public class Food : MonoBehaviour, IPoolable
         m_IsPhysicsActive = true;
         m_IsGrounded = false;
         m_SettleTimer = 0f;
+        m_LifeTimer = 0f; // Reset single lifetime timer
         
         // Reset rigidbody
         if (m_Rigidbody)
@@ -97,6 +100,13 @@ public class Food : MonoBehaviour, IPoolable
     
     private void FixedUpdate()
     {
+        m_LifeTimer += Time.fixedDeltaTime;
+        if (m_LifeTimer >= m_LifeTime)
+        {
+            PoolManager.Instance?.ReturnFood(this);
+            return;
+        }
+        
         if (m_IsPhysicsActive)
         {
             updatePhysics();
@@ -109,11 +119,6 @@ public class Food : MonoBehaviour, IPoolable
         }
     }
     
-    private void Update()
-    {
-        // Handle off-screen check in Update (doesn't need to be physics-based)
-        handleOffScreen();
-    }
     
     private void updatePhysics()
     {
@@ -194,16 +199,6 @@ public class Food : MonoBehaviour, IPoolable
             Vector3 pos = transform.position;
             pos.x = m_Camera.ViewportToWorldPoint(new Vector3(0.95f, 0, 0)).x;
             transform.position = pos;
-        }
-    }
-    
-    private void handleOffScreen()
-    {
-        Vector3 viewPortPosition = m_Camera.WorldToViewportPoint(transform.position);
-        if (viewPortPosition.y < -0.15f || viewPortPosition.x < -0.15f || viewPortPosition.x > 1.15f)
-        {
-            // Return to pool instead of destroying
-            PoolManager.Instance?.ReturnFood(this);
         }
     }
     

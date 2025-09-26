@@ -3,7 +3,7 @@ using UnityEngine;
 public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField]
-    private AudioClip m_Shoot, m_EnemyHit, m_PlayerHit, m_UIClick, m_Pickup, m_Explosion, m_Eat, m_GameOver;
+    private AudioClip m_Shoot, m_EnemyHit, m_PlayerHit, m_UIClick, m_Pickup, m_Explosion, m_Eat, m_GameOver, m_BombLaunch;
     [SerializeField] private AudioSource m_AudioSource;
     
     private void Awake() => DontDestroyOnLoad(this);
@@ -20,6 +20,7 @@ public class AudioManager : Singleton<AudioManager>
             eSFXId.Explosion => m_Explosion,
             eSFXId.Eat => m_Eat,
             eSFXId.GameOver => m_GameOver,
+            eSFXId.BombLaunch => m_BombLaunch,
             _ => null
         };
 

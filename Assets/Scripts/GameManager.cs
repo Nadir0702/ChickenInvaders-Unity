@@ -11,16 +11,29 @@ public class GameManager : Singleton<GameManager>
     private int m_Score;
     public eGameState GameState { get; private set; } = eGameState.Playing;
     
+    // Enemy scaling system
+    public int CurrentDifficultyTier { get; private set; } = 1; // Tier 1 = waves 1-5, Tier 2 = waves 6-10, etc.
+    
     // Automatic pickup thresholds
     private int m_LastBombScoreThreshold;
     private int m_LastLifeScoreThreshold;
-    private const int BOMB_SCORE_INTERVAL = 10000;
-    private const int LIFE_SCORE_INTERVAL = 50000;
+    private const int k_BombScoreInterval = 10000;
+    private const int k_LifeScoreInterval = 50000;
 
     private void Awake()
     {
         m_Lives = m_StartingLives;
         Time.timeScale = 1f;
+        CurrentDifficultyTier = 1; // Reset difficulty on game start
+    }
+    
+    public void SetDifficultyTier(int i_WaveNumber)
+    {
+        int newTier = Mathf.Max(1, (i_WaveNumber - 1) / 5 + 1);
+        if (newTier != CurrentDifficultyTier)
+        {
+            CurrentDifficultyTier = newTier;
+        }
     }
     
     public void AddScore(int i_Amount)
@@ -29,17 +42,17 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance?.SetScore(m_Score);
         
         // Check for automatic bomb grants every 10000 points
-        if (m_Score >= m_LastBombScoreThreshold + BOMB_SCORE_INTERVAL)
+        if (m_Score >= m_LastBombScoreThreshold + k_BombScoreInterval)
         {
-            m_LastBombScoreThreshold = (m_Score / BOMB_SCORE_INTERVAL) * BOMB_SCORE_INTERVAL;
+            m_LastBombScoreThreshold = (m_Score / k_BombScoreInterval) * k_BombScoreInterval;
             var playerStats = FindFirstObjectByType<PlayerStats>();
             if (playerStats) playerStats.AddBomb(1);
         }
         
         // Check for automatic life grants every 50000 points
-        if (m_Score >= m_LastLifeScoreThreshold + LIFE_SCORE_INTERVAL)
+        if (m_Score >= m_LastLifeScoreThreshold + k_LifeScoreInterval)
         {
-            m_LastLifeScoreThreshold = (m_Score / LIFE_SCORE_INTERVAL) * LIFE_SCORE_INTERVAL;
+            m_LastLifeScoreThreshold = (m_Score / k_LifeScoreInterval) * k_LifeScoreInterval;
             addLife(1);
         }
     }
@@ -61,16 +74,6 @@ public class GameManager : Singleton<GameManager>
         {
             AudioManager.Instance?.Play(eSFXId.GameOver);
             SetGameState(eGameState.GameOver);
-        }
-        else
-        {
-            // Automatically activate shield on death (not game over)
-            var playerStats = FindFirstObjectByType<PlayerStats>();
-            if(playerStats)
-            {
-                playerStats.ActivateShield();
-                playerStats.AddWeaponLevel(playerStats.WeaponLevel / 2 * -1);
-            }
         }
     }
 

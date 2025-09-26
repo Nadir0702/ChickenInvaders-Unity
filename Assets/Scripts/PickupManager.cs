@@ -11,6 +11,9 @@ public class PickupManager : Singleton<PickupManager>
     private const int k_MaxWeaponPowerUps = 1;
     private const int k_MinWeaponPowerUps = 0;
     
+    [Header("Settings")]
+    [SerializeField] private float m_FoodDropChance = 0.75f;
+    
     public void OnWaveStart()
     {
         m_WeaponPowerUpsDroppedThisWave = 0;
@@ -18,8 +21,15 @@ public class PickupManager : Singleton<PickupManager>
     
     public void OnEnemyKilled(Vector3 i_Position)
     {
-        // Always drop food from pool
-        PoolManager.Instance?.GetFood(i_Position);
+        // Debug: Track enemy kills to detect multiple calls
+        Debug.Log($"Enemy killed at {i_Position} - checking food drop (chance: {m_FoodDropChance:P0})");
+        
+        // 75% chance to drop food
+        if (Random.value <= m_FoodDropChance)
+        {
+            PoolManager.Instance?.GetFood(i_Position);
+            Debug.Log("Food dropped!");
+        }
         
         // Check if we should drop weapon powerup
         tryDropWeaponPowerUp(i_Position);

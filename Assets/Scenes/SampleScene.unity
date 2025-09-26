@@ -219,6 +219,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 306866812}
+  - {fileID: 2061156296}
   - {fileID: 1201891922}
   - {fileID: 1558596160}
   m_Father: {fileID: 0}
@@ -1442,11 +1443,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnemyPrefab: {fileID: 2275158918202941166, guid: 09eac6185011fea45ac2a279b540e290, type: 3}
-  m_EnemyPoolSize: 32
+  m_EnemyPoolSize: 50
   m_FoodPrefab: {fileID: 919936549086892902, guid: ccf46c79466e1334288812d21ef78753, type: 3}
-  m_FoodPoolSize: 32
+  m_FoodPoolSize: 50
   m_BulletPrefab: {fileID: -5588809528905079676, guid: ff9458b3f37c86d408fb5a1a97ea6a43, type: 3}
-  m_BulletPoolSize: 32
+  m_BulletPoolSize: 50
   m_BombPrefab: {fileID: 6067617016353472602, guid: 71ff414dba15ffb4294219e99ec11c1e, type: 3}
   m_BombPoolSize: 10
 --- !u!1 &1532076964
@@ -1734,6 +1735,7 @@ MonoBehaviour:
   m_Explosion: {fileID: 8300000, guid: 7c635dcfcd6621e46a9a7589e6a7c788, type: 3}
   m_Eat: {fileID: 8300000, guid: d677106e5d01d744895fbc42c4790634, type: 3}
   m_GameOver: {fileID: 8300000, guid: 009c6332295ebd14cb33f6ebaf776ceb, type: 3}
+  m_BombLaunch: {fileID: 8300000, guid: 9dc0eb52508d7a149b18d842a934954e, type: 3}
   m_AudioSource: {fileID: 1941854441}
 --- !u!82 &1941854441
 AudioSource:
@@ -1894,6 +1896,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2061156295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2061156296}
+  m_Layer: 0
+  m_Name: GameIntroPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2061156296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061156295}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -965.0872, y: -719.1867, z: -16.020357}
+  m_LocalScale: {x: 3.5820894, y: 3.5820894, z: 3.5820894}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 134044670}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2080025536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,6 +1987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_WeaponPowerUpPrefab: {fileID: 5909170434643636570, guid: b6ea5ea742f27f645838c5c49fd19ced, type: 3}
   m_FoodPrefab: {fileID: 6702647831489249232, guid: ccf46c79466e1334288812d21ef78753, type: 3}
+  m_FoodDropChance: 0.5
 --- !u!1001 &1926017128556253592
 PrefabInstance:
   m_ObjectHideFlags: 0

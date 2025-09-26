@@ -27,6 +27,9 @@ public class WaveDirector : MonoBehaviour
         int waveNumber = 1;
         while(GameManager.Instance && GameManager.Instance.GameState == eGameState.Playing)
         {
+            // Update difficulty tier for enemy scaling
+            GameManager.Instance.SetDifficultyTier(waveNumber);
+            
             // Notify pickup manager of new wave
             PickupManager.Instance?.OnWaveStart();
             
@@ -66,6 +69,13 @@ public class WaveDirector : MonoBehaviour
         int count = Mathf.Clamp(6 + i_WaveNumber, 6, 14);
         float speed = Mathf.Clamp(2.5f + i_WaveNumber * 0.15f, 2.5f, 6f);
         
+        // Check if we have enough enemies in pool
+        if (!PoolManager.Instance.HasEnoughEnemies(count))
+        {
+            Debug.LogWarning($"Wave_Line: Not enough enemies in pool for {count} enemies. Reducing count.");
+            count = Mathf.Min(count, PoolManager.Instance.GetAvailableEnemyCount());
+        }
+        
         Vector3 topMin = m_Camera.ViewportToWorldPoint(new Vector3(0.1f, 1f, 0));
         Vector3 topMax = m_Camera.ViewportToWorldPoint(new Vector3(0.9f, 1f, 0));
 
@@ -77,9 +87,22 @@ public class WaveDirector : MonoBehaviour
             if (enemy != null)
             {
                 var mover = enemy.GetComponent<EnemyMover>();
-                mover.m_MoveType = eEnemyMoveType.StraightDown;
-                mover.Speed = speed;
-                r_ActiveEnemies.Add(enemy);
+                if (mover != null)
+                {
+                    mover.m_MoveType = eEnemyMoveType.StraightDown;
+                    mover.Speed = speed;
+                    r_ActiveEnemies.Add(enemy);
+                }
+                else
+                {
+                    Debug.LogError("WaveDirector: Enemy missing EnemyMover component!");
+                    // Return enemy back to pool if it's missing components
+                    PoolManager.Instance.ReturnEnemy(enemy);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"WaveDirector: Failed to get enemy from pool for Wave_Line, enemy {i + 1}/{count}");
             }
         }
         
@@ -91,7 +114,17 @@ public class WaveDirector : MonoBehaviour
     {
         int rows = 2;
         int perRow = Mathf.Clamp(4 + i_WaveNumber / 2, 4, 10);
+        int totalEnemies = rows * perRow;
         float baseSpeed = Mathf.Clamp(2.2f + i_WaveNumber * 0.12f, 2.2f, 5.2f);
+        
+        // Check if we have enough enemies in pool
+        if (!PoolManager.Instance.HasEnoughEnemies(totalEnemies))
+        {
+            Debug.LogWarning($"Wave_Arc: Not enough enemies in pool for {totalEnemies} enemies. Reducing formation.");
+            int availableEnemies = PoolManager.Instance.GetAvailableEnemyCount();
+            // Reduce formation size proportionally
+            perRow = Mathf.Max(1, availableEnemies / rows);
+        }
         
         Vector3 topMin = m_Camera.ViewportToWorldPoint(new Vector3(0.15f, 1f, 0));
         Vector3 topMax = m_Camera.ViewportToWorldPoint(new Vector3(0.85f, 1f, 0));
@@ -108,11 +141,23 @@ public class WaveDirector : MonoBehaviour
                 if (enemy != null)
                 {
                     var mover = enemy.GetComponent<EnemyMover>();
-                    mover.m_MoveType = eEnemyMoveType.SineHorizontal;
-                    mover.Speed = baseSpeed;
-                    mover.SineAmplitude = 1f + r * 0.4f;
-                    mover.SineFrequency = 2f + r * 0.3f;
-                    r_ActiveEnemies.Add(enemy);
+                    if (mover != null)
+                    {
+                        mover.m_MoveType = eEnemyMoveType.SineHorizontal;
+                        mover.Speed = baseSpeed;
+                        mover.SineAmplitude = 1f + r * 0.4f;
+                        mover.SineFrequency = 2f + r * 0.3f;
+                        r_ActiveEnemies.Add(enemy);
+                    }
+                    else
+                    {
+                        Debug.LogError("WaveDirector: Enemy missing EnemyMover component!");
+                        PoolManager.Instance.ReturnEnemy(enemy);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"Wave_Arc: Failed to get enemy from pool for row {r}, enemy {i + 1}/{perRow}");
                 }
             }
             
@@ -125,7 +170,16 @@ public class WaveDirector : MonoBehaviour
     {
         int waves = 3;
         int perBurst = Mathf.Clamp(3 + i_WaveNumber / 3, 3, 8);
+        int totalEnemies = waves * perBurst;
         float entrySpeed = Mathf.Clamp(2.8f + 0.1f * i_WaveNumber * 0.1f, 2.8f, 6.5f);
+        
+        // Check if we have enough enemies in pool
+        if (!PoolManager.Instance.HasEnoughEnemies(totalEnemies))
+        {
+            Debug.LogWarning($"Wave_Dive: Not enough enemies in pool for {totalEnemies} enemies. Reducing formation.");
+            int availableEnemies = PoolManager.Instance.GetAvailableEnemyCount();
+            perBurst = Mathf.Max(1, availableEnemies / waves);
+        }
         
         Vector3 left = m_Camera.ViewportToWorldPoint(new Vector3(0.1f, 1f, 0));
         Vector3 right = m_Camera.ViewportToWorldPoint(new Vector3(0.9f, 1f, 0));
@@ -139,12 +193,24 @@ public class WaveDirector : MonoBehaviour
                 if (enemy != null)
                 {
                     var mover = enemy.GetComponent<EnemyMover>();
-                    mover.m_MoveType = eEnemyMoveType.DiveAtPlayer;
-                    mover.Speed = entrySpeed;
-                    mover.DiveDelay = Random.Range(0.4f, 0.9f);
-                    mover.DiveSpeed = 7f + Random.Range(-0.5f, 0.5f);
-                    mover.InitDive(m_Player);
-                    r_ActiveEnemies.Add(enemy);
+                    if (mover != null)
+                    {
+                        mover.m_MoveType = eEnemyMoveType.DiveAtPlayer;
+                        mover.Speed = entrySpeed;
+                        mover.DiveDelay = Random.Range(0.4f, 0.9f);
+                        mover.DiveSpeed = 7f + Random.Range(-0.5f, 0.5f);
+                        mover.InitDive(m_Player);
+                        r_ActiveEnemies.Add(enemy);
+                    }
+                    else
+                    {
+                        Debug.LogError("WaveDirector: Enemy missing EnemyMover component!");
+                        PoolManager.Instance.ReturnEnemy(enemy);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"Wave_Dive: Failed to get enemy from pool for wave {b}, enemy {i + 1}/{perBurst}");
                 }
             }
             
@@ -157,8 +223,25 @@ public class WaveDirector : MonoBehaviour
     {
         int columns = Mathf.Clamp(3 + i_WaveNumber / 3, 3, 6);
         int rosPerColumn = Mathf.Clamp(3 + i_WaveNumber / 2, 3, 8);
+        int totalEnemies = columns * rosPerColumn;
         float columnSpacing = 1.6f;
         float rowSpacing = 0.8f;
+        
+        // Check if we have enough enemies in pool
+        if (!PoolManager.Instance.HasEnoughEnemies(totalEnemies))
+        {
+            Debug.LogWarning($"Wave_Columns: Not enough enemies in pool for {totalEnemies} enemies. Reducing formation.");
+            int availableEnemies = PoolManager.Instance.GetAvailableEnemyCount();
+            // Reduce columns first, then rows
+            if (availableEnemies < totalEnemies)
+            {
+                columns = Mathf.Max(1, availableEnemies / rosPerColumn);
+                if (columns == 0) {
+                    columns = 1;
+                    rosPerColumn = availableEnemies;
+                }
+            }
+        }
         
         Vector3 center = m_Camera.ViewportToWorldPoint(new Vector3(0.5f, 1f, 0));
         float startX = center.x - (columns - 1) * columnSpacing * 0.5f;
@@ -172,9 +255,21 @@ public class WaveDirector : MonoBehaviour
                 if (enemy != null)
                 {
                     var mover = enemy.GetComponent<EnemyMover>();
-                    mover.m_MoveType = eEnemyMoveType.StraightDown;
-                    mover.Speed = 2.5f + 0.15f * i_WaveNumber;
-                    r_ActiveEnemies.Add(enemy);
+                    if (mover != null)
+                    {
+                        mover.m_MoveType = eEnemyMoveType.StraightDown;
+                        mover.Speed = 2.5f + 0.15f * i_WaveNumber;
+                        r_ActiveEnemies.Add(enemy);
+                    }
+                    else
+                    {
+                        Debug.LogError("WaveDirector: Enemy missing EnemyMover component!");
+                        PoolManager.Instance.ReturnEnemy(enemy);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"Wave_Columns: Failed to get enemy from pool for column {col}, row {row}");
                 }
             }
             
@@ -186,6 +281,16 @@ public class WaveDirector : MonoBehaviour
     private IEnumerator Wave_Pincer(int i_WaveNumber)
     {
         int pairs = Mathf.Clamp(4 + i_WaveNumber / 2, 4, 10);
+        int totalEnemies = pairs * 2; // 2 enemies per pair
+        
+        // Check if we have enough enemies in pool
+        if (!PoolManager.Instance.HasEnoughEnemies(totalEnemies))
+        {
+            Debug.LogWarning($"Wave_Pincer: Not enough enemies in pool for {totalEnemies} enemies. Reducing pairs.");
+            int availableEnemies = PoolManager.Instance.GetAvailableEnemyCount();
+            pairs = Mathf.Max(1, availableEnemies / 2);
+        }
+        
         float yTop = m_Camera.ViewportToWorldPoint(new Vector3(0, 1f, 0)).y;
         float yBottom = m_Camera.ViewportToWorldPoint(new Vector3(0, 0f, 0)).y;
         float xLeft = m_Camera.ViewportToWorldPoint(new Vector3(0f, 0f, 0)).x;
@@ -204,10 +309,22 @@ public class WaveDirector : MonoBehaviour
             if (leftEnemy != null)
             {
                 var leftMover = leftEnemy.GetComponent<EnemyMover>();
-                leftMover.m_MoveType = eEnemyMoveType.SemicircleArc;
-                leftMover.Speed = 2f + 0.2f * i_WaveNumber;
-                leftMover.InitSemicircle(new Vector2(xLeft, 0f), radius, true, Mathf.PI); // Start at top-left of circle (PI radians)
-                r_ActiveEnemies.Add(leftEnemy);
+                if (leftMover != null)
+                {
+                    leftMover.m_MoveType = eEnemyMoveType.SemicircleArc;
+                    leftMover.Speed = 2f + 0.2f * i_WaveNumber;
+                    leftMover.InitSemicircle(new Vector2(xLeft, 0f), radius, true, Mathf.PI); // Start at top-left of circle (PI radians)
+                    r_ActiveEnemies.Add(leftEnemy);
+                }
+                else
+                {
+                    Debug.LogError("WaveDirector: Left enemy missing EnemyMover component!");
+                    PoolManager.Instance.ReturnEnemy(leftEnemy);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"Wave_Pincer: Failed to get left enemy from pool for pair {p + 1}/{pairs}");
             }
             
             // Right enemy starts at top-right, moves in semicircle counter-clockwise to bottom-left
@@ -215,10 +332,22 @@ public class WaveDirector : MonoBehaviour
             if (rightEnemy != null)
             {
                 var rightMover = rightEnemy.GetComponent<EnemyMover>();
-                rightMover.m_MoveType = eEnemyMoveType.SemicircleArc;
-                rightMover.Speed = 2f + 0.2f * i_WaveNumber;
-                rightMover.InitSemicircle(new Vector2(xRight, 0f), radius, false, 0f); // Start at top-right of circle (0 radians)
-                r_ActiveEnemies.Add(rightEnemy);
+                if (rightMover != null)
+                {
+                    rightMover.m_MoveType = eEnemyMoveType.SemicircleArc;
+                    rightMover.Speed = 2f + 0.2f * i_WaveNumber;
+                    rightMover.InitSemicircle(new Vector2(xRight, 0f), radius, false, 0f); // Start at top-right of circle (0 radians)
+                    r_ActiveEnemies.Add(rightEnemy);
+                }
+                else
+                {
+                    Debug.LogError("WaveDirector: Right enemy missing EnemyMover component!");
+                    PoolManager.Instance.ReturnEnemy(rightEnemy);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"Wave_Pincer: Failed to get right enemy from pool for pair {p + 1}/{pairs}");
             }
             
             yield return new WaitForSeconds(0.18f);

@@ -5,7 +5,8 @@ public class EnemyMover : MonoBehaviour
 {
     [Header("Shared")]
     public eEnemyMoveType m_MoveType = eEnemyMoveType.StraightDown;
-    public float Speed { get; set; } = 2f;
+    [SerializeField] private float m_Speed = 1f;
+    public float Speed { get; set; }
     
     [Header("Sine")]
     public float SineAmplitude { get; set; } = 1.2f;
