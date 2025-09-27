@@ -9,14 +9,27 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI m_BombsAmountText;
     [SerializeField] private GameObject m_GameOverPanel;
     [SerializeField] private GameObject m_PausePanel;
+    [SerializeField] private GameObject m_HomeScreenPanel;
 
     private void Start()
     {
-        SetScore(0);
-        SetLives(3);
-        m_GameOverPanel.SetActive(false);
-        m_PausePanel.SetActive(false);
-        ShowState(eGameState.Playing);
+        // Initialize all panels as inactive
+        m_GameOverPanel?.SetActive(false);
+        m_PausePanel?.SetActive(false);
+        m_HomeScreenPanel?.SetActive(false);
+        
+        // Ensure we don't double-subscribe if this Start() is called multiple times
+        GameManager.OnGameStateChanged -= showState; // Unsubscribe first (safe even if not subscribed)
+        GameManager.OnGameStateChanged += showState; // Subscribe
+        Debug.Log("UIManager: Subscribed to GameManager.OnGameStateChanged");
+        
+        // Show initial state (Menu)
+        showState(GameManager.Instance?.GameState ?? eGameState.Menu);
+    }
+    
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= showState;
     }
     
     public void SetScore(int i_Value)
@@ -29,10 +42,35 @@ public class UIManager : Singleton<UIManager>
         if (m_LivesText) m_LivesText.text = $"Lives: {i_Value}";
     }       
 
-    public void ShowState(eGameState i_GameState)
+    private void showState(eGameState i_GameState)
     {
-        if (m_GameOverPanel) m_GameOverPanel.SetActive(i_GameState == eGameState.GameOver);
-        if (m_PausePanel) m_PausePanel.SetActive(i_GameState == eGameState.Paused);
+        Debug.Log($"UIManager.ShowState called with: {i_GameState}");
+        
+        // Hide all panels first
+        m_GameOverPanel?.SetActive(false);
+        m_PausePanel?.SetActive(false);
+        m_HomeScreenPanel?.SetActive(false);
+        
+        // Show appropriate panel for current state
+        switch (i_GameState)
+        {
+            case eGameState.Menu:
+                Debug.Log("Showing home screen panel");
+                m_HomeScreenPanel?.SetActive(true);
+                break;
+            case eGameState.Paused:
+                Debug.Log("Showing pause panel");
+                m_PausePanel?.SetActive(true);
+                break;
+            case eGameState.GameOver:
+                Debug.Log("Showing game over panel");
+                m_GameOverPanel?.SetActive(true);
+                break;
+            case eGameState.Playing:
+                Debug.Log("Hiding all panels (playing state)");
+                // No panels active during gameplay
+                break;
+        }
     }
 
     public void SetWeaponLevel(int i_WeaponLevel)

@@ -21,17 +21,12 @@ public class PickupManager : Singleton<PickupManager>
     
     public void OnEnemyKilled(Vector3 i_Position)
     {
-        // Debug: Track enemy kills to detect multiple calls
-        Debug.Log($"Enemy killed at {i_Position} - checking food drop (chance: {m_FoodDropChance:P0})");
-        
-        // 75% chance to drop food
         if (Random.value <= m_FoodDropChance)
         {
             PoolManager.Instance?.GetFood(i_Position);
-            Debug.Log("Food dropped!");
         }
         
-        // Check if we should drop weapon powerup
+        // Check if we should drop weapon power up
         tryDropWeaponPowerUp(i_Position);
     }
     

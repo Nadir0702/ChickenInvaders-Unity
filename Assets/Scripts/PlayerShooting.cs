@@ -8,7 +8,7 @@ public class PlayerShooting : MonoBehaviour
     
     private float m_NextFireTime;
 
-    void Update()
+    private void Update()
     {
         if (GameManager.Instance.GameState != eGameState.Playing) return;
         

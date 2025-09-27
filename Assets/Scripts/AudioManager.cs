@@ -6,8 +6,6 @@ public class AudioManager : Singleton<AudioManager>
     private AudioClip m_Shoot, m_EnemyHit, m_PlayerHit, m_UIClick, m_Pickup, m_Explosion, m_Eat, m_GameOver, m_BombLaunch;
     [SerializeField] private AudioSource m_AudioSource;
     
-    private void Awake() => DontDestroyOnLoad(this);
-    
     public void Play (eSFXId i_SfxId, float i_Volume = 1f, float i_Pitch = 1f)
     {
         AudioClip clip = i_SfxId switch

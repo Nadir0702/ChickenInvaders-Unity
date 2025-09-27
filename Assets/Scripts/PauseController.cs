@@ -1,25 +1,13 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles pause panel button events - input handling moved to GameManager
+/// </summary>
 public class PauseController : MonoBehaviour
 {
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if(GameManager.Instance.GameState == eGameState.Playing)
-            {
-                GameManager.Instance.SetGameState(eGameState.Paused);
-            }
-            else if(GameManager.Instance.GameState == eGameState.Paused)
-            {
-                GameManager.Instance.SetGameState(eGameState.Playing);
-            }
-        }
-    }
-    
-    public void Resume() => GameManager.Instance.ResumeGame();
+    public void Resume() => GameManager.Instance?.ResumeGame();
 
-    public void Quit() => GameManager.Instance.QuitGame();
-    
-    public void Restart() => GameManager.Instance.RestartGame();
+    public void QuitToMenu() => GameManager.Instance?.ReturnToMenu();
+
+    public void Restart() => GameManager.Instance?.RestartGame();
 }

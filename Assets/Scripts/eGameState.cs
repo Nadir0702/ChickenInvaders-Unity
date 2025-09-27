@@ -2,5 +2,6 @@
 {
     Playing,
     Paused,
-    GameOver
+    GameOver, 
+    Menu
 }

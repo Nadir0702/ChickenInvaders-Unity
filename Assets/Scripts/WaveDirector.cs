@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class WaveDirector : MonoBehaviour
+public class WaveDirector : Singleton<WaveDirector>
 {
     [SerializeField] private EnemyController m_EnemyPrefab;
     [SerializeField] private Transform m_Player;
@@ -11,22 +11,97 @@ public class WaveDirector : MonoBehaviour
     
     private Camera m_Camera;
     private readonly List<EnemyController> r_ActiveEnemies = new();
+    private Coroutine m_WaveCoroutine; // Track the wave coroutine
     
-    private void Awake()
+    protected override void Awake()
     {
-        m_Camera = Camera.main;
+        base.Awake(); // Call singleton Awake first
+        if (this == Instance) // Only initialize if we're the active instance
+        {
+            m_Camera = Camera.main;
+        }
     }
     
     private void Start()
     {
-        StartCoroutine(runWaves());
+        // Ensure we don't double-subscribe if this Start() is called multiple times
+        GameManager.OnGameStateChanged -= OnGameStateChanged; // Unsubscribe first (safe even if not subscribed)
+        GameManager.OnGameStateChanged += OnGameStateChanged; // Subscribe
+        Debug.Log("WaveDirector: Subscribed to GameManager.OnGameStateChanged");
+    }
+    
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= OnGameStateChanged;
+    }
+    
+    private void OnGameStateChanged(eGameState i_NewState)
+    {
+        if (i_NewState == eGameState.Playing)
+        {
+            // Only start waves if not already running (first time or after returning from menu/game over)
+            if (m_WaveCoroutine == null)
+            {
+                // Clear any active enemies when starting fresh
+                r_ActiveEnemies.Clear();
+                
+                // Start wave system when game begins
+                m_WaveCoroutine = StartCoroutine(runWaves());
+                Debug.Log("Started new wave coroutine");
+            }
+            else
+            {
+                // Waves are already running, just let them continue (pause → resume)
+                Debug.Log("Resuming existing wave coroutine");
+            }
+        }
+        else if (i_NewState == eGameState.Menu || i_NewState == eGameState.GameOver)
+        {
+            // Stop waves when returning to menu or game over (restart scenario)
+            if (m_WaveCoroutine != null)
+            {
+                StopCoroutine(m_WaveCoroutine);
+                m_WaveCoroutine = null;
+                Debug.Log($"Stopped wave coroutine (state: {i_NewState})");
+            }
+        }
+        // Note: We don't stop the coroutine when pausing - let it continue but wait in the loop
+    }
+    
+    /// <summary>
+    /// Reset the wave director - called when restarting the game
+    /// </summary>
+    public void ResetWaves()
+    {
+        // Stop current wave coroutine if running
+        if (m_WaveCoroutine != null)
+        {
+            StopCoroutine(m_WaveCoroutine);
+            m_WaveCoroutine = null;
+            Debug.Log("WaveDirector: Reset - stopped current wave coroutine");
+        }
+        
+        // Clear active enemies
+        r_ActiveEnemies.Clear();
+        
+        // The next time Playing state is entered, it will start fresh from wave 1
     }
 
     private IEnumerator runWaves()
     {
         int waveNumber = 1;
-        while(GameManager.Instance && GameManager.Instance.GameState == eGameState.Playing)
+        while(GameManager.Instance)
         {
+            // Wait if game is not in Playing state (paused, menu, game over)
+            while (GameManager.Instance && GameManager.Instance.GameState != eGameState.Playing)
+            {
+                Debug.Log($"WaveDirector: Waiting... Game state: {GameManager.Instance.GameState}");
+                yield return new WaitForSecondsRealtime(0.1f); // Wait 0.1 seconds using real time (unaffected by Time.timeScale)
+            }
+            
+            // Exit if GameManager is destroyed
+            if (!GameManager.Instance) break;
+            
             // Update difficulty tier for enemy scaling
             GameManager.Instance.SetDifficultyTier(waveNumber);
             
@@ -47,6 +122,9 @@ public class WaveDirector : MonoBehaviour
             waveNumber++;
         }
         
+        // Clean up coroutine reference when done
+        m_WaveCoroutine = null;
+        Debug.Log("Wave coroutine finished naturally");
         yield return null;
     }
     

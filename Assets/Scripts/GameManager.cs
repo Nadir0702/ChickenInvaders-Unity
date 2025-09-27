@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -9,7 +8,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private int m_StartingLives = 3;
     private int m_Lives;
     private int m_Score;
-    public eGameState GameState { get; private set; } = eGameState.Playing;
+    public eGameState GameState { get; private set; } = eGameState.Menu;
     
     // Enemy scaling system
     public int CurrentDifficultyTier { get; private set; } = 1; // Tier 1 = waves 1-5, Tier 2 = waves 6-10, etc.
@@ -20,11 +19,54 @@ public class GameManager : Singleton<GameManager>
     private const int k_BombScoreInterval = 10000;
     private const int k_LifeScoreInterval = 50000;
 
-    private void Awake()
+    protected override void Awake()
+    {
+        base.Awake(); // Call singleton Awake first
+        if (this == Instance) // Only initialize if we're the active instance
+        {
+            InitializeGame();
+        }
+    }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log($"Escape pressed! Current state: {GameState}");
+            
+            if (GameState == eGameState.Playing)
+            {
+                Debug.Log("Setting state to Paused");
+                setGameState(eGameState.Paused);
+            }
+            else if (GameState == eGameState.Paused)
+            {
+                Debug.Log("Setting state to Playing");
+                setGameState(eGameState.Playing);
+            }
+        }
+    }
+    
+   
+    private void InitializeGame()
     {
         m_Lives = m_StartingLives;
+        m_Score = 0;
+        m_LastBombScoreThreshold = 0;
+        m_LastLifeScoreThreshold = 0;
+        CurrentDifficultyTier = 1;
         Time.timeScale = 1f;
-        CurrentDifficultyTier = 1; // Reset difficulty on game start
+        
+        // Reset all object pools
+        PoolManager.Instance?.ResetAllPools();
+        
+        // Reset player stats
+        var playerStats = FindFirstObjectByType<PlayerStats>();
+        if (playerStats) playerStats.ResetStats();
+        
+        // Update UI to reflect reset values
+        UIManager.Instance?.SetScore(m_Score);
+        UIManager.Instance?.SetLives(m_Lives);
     }
     
     public void SetDifficultyTier(int i_WaveNumber)
@@ -73,34 +115,74 @@ public class GameManager : Singleton<GameManager>
         if (m_Lives <= 0) 
         {
             AudioManager.Instance?.Play(eSFXId.GameOver);
-            SetGameState(eGameState.GameOver);
+            setGameState(eGameState.GameOver);
         }
     }
 
-    public void SetGameState(eGameState i_GameState)
+    private void setGameState(eGameState i_GameState)
     {
         if (GameState == i_GameState) return;
         
         GameState = i_GameState;
         
-        if (GameState == eGameState.Paused) Time.timeScale = 0f;
-        else Time.timeScale = 1f;
+        // Handle time scale for different states
+        if (GameState == eGameState.Paused || GameState == eGameState.Menu) 
+            Time.timeScale = 0f;
+        else 
+            Time.timeScale = 1f;
         
         OnGameStateChanged?.Invoke(GameState);
-        UIManager.Instance?.ShowState(GameState);
     }
 
-    public void RestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    /// <summary>
+    /// Start a new game from the home screen
+    /// </summary>
+    public void StartNewGame()
+    {
+        // Reset wave director to start from wave 1
+        WaveDirector.Instance?.ResetWaves();
+        
+        InitializeGame();
+        setGameState(eGameState.Playing);
+    }
+    
+    /// <summary>
+    /// Return to home screen (from pause or game over)
+    /// </summary>
+    public void ReturnToMenu()
+    {
+        InitializeGame();
+        setGameState(eGameState.Menu);
+    }
+    
+    /// <summary>
+    /// Resume game from pause
+    /// </summary>
+    public void ResumeGame()
+    {
+        setGameState(eGameState.Playing);
+    }
+    
+    /// <summary>
+    /// Restart current game (unified restart without scene reload)
+    /// </summary>
+    public void RestartGame()
+    {
+        // Reset wave director to start from wave 1
+        WaveDirector.Instance?.ResetWaves();
+        
+        InitializeGame();
+        setGameState(eGameState.Playing);
+    }
 
-    public void QuitGame()
+    /// <summary>
+    /// Quit application entirely (only from home screen)
+    /// </summary>
+    public void QuitApplication()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        
 #endif
         Application.Quit();
-
     }
-    
-    public void ResumeGame() => SetGameState(eGameState.Playing);
 }

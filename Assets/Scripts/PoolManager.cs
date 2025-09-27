@@ -114,4 +114,63 @@ public class PoolManager : Singleton<PoolManager>
     {
         return m_EnemyPool.PoolSize;
     }
+    
+    /// <summary>
+    /// Reset all pools by returning all active objects - called when restarting game
+    /// </summary>
+    public void ResetAllPools()
+    {
+        resetEnemyPool();
+        resetFoodPool();
+        resetBulletPool();
+        resetBombPool();
+    }
+
+    private void resetBombPool()
+    {
+        var activeBombs = FindObjectsByType<Bomb>(FindObjectsSortMode.None);
+        foreach (var bomb in activeBombs)
+        {
+            if (bomb.gameObject.activeInHierarchy)
+            {
+                ReturnBomb(bomb);
+            }
+        }
+    }
+
+    private void resetBulletPool()
+    {
+        var activeBullets = FindObjectsByType<Bullet>(FindObjectsSortMode.None);
+        foreach (var bullet in activeBullets)
+        {
+            if (bullet.gameObject.activeInHierarchy)
+            {
+                ReturnBullet(bullet);
+            }
+        }
+    }
+
+    private void resetFoodPool()
+    {
+        var activeFood = FindObjectsByType<Food>(FindObjectsSortMode.None);
+        foreach (var food in activeFood)
+        {
+            if (food.gameObject.activeInHierarchy)
+            {
+                ReturnFood(food);
+            }
+        }
+    }
+
+    private void resetEnemyPool()
+    {
+        var activeEnemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+        foreach (var enemy in activeEnemies)
+        {
+            if (enemy.gameObject.activeInHierarchy)
+            {
+                ReturnEnemy(enemy);
+            }
+        }
+    }
 }

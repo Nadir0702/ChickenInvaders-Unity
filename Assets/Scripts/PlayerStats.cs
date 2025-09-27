@@ -50,6 +50,28 @@ public class PlayerStats : MonoBehaviour
         UIManager.Instance?.SetBombs(m_BombCount);
     }
     
+    /// <summary>
+    /// Reset player stats to initial values - called when starting new game
+    /// </summary>
+    public void ResetStats()
+    {
+        // Reset to initial values
+        m_WeaponLevel = 1;
+        m_BombCount = 0;
+        
+        // Stop any active shield
+        StopAllCoroutines();
+        ShieldActive = false;
+        if (m_ShieldVisualInstance)
+        {
+            m_ShieldVisualInstance.SetActive(false);
+        }
+        
+        // Update UI
+        UIManager.Instance?.SetWeaponLevel(WeaponLevel);
+        UIManager.Instance?.SetBombs(m_BombCount);
+    }
+    
     public void ActivateShield()
     {
         if (ShieldActive) StopAllCoroutines();

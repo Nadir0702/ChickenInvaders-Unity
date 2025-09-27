@@ -20,13 +20,6 @@ public class EnemyController : MonoBehaviour, IDamageable, IPoolable
         m_MaxHp = m_BaseMaxHp + (GameManager.Instance.CurrentDifficultyTier - 1);
         m_Hp = m_MaxHp; // Set current HP to max HP
         m_IsDead = false; // Reset death state
-        
-        // Debug: Log HP scaling for first few enemies to verify system works
-        if (GameManager.Instance.CurrentDifficultyTier > 1 && Random.value < 0.1f) // 10% chance to log
-        {
-            Debug.Log($"Enemy spawned with {m_Hp} HP (Base: {m_BaseMaxHp}, Tier: {GameManager.Instance.CurrentDifficultyTier})");
-        }
-        // Reset any other state if needed
     }
     
     public void OnPoolReturn()
