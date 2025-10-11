@@ -49,8 +49,14 @@ public class Bomb : MonoBehaviour, IPoolable
             if(enemy) enemy.TakeDamage(m_BombDamage);
         }
         
-        // TODO (when you add enemy bullets): clear all EnemyBullet layer instances.
-        // foreach (var b in FindObjectsOfType<EnemyBullet>()) Destroy(b.gameObject);
+        // Clear all enemy bullets (eggs) from the screen
+        foreach(var enemyBullet in FindObjectsByType<EnemyBullet>(FindObjectsSortMode.None))
+        {
+            if(enemyBullet && enemyBullet.gameObject.activeInHierarchy)
+            {
+                PoolManager.Instance?.ReturnEnemyBullet(enemyBullet);
+            }
+        }
         
         AudioManager.Instance?.Play(eSFXId.Explosion);
         m_Animator.SetTrigger(sr_Explode);

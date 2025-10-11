@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager>
         base.Awake(); // Call singleton Awake first
         if (this == Instance) // Only initialize if we're the active instance
         {
-            InitializeGame();
+            initializeGame();
         }
     }
     
@@ -32,23 +32,19 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log($"Escape pressed! Current state: {GameState}");
-            
             if (GameState == eGameState.Playing)
             {
-                Debug.Log("Setting state to Paused");
                 setGameState(eGameState.Paused);
             }
             else if (GameState == eGameState.Paused)
             {
-                Debug.Log("Setting state to Playing");
                 setGameState(eGameState.Playing);
             }
         }
     }
     
    
-    private void InitializeGame()
+    private void initializeGame()
     {
         m_Lives = m_StartingLives;
         m_Score = 0;
@@ -60,9 +56,16 @@ public class GameManager : Singleton<GameManager>
         // Reset all object pools
         PoolManager.Instance?.ResetAllPools();
         
+        // Clear all active pickups from previous game
+        clearActivePickups();
+        
         // Reset player stats
         var playerStats = FindFirstObjectByType<PlayerStats>();
         if (playerStats) playerStats.ResetStats();
+        
+        // Initialize player as hidden (will spawn when game starts)
+        var playerRespawn = FindFirstObjectByType<PlayerRespawn>();
+        if (playerRespawn) playerRespawn.InitializePlayerAsHidden();
         
         // Update UI to reflect reset values
         UIManager.Instance?.SetScore(m_Score);
@@ -142,8 +145,19 @@ public class GameManager : Singleton<GameManager>
         // Reset wave director to start from wave 1
         WaveDirector.Instance?.ResetWaves();
         
-        InitializeGame();
+        initializeGame();
         setGameState(eGameState.Playing);
+        
+        // Spawn player from bottom of screen
+        var playerRespawn = FindFirstObjectByType<PlayerRespawn>();
+        if (playerRespawn) 
+        {
+            playerRespawn.SpawnPlayerAtGameStart();
+        }
+        else
+        {
+            Debug.LogWarning("GameManager: PlayerRespawn component not found in StartNewGame!");
+        }
     }
     
     /// <summary>
@@ -151,7 +165,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void ReturnToMenu()
     {
-        InitializeGame();
+        initializeGame();
         setGameState(eGameState.Menu);
     }
     
@@ -171,8 +185,19 @@ public class GameManager : Singleton<GameManager>
         // Reset wave director to start from wave 1
         WaveDirector.Instance?.ResetWaves();
         
-        InitializeGame();
+        initializeGame();
         setGameState(eGameState.Playing);
+        
+        // Spawn player from bottom of screen
+        var playerRespawn = FindFirstObjectByType<PlayerRespawn>();
+        if (playerRespawn) 
+        {
+            playerRespawn.SpawnPlayerAtGameStart();
+        }
+        else
+        {
+            Debug.LogWarning("GameManager: PlayerRespawn component not found in RestartGame!");
+        }
     }
 
     /// <summary>
@@ -184,5 +209,22 @@ public class GameManager : Singleton<GameManager>
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
+    }
+
+    /// <summary>
+    /// Clear weapon power-ups from the scene when starting a new game
+    /// (Food and enemy bullets are handled by PoolManager.ResetAllPools())
+    /// </summary>
+    private void clearActivePickups()
+    {
+        // Clear weapon power-ups (these are instantiated, not pooled)
+        var powerUps = FindObjectsByType<PowerUpPickup>(FindObjectsSortMode.None);
+        foreach (var powerUp in powerUps)
+        {
+            if (powerUp && powerUp.gameObject.activeInHierarchy)
+            {
+                Destroy(powerUp.gameObject);
+            }
+        }
     }
 }

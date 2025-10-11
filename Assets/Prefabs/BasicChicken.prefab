@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2275158918202941166}
   - component: {fileID: 2210563827632038667}
   - component: {fileID: -3002575455542920309}
+  - component: {fileID: 1077208593615176501}
   m_Layer: 7
   m_Name: BasicChicken
   m_TagString: Enemy
@@ -132,8 +133,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DropPrefabs:
   - {fileID: 5909170434643636570, guid: b6ea5ea742f27f645838c5c49fd19ced, type: 3}
-  m_DropChance: 0.25
-  m_MaxHp: 3
+  m_BaseMaxHp: 1
+  m_EnemyShooting: {fileID: 0}
 --- !u!60 &2210563827632038667
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -366,4 +367,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MoveType: 0
+  m_Speed: 1
   m_SpawnTime: 0
+--- !u!114 &1077208593615176501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7400819539430153167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d72a611128502e549a8ebfb00865227d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinShootInterval: 3
+  m_MaxShootInterval: 8

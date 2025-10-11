@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerHitBox : MonoBehaviour
@@ -6,54 +5,49 @@ public class PlayerHitBox : MonoBehaviour
     [SerializeField] private PlayerStats m_PlayerStats;
     
     private Camera m_Camera;
+    private PlayerRespawn m_PlayerRespawn;
 
-    private void Awake() => m_Camera = Camera.main;
+    private void Awake() 
+    {
+        m_Camera = Camera.main;
+        m_PlayerRespawn = GetComponent<PlayerRespawn>();
+    }
     
     
     private void OnCollisionEnter2D(Collision2D i_Other)
     {
-        if (i_Other.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        
+        if(!m_PlayerStats.ShieldActive && !m_PlayerRespawn.IsRespawning)
         {
-            if(!m_PlayerStats.ShieldActive)
+            if (i_Other.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") ||
+                i_Other.collider.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
             {
                 handleTakeDamage();
-                // (Optional) flash/hit VFX hook here
             }
-
         }
     }
 
     private void OnTriggerEnter2D(Collider2D i_Other)
     {
-        if (i_Other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        
+        if(!m_PlayerStats.ShieldActive && !m_PlayerRespawn.IsRespawning)
         {
-            if(!m_PlayerStats.ShieldActive)
+            if (i_Other.gameObject.layer == LayerMask.NameToLayer("Enemy") ||
+                i_Other.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
             {
                 handleTakeDamage();
-                // (Optional) flash/hit VFX hook here
             }
         }
     }
     
     private void handleTakeDamage()
     {
+        GameManager.Instance?.DamagePlayer(1);                          // 1. Take damage
+        AudioManager.Instance?.Play(eSFXId.Explosion, 0.8f);            // 2. Play explosion sound
+        m_PlayerStats.ActivateShield();                                         // 3. Activate shield
+        m_PlayerStats.AddWeaponLevel(m_PlayerStats.WeaponLevel / 2 * -1); // 4. Cut weapon level in half
         
-        GameManager.Instance?.DamagePlayer(1);
-        AudioManager.Instance?.Play(eSFXId.PlayerHit, 0.8f);
-        m_PlayerStats.ActivateShield();
-        m_PlayerStats.AddWeaponLevel(m_PlayerStats.WeaponLevel / 2 * -1);
-        // transform.position = m_Camera.ViewportToWorldPoint(new Vector3(0f, -0.2f, 0f));
-        
-        if( GameManager.Instance?.GameState == eGameState.GameOver ) return;
-
-        // StartCoroutine(returnToScreen());
-
-        // (Optional) flash/hit VFX hook here
-
+        m_PlayerRespawn?.TriggerExplosionAndRespawn();                          // 5. Trigger explosion and respawn
     }
 
-    private IEnumerator returnToScreen()
-    {
-        yield return null;
-    }
 }

@@ -9,4 +9,5 @@
     Eat,
     GameOver,
     BombLaunch,
+    LayEgg,
 }

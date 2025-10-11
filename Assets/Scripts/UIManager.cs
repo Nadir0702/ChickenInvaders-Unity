@@ -21,7 +21,6 @@ public class UIManager : Singleton<UIManager>
         // Ensure we don't double-subscribe if this Start() is called multiple times
         GameManager.OnGameStateChanged -= showState; // Unsubscribe first (safe even if not subscribed)
         GameManager.OnGameStateChanged += showState; // Subscribe
-        Debug.Log("UIManager: Subscribed to GameManager.OnGameStateChanged");
         
         // Show initial state (Menu)
         showState(GameManager.Instance?.GameState ?? eGameState.Menu);
@@ -44,8 +43,6 @@ public class UIManager : Singleton<UIManager>
 
     private void showState(eGameState i_GameState)
     {
-        Debug.Log($"UIManager.ShowState called with: {i_GameState}");
-        
         // Hide all panels first
         m_GameOverPanel?.SetActive(false);
         m_PausePanel?.SetActive(false);
@@ -55,19 +52,15 @@ public class UIManager : Singleton<UIManager>
         switch (i_GameState)
         {
             case eGameState.Menu:
-                Debug.Log("Showing home screen panel");
                 m_HomeScreenPanel?.SetActive(true);
                 break;
             case eGameState.Paused:
-                Debug.Log("Showing pause panel");
                 m_PausePanel?.SetActive(true);
                 break;
             case eGameState.GameOver:
-                Debug.Log("Showing game over panel");
                 m_GameOverPanel?.SetActive(true);
                 break;
             case eGameState.Playing:
-                Debug.Log("Hiding all panels (playing state)");
                 // No panels active during gameplay
                 break;
         }

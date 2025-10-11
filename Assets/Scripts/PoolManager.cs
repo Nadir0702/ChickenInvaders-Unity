@@ -18,10 +18,15 @@ public class PoolManager : Singleton<PoolManager>
     [SerializeField] private Bomb m_BombPrefab;
     [SerializeField] private int m_BombPoolSize = 10;
     
+    [Header("Enemy Bullet Pooling")]
+    [SerializeField] private EnemyBullet m_EnemyBulletPrefab;
+    [SerializeField] private int m_EnemyBulletPoolSize = 20; // Enemies shoot less frequently than player
+    
     private ObjectPool<EnemyController> m_EnemyPool;
     private ObjectPool<Food> m_FoodPool;
     private ObjectPool<Bullet> m_BulletPool;
     private ObjectPool<Bomb> m_BombPool;
+    private ObjectPool<EnemyBullet> m_EnemyBulletPool;
     
     private void Start()
     {
@@ -30,12 +35,14 @@ public class PoolManager : Singleton<PoolManager>
         m_FoodPool = new ObjectPool<Food>(m_FoodPrefab, m_FoodPoolSize, transform);
         m_BulletPool = new ObjectPool<Bullet>(m_BulletPrefab, m_BulletPoolSize, transform);
         m_BombPool = new ObjectPool<Bomb>(m_BombPrefab, m_BombPoolSize, transform);
+        m_EnemyBulletPool = new ObjectPool<EnemyBullet>(m_EnemyBulletPrefab, m_EnemyBulletPoolSize, transform);
         
         Debug.Log($"Pools initialized - "
                   + $"Enemies: {m_EnemyPoolSize},"
                   + $" Food: {m_FoodPoolSize},"
-                  + $" Bullets: {m_BulletPoolSize}"
-                  + $" Bombs: {m_BombPoolSize}");
+                  + $" Bullets: {m_BulletPoolSize},"
+                  + $" Bombs: {m_BombPoolSize},"
+                  + $" EnemyBullets: {m_EnemyBulletPoolSize}");
     }
     
     public EnemyController GetEnemy(Vector3 i_Position, Quaternion i_Rotation = default)
@@ -89,6 +96,16 @@ public class PoolManager : Singleton<PoolManager>
         m_BombPool.Return(i_Bomb);
     }
     
+    public EnemyBullet GetEnemyBullet(Vector3 i_Position, Quaternion i_Rotation = default)
+    {
+        return m_EnemyBulletPool.Get(i_Position, i_Rotation);
+    }
+    
+    public void ReturnEnemyBullet(EnemyBullet i_EnemyBullet)
+    {
+        m_EnemyBulletPool.Return(i_EnemyBullet);
+    }
+    
     // Debug info
     public void LogPoolStats()
     {
@@ -96,7 +113,8 @@ public class PoolManager : Singleton<PoolManager>
                   $"Enemies: {m_EnemyPool.PoolSize}/{m_EnemyPool.TotalCreated}, " +
                   $"Food: {m_FoodPool.PoolSize}/{m_FoodPool.TotalCreated}, " +
                   $"Bullets: {m_BulletPool.PoolSize}/{m_BulletPool.TotalCreated}, " +
-                  $"Bombs: {m_BombPool.PoolSize}/{m_BombPool.TotalCreated}");
+                  $"Bombs: {m_BombPool.PoolSize}/{m_BombPool.TotalCreated}, " +
+                  $"EnemyBullets: {m_EnemyBulletPool.PoolSize}/{m_EnemyBulletPool.TotalCreated}");
     }
     
     // Method to check if we have enough enemies available for a formation
@@ -124,6 +142,7 @@ public class PoolManager : Singleton<PoolManager>
         resetFoodPool();
         resetBulletPool();
         resetBombPool();
+        resetEnemyBulletPool();
     }
 
     private void resetBombPool()
@@ -170,6 +189,18 @@ public class PoolManager : Singleton<PoolManager>
             if (enemy.gameObject.activeInHierarchy)
             {
                 ReturnEnemy(enemy);
+            }
+        }
+    }
+
+    private void resetEnemyBulletPool()
+    {
+        var activeEnemyBullets = FindObjectsByType<EnemyBullet>(FindObjectsSortMode.None);
+        foreach (var enemyBullet in activeEnemyBullets)
+        {
+            if (enemyBullet.gameObject.activeInHierarchy)
+            {
+                ReturnEnemyBullet(enemyBullet);
             }
         }
     }

@@ -16,6 +16,7 @@ public class PlayerShooting : MonoBehaviour
         if (firePressed && Time.time >= m_NextFireTime)
         {
             m_NextFireTime = Time.time + (1f / m_FireRate);
+            AudioManager.Instance?.Play(eSFXId.Shoot, 0.7f);
             firePattern(m_PlayerStats.WeaponLevel);
         }
     }

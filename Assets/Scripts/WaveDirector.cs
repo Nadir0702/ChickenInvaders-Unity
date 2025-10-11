@@ -27,7 +27,6 @@ public class WaveDirector : Singleton<WaveDirector>
         // Ensure we don't double-subscribe if this Start() is called multiple times
         GameManager.OnGameStateChanged -= OnGameStateChanged; // Unsubscribe first (safe even if not subscribed)
         GameManager.OnGameStateChanged += OnGameStateChanged; // Subscribe
-        Debug.Log("WaveDirector: Subscribed to GameManager.OnGameStateChanged");
     }
     
     private void OnDestroy()
@@ -47,12 +46,6 @@ public class WaveDirector : Singleton<WaveDirector>
                 
                 // Start wave system when game begins
                 m_WaveCoroutine = StartCoroutine(runWaves());
-                Debug.Log("Started new wave coroutine");
-            }
-            else
-            {
-                // Waves are already running, just let them continue (pause → resume)
-                Debug.Log("Resuming existing wave coroutine");
             }
         }
         else if (i_NewState == eGameState.Menu || i_NewState == eGameState.GameOver)
@@ -62,7 +55,6 @@ public class WaveDirector : Singleton<WaveDirector>
             {
                 StopCoroutine(m_WaveCoroutine);
                 m_WaveCoroutine = null;
-                Debug.Log($"Stopped wave coroutine (state: {i_NewState})");
             }
         }
         // Note: We don't stop the coroutine when pausing - let it continue but wait in the loop
@@ -78,7 +70,6 @@ public class WaveDirector : Singleton<WaveDirector>
         {
             StopCoroutine(m_WaveCoroutine);
             m_WaveCoroutine = null;
-            Debug.Log("WaveDirector: Reset - stopped current wave coroutine");
         }
         
         // Clear active enemies
@@ -95,7 +86,6 @@ public class WaveDirector : Singleton<WaveDirector>
             // Wait if game is not in Playing state (paused, menu, game over)
             while (GameManager.Instance && GameManager.Instance.GameState != eGameState.Playing)
             {
-                Debug.Log($"WaveDirector: Waiting... Game state: {GameManager.Instance.GameState}");
                 yield return new WaitForSecondsRealtime(0.1f); // Wait 0.1 seconds using real time (unaffected by Time.timeScale)
             }
             
@@ -124,7 +114,6 @@ public class WaveDirector : Singleton<WaveDirector>
         
         // Clean up coroutine reference when done
         m_WaveCoroutine = null;
-        Debug.Log("Wave coroutine finished naturally");
         yield return null;
     }
     

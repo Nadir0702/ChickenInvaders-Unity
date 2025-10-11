@@ -4,6 +4,7 @@ public class EnemyController : MonoBehaviour, IDamageable, IPoolable
 {
     [SerializeField] private GameObject[] m_DropPrefabs;
     [SerializeField] private int m_BaseMaxHp = 1; // Base HP before scaling
+    [SerializeField] private EnemyShootingSimple m_EnemyShooting; // Shooting component reference
     private int m_MaxHp = 1; // Actual max HP after scaling  
     private int m_Hp = 1;
     private bool m_IsDead = false; // Prevent multiple death calls
@@ -11,7 +12,7 @@ public class EnemyController : MonoBehaviour, IDamageable, IPoolable
     // Debug property for inspector visibility
     public int CurrentHP => m_Hp;
     public int MaxHP => m_MaxHp;
-    
+
     private void OnEnable() => m_Hp = m_MaxHp;
     
     public void OnPoolGet()

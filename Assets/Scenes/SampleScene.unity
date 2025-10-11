@@ -1683,6 +1683,8 @@ MonoBehaviour:
   m_BulletPoolSize: 50
   m_BombPrefab: {fileID: 6067617016353472602, guid: 71ff414dba15ffb4294219e99ec11c1e, type: 3}
   m_BombPoolSize: 10
+  m_EnemyBulletPrefab: {fileID: 5988422914941661509, guid: 0c51af057b972a14aa76b7916548327c, type: 3}
+  m_EnemyBulletPoolSize: 20
 --- !u!1 &1532076964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,6 +2075,7 @@ MonoBehaviour:
   m_Eat: {fileID: 8300000, guid: d677106e5d01d744895fbc42c4790634, type: 3}
   m_GameOver: {fileID: 8300000, guid: 009c6332295ebd14cb33f6ebaf776ceb, type: 3}
   m_BombLaunch: {fileID: 8300000, guid: 9dc0eb52508d7a149b18d842a934954e, type: 3}
+  m_LayEgg: {fileID: 8300000, guid: a95f4db846b7f0442b880f7b6e1d4e0a, type: 3}
   m_AudioSource: {fileID: 1941854441}
 --- !u!82 &1941854441
 AudioSource:
