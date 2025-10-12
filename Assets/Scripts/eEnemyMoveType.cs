@@ -3,5 +3,6 @@
     StraightDown,
     SineHorizontal,
     DiveAtPlayer,
-    SemicircleArc
+    SemicircleArc,
+    Formation
 }

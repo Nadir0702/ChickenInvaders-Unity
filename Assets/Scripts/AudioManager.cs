@@ -3,7 +3,17 @@ using UnityEngine;
 public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField]
-    private AudioClip m_Shoot, m_EnemyHit, m_PlayerHit, m_UIClick, m_Pickup, m_Explosion, m_Eat, m_GameOver, m_BombLaunch, m_LayEgg;
+    private AudioClip m_Shoot,
+                      m_EnemyHit,
+                      m_PlayerHit,
+                      m_UIClick,
+                      m_Pickup,
+                      m_Explosion,
+                      m_Eat,
+                      m_GameOver,
+                      m_BombLaunch,
+                      m_LayEgg,
+                      m_EggCrack;
     [SerializeField] private AudioSource m_AudioSource;
     
     public void Play (eSFXId i_SfxId, float i_Volume = 1f, float i_Pitch = 1f)
@@ -20,6 +30,7 @@ public class AudioManager : Singleton<AudioManager>
             eSFXId.GameOver => m_GameOver,
             eSFXId.BombLaunch => m_BombLaunch,
             eSFXId.LayEgg => m_LayEgg,
+            eSFXId.EggCrack => m_EggCrack,
             _ => null
         };
 

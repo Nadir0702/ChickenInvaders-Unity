@@ -3,8 +3,8 @@ using UnityEngine;
 public class EnemyShootingSimple : MonoBehaviour
 {
     [Header("Shooting Settings")]
-    [SerializeField] private float m_MinShootInterval = 3f; // Minimum time between shots
-    [SerializeField] private float m_MaxShootInterval = 8f; // Maximum time between shots
+    [SerializeField] private float m_MinShootInterval = 5f; // Minimum time between shots (increased from 3f)
+    [SerializeField] private float m_MaxShootInterval = 12f; // Maximum time between shots (increased from 8f)
     
     private float m_NextShootTime;
 

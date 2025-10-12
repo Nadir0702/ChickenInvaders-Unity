@@ -29,6 +29,11 @@ public class EnemyMover : MonoBehaviour
     private float m_SemicircleCurrentAngle;
     private float m_SemicircleAngularSpeed;
     
+    [Header("Formation")]
+    private Vector3 m_FormationOffset; // Offset from formation center
+    private static Vector3 s_FormationCenter; // Shared formation center position
+    private static Vector3 s_FormationVelocity; // Shared formation velocity
+    
     private Camera m_Camera;
     
     private void Awake()
@@ -56,6 +61,21 @@ public class EnemyMover : MonoBehaviour
         m_SemicircleCurrentAngle = i_StartAngle;
         m_SemicircleAngularSpeed = Speed / i_Radius; // Convert linear speed to angular speed
     }
+    
+    public void InitFormation(Vector3 i_Offset)
+    {
+        m_FormationOffset = i_Offset;
+    }
+    
+    public static void SetFormationCenter(Vector3 i_Center)
+    {
+        s_FormationCenter = i_Center;
+    }
+    
+    public static void SetFormationVelocity(Vector3 i_Velocity)
+    {
+        s_FormationVelocity = i_Velocity;
+    }
 
     private void Update()
     {
@@ -72,6 +92,9 @@ public class EnemyMover : MonoBehaviour
                 break;
             case(eEnemyMoveType.SemicircleArc):
                 handleSemicircleArcWave();
+                break;
+            case(eEnemyMoveType.Formation):
+                handleFormationWave();
                 break;
             default:
                 Debug.LogError("EnemyMover: Unknown move type " + m_MoveType);
@@ -118,6 +141,13 @@ public class EnemyMover : MonoBehaviour
         float y = m_SemicircleCenter.y + m_SemicircleRadius * Mathf.Sin(m_SemicircleCurrentAngle);
         
         transform.position = new Vector3(x, y, transform.position.z);
+    }
+    
+    private void handleFormationWave()
+    {
+        // Move to formation center + individual offset
+        Vector3 targetPosition = s_FormationCenter + m_FormationOffset;
+        transform.position = targetPosition;
     }
 
     private void handleOffScreen()

@@ -131,6 +131,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Speed: 2
   m_LifeTime: 7
+  m_SpriteRenderer: {fileID: 5899304284662850739}
+  m_NormalSprite: {fileID: 4646649027328027380, guid: fa58bdb3dd08dd74ea8d7fb1acc3bba2, type: 3}
+  m_BrokenSprite: {fileID: -9192707123960044597, guid: f31384a3465ed314a8916137fbcfd113, type: 3}
 --- !u!70 &813684094753335886
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

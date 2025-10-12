@@ -13,6 +13,16 @@ public class WaveDirector : Singleton<WaveDirector>
     private readonly List<EnemyController> r_ActiveEnemies = new();
     private Coroutine m_WaveCoroutine; // Track the wave coroutine
     
+    // Sine wave pattern progression tracking
+    private static int s_SineWaveLines = 3; // Start with 3 lines, increases each time up to max 7
+    
+    // Formation pattern tracking
+    private Vector3 m_FormationCenter;
+    private Vector3 m_FormationVelocity;
+    private bool m_FormationMovingHorizontal = false;
+    private float m_FormationDirection = 1f; // 1 for right, -1 for left
+    private readonly List<EnemyController> r_FormationEnemies = new();
+    
     protected override void Awake()
     {
         base.Awake(); // Call singleton Awake first
@@ -75,6 +85,14 @@ public class WaveDirector : Singleton<WaveDirector>
         // Clear active enemies
         r_ActiveEnemies.Clear();
         
+        // Reset sine wave pattern progression
+        s_SineWaveLines = 3;
+        
+        // Reset formation pattern
+        r_FormationEnemies.Clear();
+        m_FormationMovingHorizontal = false;
+        m_FormationDirection = 1f;
+        
         // The next time Playing state is entered, it will start fresh from wave 1
     }
 
@@ -130,67 +148,162 @@ public class WaveDirector : Singleton<WaveDirector>
         }
     } 
     
-    // ---------- Pattern 1: Line of enemies ----------
+    // ---------- Pattern 1: Classic Formation ----------
     private IEnumerator Wave_Line(int i_WaveNumber)
     {
-        int count = Mathf.Clamp(6 + i_WaveNumber, 6, 14);
-        float speed = Mathf.Clamp(2.5f + i_WaveNumber * 0.15f, 2.5f, 6f);
+        const int columns = 8;
+        const int rows = 5;
+        int totalEnemies = columns * rows;
+        const float formationSpeed = 1.5f;
         
         // Check if we have enough enemies in pool
-        if (!PoolManager.Instance.HasEnoughEnemies(count))
+        if (!PoolManager.Instance.HasEnoughEnemies(totalEnemies))
         {
-            Debug.LogWarning($"Wave_Line: Not enough enemies in pool for {count} enemies. Reducing count.");
-            count = Mathf.Min(count, PoolManager.Instance.GetAvailableEnemyCount());
+            Debug.LogWarning($"Wave_Formation: Not enough enemies in pool for {totalEnemies} enemies. Skipping formation.");
+            yield return null;
+            yield break;
         }
         
-        Vector3 topMin = m_Camera.ViewportToWorldPoint(new Vector3(0.1f, 1f, 0));
-        Vector3 topMax = m_Camera.ViewportToWorldPoint(new Vector3(0.9f, 1f, 0));
-
-        for(int i = 0; i < count; i++)
+        // Clear previous formation
+        r_FormationEnemies.Clear();
+        m_FormationMovingHorizontal = false;
+        m_FormationDirection = 1f;
+        
+        // Calculate formation layout - stop at upper portion of screen
+        Vector3 stopPosition = m_Camera.ViewportToWorldPoint(new Vector3(0.5f, 0.7f, 0));
+        stopPosition.z = 0f; // Ensure Z is 0
+        Vector3 topCenter = m_Camera.ViewportToWorldPoint(new Vector3(0.5f, 1.2f, 0)); // Start above screen
+        topCenter.z = 0f; // Ensure Z is 0
+        
+        float columnSpacing = 1.2f;
+        float rowSpacing = 1f;
+        float formationWidth = (columns - 1) * columnSpacing;
+        float formationHeight = (rows - 1) * rowSpacing;
+        
+        // Initialize formation center
+        m_FormationCenter = topCenter;
+        m_FormationVelocity = Vector3.down * formationSpeed;
+        
+        // Spawn formation
+        for (int row = 0; row < rows; row++)
         {
-            float t = count == 1 ? 0.5f : i / (float)(count - 1);
-            float x = Mathf.Lerp(topMin.x, topMax.x, t);
-            var enemy = PoolManager.Instance.GetEnemy(new Vector3(x, topMax.y + 0.5f, 0), Quaternion.identity);
-            if (enemy != null)
+            for (int col = 0; col < columns; col++)
             {
-                var mover = enemy.GetComponent<EnemyMover>();
-                if (mover != null)
+                // Calculate offset from formation center
+                float xOffset = (col - (columns - 1) * 0.5f) * columnSpacing;
+                float yOffset = (row - (rows - 1) * 0.5f) * rowSpacing;
+                Vector3 offset = new Vector3(xOffset, yOffset, 0f);
+                
+                Vector3 spawnPosition = m_FormationCenter + offset;
+                var enemy = PoolManager.Instance.GetEnemy(spawnPosition, Quaternion.identity);
+                
+                if (enemy != null)
                 {
-                    mover.m_MoveType = eEnemyMoveType.StraightDown;
-                    mover.Speed = speed;
-                    r_ActiveEnemies.Add(enemy);
+                    var mover = enemy.GetComponent<EnemyMover>();
+                    if (mover != null)
+                    {
+                        mover.m_MoveType = eEnemyMoveType.Formation;
+                        mover.Speed = formationSpeed;
+                        mover.InitFormation(offset);
+                        r_ActiveEnemies.Add(enemy);
+                        r_FormationEnemies.Add(enemy);
+                    }
+                    else
+                    {
+                        Debug.LogError("WaveDirector: Enemy missing EnemyMover component!");
+                        PoolManager.Instance.ReturnEnemy(enemy);
+                    }
                 }
                 else
                 {
-                    Debug.LogError("WaveDirector: Enemy missing EnemyMover component!");
-                    // Return enemy back to pool if it's missing components
-                    PoolManager.Instance.ReturnEnemy(enemy);
+                    Debug.LogWarning($"Wave_Formation: Failed to get enemy from pool for row {row}, col {col}");
                 }
-            }
-            else
-            {
-                Debug.LogWarning($"WaveDirector: Failed to get enemy from pool for Wave_Line, enemy {i + 1}/{count}");
             }
         }
         
+        // Update formation center for all enemies
+        EnemyMover.SetFormationCenter(m_FormationCenter);
+        
+        // Start formation movement coroutine
+        StartCoroutine(UpdateFormationMovement(stopPosition.y));
+        
         yield return null;
+    }
+    
+    private IEnumerator UpdateFormationMovement(float midScreenY)
+    {
+        const float horizontalSpeed = 1.0f;
+        const int columns = 8;
+        const float columnSpacing = 1.2f;
+        float formationHalfWidth = (columns - 1) * columnSpacing * 0.5f;
+        
+        Vector3 leftEdge = m_Camera.ViewportToWorldPoint(new Vector3(0.1f, 0.5f, 0));
+        leftEdge.z = 0f; // Ensure Z is 0
+        Vector3 rightEdge = m_Camera.ViewportToWorldPoint(new Vector3(0.9f, 0.5f, 0));
+        rightEdge.z = 0f; // Ensure Z is 0
+        
+        while (r_FormationEnemies.Count > 0)
+        {
+            // Clean up destroyed enemies
+            r_FormationEnemies.RemoveAll(enemy => enemy == null || !enemy.gameObject.activeInHierarchy);
+            
+            if (r_FormationEnemies.Count == 0) break;
+            
+            // Move formation downward until it reaches middle of screen
+            if (!m_FormationMovingHorizontal && m_FormationCenter.y > midScreenY)
+            {
+                m_FormationCenter += m_FormationVelocity * Time.deltaTime;
+            }
+            else if (!m_FormationMovingHorizontal)
+            {
+                // Switch to horizontal movement
+                m_FormationMovingHorizontal = true;
+                m_FormationVelocity = Vector3.right * horizontalSpeed * m_FormationDirection;
+            }
+            
+            // Handle horizontal movement and edge detection
+            if (m_FormationMovingHorizontal)
+            {
+                m_FormationCenter += m_FormationVelocity * Time.deltaTime;
+                
+                // Check if formation reached screen edges and change direction
+                // Account for formation width so outermost columns don't exit screen
+                if (m_FormationDirection > 0 && m_FormationCenter.x + formationHalfWidth > rightEdge.x)
+                {
+                    m_FormationDirection = -1f;
+                    m_FormationVelocity = Vector3.right * horizontalSpeed * m_FormationDirection;
+                }
+                else if (m_FormationDirection < 0 && m_FormationCenter.x - formationHalfWidth < leftEdge.x)
+                {
+                    m_FormationDirection = 1f;
+                    m_FormationVelocity = Vector3.right * horizontalSpeed * m_FormationDirection;
+                }
+            }
+            
+            // Update formation center for all enemies
+            EnemyMover.SetFormationCenter(m_FormationCenter);
+            
+            yield return null;
+        }
     }
     
     // ---------- Pattern 2: Arc of enemies (Sine) ----------
     private IEnumerator Wave_Arc(int i_WaveNumber)
     {
-        int rows = 2;
-        int perRow = Mathf.Clamp(4 + i_WaveNumber / 2, 4, 10);
+        // Fixed configuration: 7 chickens per line, constant speed, progressive line count
+        const int perRow = 7;
+        int rows = s_SineWaveLines; // Use current line count (3-7)
         int totalEnemies = rows * perRow;
-        float baseSpeed = Mathf.Clamp(2.2f + i_WaveNumber * 0.12f, 2.2f, 5.2f);
+        const float baseSpeed = 2.2f; // Constant speed as requested
+        const float lineGap = 1.6f; // Doubled gap between lines (was 0.8f)
         
         // Check if we have enough enemies in pool
         if (!PoolManager.Instance.HasEnoughEnemies(totalEnemies))
         {
             Debug.LogWarning($"Wave_Arc: Not enough enemies in pool for {totalEnemies} enemies. Reducing formation.");
             int availableEnemies = PoolManager.Instance.GetAvailableEnemyCount();
-            // Reduce formation size proportionally
-            perRow = Mathf.Max(1, availableEnemies / rows);
+            // Reduce number of rows if not enough enemies
+            rows = Mathf.Max(1, availableEnemies / perRow);
         }
         
         Vector3 topMin = m_Camera.ViewportToWorldPoint(new Vector3(0.15f, 1f, 0));
@@ -202,7 +315,7 @@ public class WaveDirector : Singleton<WaveDirector>
             {
                 float t = perRow == 1 ? 0.5f : i / (float)(perRow - 1);
                 float x = Mathf.Lerp(topMin.x, topMax.x, t);
-                float y = topMax.y + 0.5f + r * 0.8f;
+                float y = topMax.y + 0.5f + r * lineGap; // Use doubled gap
                 
                 var enemy = PoolManager.Instance.GetEnemy(new Vector3(x, y, 0f), Quaternion.identity);
                 if (enemy != null)
@@ -230,12 +343,18 @@ public class WaveDirector : Singleton<WaveDirector>
             
             yield return new WaitForSeconds(0.4f);
         }
+        
+        // Increase line count for next time this pattern appears (max 7 lines)
+        if (s_SineWaveLines < 7)
+        {
+            s_SineWaveLines++;
+        }
     }
     
     // ---------- Pattern 3: Diving enemies ----------
     private IEnumerator Wave_Dive(int i_WaveNumber)
     {
-        int waves = 3;
+        int waves = Mathf.Clamp(3 + i_WaveNumber / 5, 3, 6);
         int perBurst = Mathf.Clamp(3 + i_WaveNumber / 3, 3, 8);
         int totalEnemies = waves * perBurst;
         float entrySpeed = Mathf.Clamp(2.8f + 0.1f * i_WaveNumber * 0.1f, 2.8f, 6.5f);
@@ -281,18 +400,26 @@ public class WaveDirector : Singleton<WaveDirector>
                 }
             }
             
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(1f);
         }
     }
     
     // ---------- Pattern 4: Columns ----------
     private IEnumerator Wave_Columns(int i_WaveNumber)
     {
-        int columns = Mathf.Clamp(3 + i_WaveNumber / 3, 3, 6);
-        int rosPerColumn = Mathf.Clamp(3 + i_WaveNumber / 2, 3, 8);
+        int columns = Mathf.Clamp(3 + i_WaveNumber / 5, 3, 6);
+        int rosPerColumn = Mathf.Clamp(5 + i_WaveNumber / 5, 3, 8);
         int totalEnemies = columns * rosPerColumn;
-        float columnSpacing = 1.6f;
         float rowSpacing = 0.8f;
+        
+        // Reduced base speed and smaller increments for better gameplay
+        float baseSpeed = 1.5f + 0.08f * i_WaveNumber; // Reduced from 1.5f + 0.15f
+        
+        // Dynamic column spacing to cover full viewport width
+        Vector3 leftEdge = m_Camera.ViewportToWorldPoint(new Vector3(0.1f, 1f, 0));
+        Vector3 rightEdge = m_Camera.ViewportToWorldPoint(new Vector3(0.9f, 1f, 0));
+        float availableWidth = rightEdge.x - leftEdge.x;
+        float columnSpacing = columns > 1 ? availableWidth / (columns - 1) : 0f;
         
         // Check if we have enough enemies in pool
         if (!PoolManager.Instance.HasEnoughEnemies(totalEnemies))
@@ -307,17 +434,21 @@ public class WaveDirector : Singleton<WaveDirector>
                     columns = 1;
                     rosPerColumn = availableEnemies;
                 }
+                // Recalculate spacing with new column count
+                columnSpacing = columns > 1 ? availableWidth / (columns - 1) : 0f;
             }
         }
         
         Vector3 center = m_Camera.ViewportToWorldPoint(new Vector3(0.5f, 1f, 0));
-        float startX = center.x - (columns - 1) * columnSpacing * 0.5f;
         
         for (int col = 0; col < columns; col++)
         {
             for (int row = 0; row < rosPerColumn; row++)
             {
-                Vector3 position = new Vector3(startX + col * columnSpacing, center.y + 0.5f + row * rowSpacing, 0f);
+                // Calculate X position to spread across full viewport width
+                float x = columns == 1 ? center.x : leftEdge.x + col * columnSpacing;
+                Vector3 position = new Vector3(x, center.y + 0.5f + row * rowSpacing, 0f);
+                
                 var enemy = PoolManager.Instance.GetEnemy(position, Quaternion.identity);
                 if (enemy != null)
                 {
@@ -325,7 +456,7 @@ public class WaveDirector : Singleton<WaveDirector>
                     if (mover != null)
                     {
                         mover.m_MoveType = eEnemyMoveType.StraightDown;
-                        mover.Speed = 2.5f + 0.15f * i_WaveNumber;
+                        mover.Speed = baseSpeed;
                         r_ActiveEnemies.Add(enemy);
                     }
                     else
@@ -347,7 +478,7 @@ public class WaveDirector : Singleton<WaveDirector>
     // ---------- Pattern 5: Pincer ----------
     private IEnumerator Wave_Pincer(int i_WaveNumber)
     {
-        int pairs = Mathf.Clamp(4 + i_WaveNumber / 2, 4, 10);
+        int pairs = Mathf.Clamp(8 + i_WaveNumber / 5 * 2, 10, 25);
         int totalEnemies = pairs * 2; // 2 enemies per pair
         
         // Check if we have enough enemies in pool
@@ -417,7 +548,7 @@ public class WaveDirector : Singleton<WaveDirector>
                 Debug.LogWarning($"Wave_Pincer: Failed to get right enemy from pool for pair {p + 1}/{pairs}");
             }
             
-            yield return new WaitForSeconds(0.18f);
+            yield return new WaitForSeconds(0.35f);
         }
     }
 }

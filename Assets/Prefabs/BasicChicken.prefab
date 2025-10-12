@@ -381,5 +381,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72a611128502e549a8ebfb00865227d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinShootInterval: 3
-  m_MaxShootInterval: 8
+  m_MinShootInterval: 5
+  m_MaxShootInterval: 12

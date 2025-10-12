@@ -10,4 +10,5 @@
     GameOver,
     BombLaunch,
     LayEgg,
+    EggCrack,
 }
