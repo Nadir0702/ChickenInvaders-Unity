@@ -6,13 +6,27 @@ public class PlayerController : Singleton<PlayerController>
     private static readonly int sr_MovingLeft = Animator.StringToHash("MovingLeft");
     private static readonly int sr_MovingRight = Animator.StringToHash("MovingRight");
     
+    [Header("General")]
     [SerializeField] private Rigidbody2D m_Rigidbody2D;
     [SerializeField] private float m_MoveSpeed = 8f;
     [SerializeField] private Vector2 m_Padding = new Vector2(0.5f, 0.5f);
     [SerializeField] private Animator m_Animator;
+    [SerializeField] private bool m_UseMouseControls = true;
+    
+    [Header("Mouse Controls")]
+    [SerializeField] private float m_MouseSmoothTime = 0.1f;
+    [SerializeField] private bool m_UseMouseSmoothing = true;
+    
+    [Header("Keyboard Controls")]
+    [SerializeField] private float m_KeyboardAcceleration = 25f;
+    [SerializeField] private float m_KeyboardDrag = 15f;
+    [SerializeField] private bool m_UseKeyboardSmoothing = true;
 
     private Camera m_Camera;
     private Vector2 m_Input;
+    private Vector3 m_TargetPosition;
+    private Vector3 m_CurrentVelocity; // For SmoothDamp
+    private Vector2 m_KeyboardVelocity; // Current keyboard velocity
     
     // Track current movement state to avoid unnecessary animator calls
     private bool m_IsMovingLeft = false;
@@ -31,30 +45,136 @@ public class PlayerController : Singleton<PlayerController>
             m_Animator.SetBool(sr_MovingLeft, false);
             m_Animator.SetBool(sr_MovingRight, false);
         }
+        
+        // Initialize target position to current position
+        m_TargetPosition = transform.position;
     }
 
     private void Update()
     {
         if (GameManager.Instance.GameState != eGameState.Playing) return;
-        // Old Input Manager
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        m_Input = new Vector2(x, y).normalized;
+        
+        if (m_UseMouseControls && m_Camera != null)
+        {
+            handleMouseInput();
+        }
+        else
+        {
+            handleKeyboardInput();
+        }
     }
 
     private void FixedUpdate()
     {
         if (GameManager.Instance.GameState != eGameState.Playing) return;
         
-        Vector2 targetVel = m_Input * m_MoveSpeed;
-        m_Rigidbody2D.linearVelocity = targetVel;
+        if (m_UseMouseControls && m_Camera != null)
+        {
+            handleMouseMovement();
+        }
+        else
+        {
+            handleKeyboardMovement();
+        }
 
-        // Update sprite based on input direction
+        // Update sprite based on movement direction
         updateSpriteDirection();
+    }
 
-        // Soft-clamp using camera bounds
+    private void handleMouseInput()
+    {
+        // Mouse controls - ship follows mouse position directly
+        Vector3 mouseWorldPos = m_Camera.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = transform.position.z; // Keep same Z position
+        
+        // Clamp mouse target position to screen bounds (same as keyboard)
+        Vector3 min = m_Camera.ViewportToWorldPoint(new Vector3(0, 0.15f, 0));
+        Vector3 max = m_Camera.ViewportToWorldPoint(new Vector3(1, 1, 0));
+        mouseWorldPos.x = Mathf.Clamp(mouseWorldPos.x, min.x + m_Padding.x, max.x - m_Padding.x);
+        mouseWorldPos.y = Mathf.Clamp(mouseWorldPos.y, min.y + m_Padding.y, max.y - m_Padding.y);
+        
+        m_TargetPosition = mouseWorldPos;
+    }
+    
+    private void handleKeyboardInput()
+    {
+        // Keyboard controls (fallback) - use traditional input-based movement
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+        m_Input = new Vector2(x, y).normalized;
+    }
+    
+    private void handleMouseMovement()
+    {
+        // Mouse controls - move towards target position
+        Vector3 currentPos = transform.position;
+        Vector3 newPos;
+        
+        if (m_UseMouseSmoothing)
+        {
+            // Smooth movement towards mouse position
+            newPos = Vector3.SmoothDamp(currentPos, m_TargetPosition, ref m_CurrentVelocity, m_MouseSmoothTime);
+        }
+        else
+        {
+            // Direct movement towards mouse position
+            newPos = Vector3.MoveTowards(currentPos, m_TargetPosition, m_MoveSpeed * Time.fixedDeltaTime);
+        }
+        
+        // Calculate movement direction for animation
+        Vector3 movementDirection = (newPos - currentPos).normalized;
+        m_Input = new Vector2(movementDirection.x, movementDirection.y);
+        
+        // Apply position directly (no rigidbody velocity for mouse control)
+        transform.position = newPos;
+    }
+    
+    private void handleKeyboardMovement()
+    {
+        // Keyboard controls - smooth acceleration and deceleration
+        if (m_UseKeyboardSmoothing)
+        {
+            // Calculate target velocity
+            Vector2 targetVelocity = m_Input * m_MoveSpeed;
+            
+            // Smooth acceleration/deceleration
+            if (m_Input.magnitude > 0.1f)
+            {
+                // Accelerating towards target
+                m_KeyboardVelocity = Vector2.MoveTowards(m_KeyboardVelocity, targetVelocity, 
+                    m_KeyboardAcceleration * Time.fixedDeltaTime);
+            }
+            else
+            {
+                // Decelerating (drag)
+                m_KeyboardVelocity = Vector2.MoveTowards(m_KeyboardVelocity, Vector2.zero, 
+                    m_KeyboardDrag * Time.fixedDeltaTime);
+            }
+            
+            // Apply smooth velocity
+            m_Rigidbody2D.linearVelocity = m_KeyboardVelocity;
+        }
+        else
+        {
+            // Original instant keyboard movement
+            Vector2 targetVel = m_Input * m_MoveSpeed;
+            m_Rigidbody2D.linearVelocity = targetVel;
+        }
+
+        // Soft-clamp using camera bounds for keyboard movement
+        clampToScreenBounds();
+        
+        // Update input for animation based on current velocity
+        if (m_UseKeyboardSmoothing)
+        {
+            m_Input = m_KeyboardVelocity.normalized * Mathf.Min(m_KeyboardVelocity.magnitude / m_MoveSpeed, 1f);
+        }
+    }
+    
+    private void clampToScreenBounds()
+    {
         Vector3 pos = transform.position;
-        Vector3 min = m_Camera.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 min = m_Camera.ViewportToWorldPoint(new Vector3(0, 0.15f, 0));
         Vector3 max = m_Camera.ViewportToWorldPoint(new Vector3(1, 1, 0));
         pos.x = Mathf.Clamp(pos.x, min.x + m_Padding.x, max.x - m_Padding.x);
         pos.y = Mathf.Clamp(pos.y, min.y + m_Padding.y, max.y - m_Padding.y);
@@ -114,5 +234,10 @@ public class PlayerController : Singleton<PlayerController>
         // Reset movement state tracking
         m_IsMovingLeft = false;
         m_IsMovingRight = false;
+        
+        // Reset target position and smoothing velocity
+        m_TargetPosition = transform.position;
+        m_CurrentVelocity = Vector3.zero;
+        m_KeyboardVelocity = Vector2.zero;
     }
 }

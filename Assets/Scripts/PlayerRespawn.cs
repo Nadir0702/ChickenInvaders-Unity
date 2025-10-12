@@ -7,7 +7,7 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private GameObject m_ExplosionPrefab; // Assign explosion animation prefab in inspector
     [SerializeField] private float m_RespawnDelay = 1f; // Time before respawn starts
     [SerializeField] private float m_RespawnSpeed = 5f; // Speed of respawn movement
-    [SerializeField] private Vector3 m_RespawnPosition = new Vector3(0f, -4f, 0f); // Final respawn position
+    [SerializeField] private Vector3 m_RespawnPosition = new Vector3(0f, -3.5f, 0f); // Final respawn position
     
     private Camera m_Camera;
     private Vector3 m_OffScreenPosition; // Position below screen where respawn starts
