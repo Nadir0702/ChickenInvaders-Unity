@@ -13,7 +13,9 @@ public class AudioManager : Singleton<AudioManager>
                       m_GameOver,
                       m_BombLaunch,
                       m_LayEgg,
-                      m_EggCrack;
+                      m_EggCrack,
+                      m_LightSpeed,
+                      m_NewRound;
     [SerializeField] private AudioSource m_AudioSource;
     
     public void Play (eSFXId i_SfxId, float i_Volume = 1f, float i_Pitch = 1f)
@@ -31,6 +33,8 @@ public class AudioManager : Singleton<AudioManager>
             eSFXId.BombLaunch => m_BombLaunch,
             eSFXId.LayEgg => m_LayEgg,
             eSFXId.EggCrack => m_EggCrack,
+            eSFXId.LightSpeed => m_LightSpeed,
+            eSFXId.NewRound => m_NewRound,
             _ => null
         };
 

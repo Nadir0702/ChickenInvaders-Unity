@@ -5,12 +5,14 @@ public class PlayerController : Singleton<PlayerController>
     // Animation parameter hashes for performance
     private static readonly int sr_MovingLeft = Animator.StringToHash("MovingLeft");
     private static readonly int sr_MovingRight = Animator.StringToHash("MovingRight");
+    private static readonly int sr_IsLightSpeed = Animator.StringToHash("IsLightSpeed");
     
     [Header("General")]
     [SerializeField] private Rigidbody2D m_Rigidbody2D;
     [SerializeField] private float m_MoveSpeed = 8f;
     [SerializeField] private Vector2 m_Padding = new Vector2(0.5f, 0.5f);
-    [SerializeField] private Animator m_Animator;
+    [SerializeField] private Animator m_MovementAnimator;
+    [SerializeField] private Animator m_JetAnimator;
     [SerializeField] private bool m_UseMouseControls = true;
     
     [Header("Mouse Controls")]
@@ -40,10 +42,15 @@ public class PlayerController : Singleton<PlayerController>
     private void Start()
     {
         // Initialize animator to Straight state
-        if (m_Animator != null)
+        if (m_MovementAnimator != null)
         {
-            m_Animator.SetBool(sr_MovingLeft, false);
-            m_Animator.SetBool(sr_MovingRight, false);
+            m_MovementAnimator.SetBool(sr_MovingLeft, false);
+            m_MovementAnimator.SetBool(sr_MovingRight, false);
+        }
+        
+        if (m_JetAnimator != null)
+        {
+            m_JetAnimator.SetBool(sr_IsLightSpeed, false);
         }
         
         // Initialize target position to current position
@@ -183,7 +190,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void updateSpriteDirection()
     {
-        if (m_Animator == null) return;
+        if (m_MovementAnimator == null) return;
         
         // Determine current input state
         bool shouldMoveLeft = m_Input.x < -0.1f;
@@ -193,24 +200,24 @@ public class PlayerController : Singleton<PlayerController>
         if (shouldMoveLeft && !m_IsMovingLeft)
         {
             // Start moving left
-            m_Animator.SetBool(sr_MovingLeft, true);
-            m_Animator.SetBool(sr_MovingRight, false);
+            m_MovementAnimator.SetBool(sr_MovingLeft, true);
+            m_MovementAnimator.SetBool(sr_MovingRight, false);
             m_IsMovingLeft = true;
             m_IsMovingRight = false;
         }
         else if (shouldMoveRight && !m_IsMovingRight)
         {
             // Start moving right
-            m_Animator.SetBool(sr_MovingLeft, false);
-            m_Animator.SetBool(sr_MovingRight, true);
+            m_MovementAnimator.SetBool(sr_MovingLeft, false);
+            m_MovementAnimator.SetBool(sr_MovingRight, true);
             m_IsMovingLeft = false;
             m_IsMovingRight = true;
         }
         else if (!shouldMoveLeft && !shouldMoveRight && (m_IsMovingLeft || m_IsMovingRight))
         {
             // Stop moving (return to straight)
-            m_Animator.SetBool(sr_MovingLeft, false);
-            m_Animator.SetBool(sr_MovingRight, false);
+            m_MovementAnimator.SetBool(sr_MovingLeft, false);
+            m_MovementAnimator.SetBool(sr_MovingRight, false);
             m_IsMovingLeft = false;
             m_IsMovingRight = false;
         }
@@ -225,10 +232,10 @@ public class PlayerController : Singleton<PlayerController>
         if (m_Rigidbody2D) m_Rigidbody2D.linearVelocity = Vector2.zero;
         
         // Reset animator to straight position
-        if (m_Animator != null)
+        if (m_MovementAnimator != null)
         {
-            m_Animator.SetBool(sr_MovingLeft, false);
-            m_Animator.SetBool(sr_MovingRight, false);
+            m_MovementAnimator.SetBool(sr_MovingLeft, false);
+            m_MovementAnimator.SetBool(sr_MovingRight, false);
         }
         
         // Reset movement state tracking
@@ -239,5 +246,20 @@ public class PlayerController : Singleton<PlayerController>
         m_TargetPosition = transform.position;
         m_CurrentVelocity = Vector3.zero;
         m_KeyboardVelocity = Vector2.zero;
+    }
+
+    public void GoToLightSpeed()
+    {
+        if (m_JetAnimator == null) return;
+        
+        m_JetAnimator.SetBool(sr_IsLightSpeed, true);
+        AudioManager.Instance?.Play(eSFXId.LightSpeed);
+    }
+    
+    public void ExitLightSpeed()
+    {
+        if (m_JetAnimator == null) return;
+        
+        m_JetAnimator.SetBool(sr_IsLightSpeed, false);
     }
 }

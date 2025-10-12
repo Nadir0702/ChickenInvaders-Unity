@@ -125,8 +125,23 @@ public class WaveDirector : Singleton<WaveDirector>
             // Wait for complete wave clear
             yield return StartCoroutine(waitForWaveClear());
             
+            bool shouldGoToLightSpeed = waveNumber % 5 == 0;
+            if(shouldGoToLightSpeed)
+            {
+                m_InterWaveDelay = 12;
+                PlayerController.Instance?.GoToLightSpeed();
+            }
+            else
+            {
+                m_InterWaveDelay = 3;
+            }
+            
             // Banner/UI hook later (e.g., "Wave X cleared!")
             yield return new WaitForSeconds(m_InterWaveDelay);
+            if(shouldGoToLightSpeed)
+            {
+                PlayerController.Instance?.ExitLightSpeed();
+            }
             waveNumber++;
         }
         
@@ -169,6 +184,8 @@ public class WaveDirector : Singleton<WaveDirector>
         m_FormationMovingHorizontal = false;
         m_FormationDirection = 1f;
         
+        AudioManager.Instance?.Play(eSFXId.NewRound, 0.8f, 1.5f);
+        
         // Calculate formation layout - stop at upper portion of screen
         Vector3 stopPosition = m_Camera.ViewportToWorldPoint(new Vector3(0.5f, 0.7f, 0));
         stopPosition.z = 0f; // Ensure Z is 0
@@ -177,8 +194,6 @@ public class WaveDirector : Singleton<WaveDirector>
         
         float columnSpacing = 1.2f;
         float rowSpacing = 1f;
-        float formationWidth = (columns - 1) * columnSpacing;
-        float formationHeight = (rows - 1) * rowSpacing;
         
         // Initialize formation center
         m_FormationCenter = topCenter;

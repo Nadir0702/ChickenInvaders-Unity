@@ -2076,6 +2076,9 @@ MonoBehaviour:
   m_GameOver: {fileID: 8300000, guid: 009c6332295ebd14cb33f6ebaf776ceb, type: 3}
   m_BombLaunch: {fileID: 8300000, guid: 9dc0eb52508d7a149b18d842a934954e, type: 3}
   m_LayEgg: {fileID: 8300000, guid: a95f4db846b7f0442b880f7b6e1d4e0a, type: 3}
+  m_EggCrack: {fileID: 8300000, guid: 06100ef152cde8849979a12ae2dbe5dc, type: 3}
+  m_LightSpeed: {fileID: 8300000, guid: 5217bc6658ac01a4abb38b4379e8c52a, type: 3}
+  m_NewRound: {fileID: 8300000, guid: 4f85c9b40678ab843bd7cae49f7025c7, type: 3}
   m_AudioSource: {fileID: 1941854441}
 --- !u!82 &1941854441
 AudioSource:

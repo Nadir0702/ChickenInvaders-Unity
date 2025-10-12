@@ -11,4 +11,6 @@
     BombLaunch,
     LayEgg,
     EggCrack,
+    LightSpeed,
+    NewRound,
 }
