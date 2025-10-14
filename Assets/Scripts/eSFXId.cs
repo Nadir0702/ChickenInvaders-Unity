@@ -13,4 +13,5 @@
     EggCrack,
     LightSpeed,
     NewRound,
+    BossHit,
 }

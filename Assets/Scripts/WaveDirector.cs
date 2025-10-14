@@ -6,12 +6,14 @@ using Random = UnityEngine.Random;
 public class WaveDirector : Singleton<WaveDirector>
 {
     [SerializeField] private EnemyController m_EnemyPrefab;
+    [SerializeField] private GameObject m_BossPrefab; // Boss prefab reference
     [SerializeField] private Transform m_Player;
     [SerializeField] private float m_InterWaveDelay = 2.5f;
     
     private Camera m_Camera;
     private readonly List<EnemyController> r_ActiveEnemies = new();
     private Coroutine m_WaveCoroutine; // Track the wave coroutine
+    private BossController m_CurrentBoss; // Track current boss
     
     // Sine wave pattern progression tracking
     private static int s_SineWaveLines = 3; // Start with 3 lines, increases each time up to max 7
@@ -60,12 +62,9 @@ public class WaveDirector : Singleton<WaveDirector>
         }
         else if (i_NewState == eGameState.Menu || i_NewState == eGameState.GameOver)
         {
-            // Stop waves when returning to menu or game over (restart scenario)
-            if (m_WaveCoroutine != null)
-            {
-                StopCoroutine(m_WaveCoroutine);
-                m_WaveCoroutine = null;
-            }
+            // Stop ALL coroutines when returning to menu or game over (restart scenario)
+            StopAllCoroutines();
+            m_WaveCoroutine = null;
         }
         // Note: We don't stop the coroutine when pausing - let it continue but wait in the loop
     }
@@ -75,15 +74,19 @@ public class WaveDirector : Singleton<WaveDirector>
     /// </summary>
     public void ResetWaves()
     {
-        // Stop current wave coroutine if running
-        if (m_WaveCoroutine != null)
-        {
-            StopCoroutine(m_WaveCoroutine);
-            m_WaveCoroutine = null;
-        }
+        // Stop ALL coroutines to ensure no leftover spawning continues
+        StopAllCoroutines();
+        m_WaveCoroutine = null;
         
         // Clear active enemies
         r_ActiveEnemies.Clear();
+        
+        // Destroy current boss if exists
+        if (m_CurrentBoss != null)
+        {
+            m_CurrentBoss.DeactivateBoss();
+            m_CurrentBoss = null;
+        }
         
         // Reset sine wave pattern progression
         s_SineWaveLines = 3;
@@ -116,16 +119,23 @@ public class WaveDirector : Singleton<WaveDirector>
             // Notify pickup manager of new wave
             PickupManager.Instance?.OnWaveStart();
             
-            if(waveNumber % 5 == 1) yield return StartCoroutine(Wave_Line(waveNumber));
-            else if(waveNumber % 5 == 2) yield return StartCoroutine(Wave_Arc(waveNumber));
-            else if(waveNumber % 5 == 3) yield return StartCoroutine(Wave_Dive(waveNumber));
-            else if(waveNumber % 5 == 4) yield return StartCoroutine(Wave_Columns(waveNumber));
-            else if(waveNumber % 5 == 0) yield return StartCoroutine(Wave_Pincer(waveNumber));
+            if(waveNumber % 6 == 1) yield return StartCoroutine(Wave_Line(waveNumber));
+            else if(waveNumber % 6 == 2) yield return StartCoroutine(Wave_Arc(waveNumber));
+            else if(waveNumber % 6 == 3) yield return StartCoroutine(Wave_Dive(waveNumber));
+            else if(waveNumber % 6 == 4) yield return StartCoroutine(Wave_Columns(waveNumber));
+            else if(waveNumber % 6 == 5) yield return StartCoroutine(Wave_Pincer(waveNumber));
+            else if(waveNumber % 6 == 0) yield return StartCoroutine(Wave_Boss(waveNumber));
             
             // Wait for complete wave clear
             yield return StartCoroutine(waitForWaveClear());
             
-            bool shouldGoToLightSpeed = waveNumber % 5 == 0;
+            // Check if this was a pincer wave (wave 5) - fade out theme music before boss
+            if (waveNumber % 6 == 5)
+            {
+                AudioManager.Instance?.FadeMusic();
+            }
+            
+            bool shouldGoToLightSpeed = waveNumber % 6 == 0; // After boss battles
             if(shouldGoToLightSpeed)
             {
                 m_InterWaveDelay = 12;
@@ -141,6 +151,8 @@ public class WaveDirector : Singleton<WaveDirector>
             if(shouldGoToLightSpeed)
             {
                 PlayerController.Instance?.ExitLightSpeed();
+                // After boss battle and light speed, start new wave cycle with theme music
+                AudioManager.Instance?.OnNewWaveCycleStart();
             }
             waveNumber++;
         }
@@ -155,10 +167,17 @@ public class WaveDirector : Singleton<WaveDirector>
         // Clean up enemies that are inactive (returned to pool)
         r_ActiveEnemies.RemoveAll(i_Enemy => !i_Enemy.gameObject.activeInHierarchy);
         
+        // Wait for regular enemies to be cleared
         while(r_ActiveEnemies.Count > 0)
         {
             // Continuously clean up enemies that have been returned to pool
             r_ActiveEnemies.RemoveAll(i_Enemy => !i_Enemy.gameObject.activeInHierarchy);
+            yield return null;
+        }
+        
+        // If there's a boss, wait for it to be defeated
+        while (m_CurrentBoss != null && m_CurrentBoss.IsActive)
+        {
             yield return null;
         }
     } 
@@ -170,6 +189,8 @@ public class WaveDirector : Singleton<WaveDirector>
         const int rows = 5;
         int totalEnemies = columns * rows;
         const float formationSpeed = 1.5f;
+
+        yield return new WaitForSeconds(2f);
         
         // Check if we have enough enemies in pool
         if (!PoolManager.Instance.HasEnoughEnemies(totalEnemies))
@@ -563,7 +584,60 @@ public class WaveDirector : Singleton<WaveDirector>
                 Debug.LogWarning($"Wave_Pincer: Failed to get right enemy from pool for pair {p + 1}/{pairs}");
             }
             
-            yield return new WaitForSeconds(0.35f);
+            yield return new WaitForSeconds(0.25f);
         }
+        
+        // Pincer wave spawning complete, but don't fade music yet - wait for wave to be cleared
     }
+    
+    // ---------- Pattern 6: Boss Battle ----------
+    private IEnumerator Wave_Boss(int i_WaveNumber)
+    {
+        // Check if boss prefab is assigned
+        if (m_BossPrefab == null)
+        {
+            Debug.LogError("WaveDirector: Boss prefab not assigned! Skipping boss wave.");
+            yield break;
+        }
+        
+        // Ensure no previous boss exists
+        if (m_CurrentBoss != null)
+        {
+            m_CurrentBoss.DeactivateBoss();
+            m_CurrentBoss = null;
+        }
+        
+        // Start boss music
+        AudioManager.Instance?.OnBossWaveStart();
+        
+        // Spawn boss above screen center
+        Vector3 bossSpawnPosition = m_Camera.ViewportToWorldPoint(new Vector3(0.5f, 1.2f, 0));
+        bossSpawnPosition.z = 0f;
+        
+        GameObject bossObject = Instantiate(m_BossPrefab, bossSpawnPosition, Quaternion.identity);
+        m_CurrentBoss = bossObject.GetComponent<BossController>();
+        
+        if (m_CurrentBoss != null)
+        {
+            m_CurrentBoss.InitializeBoss();
+            Debug.Log($"Boss spawned for wave {i_WaveNumber}!");
+        }
+        else
+        {
+            Debug.LogError("WaveDirector: Boss prefab missing BossController component!");
+            Destroy(bossObject);
+        }
+        
+        yield return null;
+    }
+    
+    /// <summary>
+    /// Called by BossController when boss is killed
+    /// </summary>
+    public void OnBossKilled()
+    {
+        m_CurrentBoss = null;
+        Debug.Log("Boss defeated! Wave cleared.");
+    }
+    
 }

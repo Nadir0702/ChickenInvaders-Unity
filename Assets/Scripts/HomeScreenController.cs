@@ -20,4 +20,9 @@ public class HomeScreenController : MonoBehaviour
     {
         GameManager.Instance?.QuitApplication();
     }
+
+    public void OnControlsClick()
+    {
+        UIManager.Instance?.ShowControlsPanel();
+    }
 }

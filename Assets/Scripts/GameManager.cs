@@ -145,6 +145,9 @@ public class GameManager : Singleton<GameManager>
         // Reset wave director to start from wave 1
         WaveDirector.Instance?.ResetWaves();
         
+        // Reset music paused time but don't restart (continue from menu)
+        AudioManager.Instance?.ResetMusicTime();
+        
         initializeGame();
         setGameState(eGameState.Playing);
         
@@ -184,6 +187,9 @@ public class GameManager : Singleton<GameManager>
     {
         // Reset wave director to start from wave 1
         WaveDirector.Instance?.ResetWaves();
+        
+        // Restart music from beginning
+        AudioManager.Instance?.OnGameRestart();
         
         initializeGame();
         setGameState(eGameState.Playing);

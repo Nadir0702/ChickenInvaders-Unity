@@ -10,13 +10,12 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject m_GameOverPanel;
     [SerializeField] private GameObject m_PausePanel;
     [SerializeField] private GameObject m_HomeScreenPanel;
+    [SerializeField] private GameObject m_ControlsPanel;
 
     private void Start()
     {
         // Initialize all panels as inactive
-        m_GameOverPanel?.SetActive(false);
-        m_PausePanel?.SetActive(false);
-        m_HomeScreenPanel?.SetActive(false);
+        hideAllPanels();
         
         // Ensure we don't double-subscribe if this Start() is called multiple times
         GameManager.OnGameStateChanged -= showState; // Unsubscribe first (safe even if not subscribed)
@@ -44,10 +43,8 @@ public class UIManager : Singleton<UIManager>
     private void showState(eGameState i_GameState)
     {
         // Hide all panels first
-        m_GameOverPanel?.SetActive(false);
-        m_PausePanel?.SetActive(false);
-        m_HomeScreenPanel?.SetActive(false);
-        
+        hideAllPanels();
+
         // Show appropriate panel for current state
         switch (i_GameState)
         {
@@ -66,6 +63,14 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
+    private void hideAllPanels()
+    {
+        m_GameOverPanel?.SetActive(false);
+        m_PausePanel?.SetActive(false);
+        m_HomeScreenPanel?.SetActive(false);
+        m_ControlsPanel?.SetActive(false);
+    }
+
     public void SetWeaponLevel(int i_WeaponLevel)
     {
         if(m_WeaponLevelText) m_WeaponLevelText.text = $"Wpn Lvl: {i_WeaponLevel}";
@@ -74,5 +79,19 @@ public class UIManager : Singleton<UIManager>
     public void SetBombs(int i_Amount)
     {
         if (m_BombsAmountText) m_BombsAmountText.text = $"Bombs: {i_Amount}";
+    }
+
+    public void ShowControlsPanel()
+    {
+        hideAllPanels();
+        
+        m_ControlsPanel?.SetActive(true);
+    }
+
+    public void HideControlsPanel()
+    {
+        hideAllPanels();
+        
+        m_HomeScreenPanel?.SetActive(true);
     }
 }

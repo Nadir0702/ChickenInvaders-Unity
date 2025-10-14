@@ -253,7 +253,9 @@ public class PlayerController : Singleton<PlayerController>
         if (m_JetAnimator == null) return;
         
         m_JetAnimator.SetBool(sr_IsLightSpeed, true);
-        AudioManager.Instance?.Play(eSFXId.LightSpeed);
+        AudioManager.Instance?.PlayLightSpeedSFX(); // Play pausable SFX
+        AudioManager.Instance?.OnLightSpeedStart(); // Start LightSpeed music
+        ParallaxManager.Instance?.AccelerateBackground(); // Accelerate background
     }
     
     public void ExitLightSpeed()
@@ -261,5 +263,12 @@ public class PlayerController : Singleton<PlayerController>
         if (m_JetAnimator == null) return;
         
         m_JetAnimator.SetBool(sr_IsLightSpeed, false);
+        AudioManager.Instance?.StopSFX(); // Stop light speed SFX
+        ParallaxManager.Instance?.DecelerateBackground(); // Decelerate background
+    }
+
+    public void ToggleControls()
+    {
+        m_UseMouseControls = !m_UseMouseControls;
     }
 }

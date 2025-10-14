@@ -48,4 +48,12 @@ public class PickupManager : Singleton<PickupManager>
             m_WeaponPowerUpsDroppedThisWave++;
         }
     }
+    
+    /// <summary>
+    /// Spawn food at specific position (used by boss drops)
+    /// </summary>
+    public void SpawnFood(Vector3 i_Position)
+    {
+        PoolManager.Instance?.GetFood(i_Position);
+    }
 }
