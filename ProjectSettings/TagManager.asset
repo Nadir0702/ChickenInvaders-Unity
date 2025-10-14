@@ -47,16 +47,22 @@ TagManager:
   - name: BG
     uniqueID: 819048103
     locked: 0
+  - name: Enemy Bullets
+    uniqueID: 203077457
+    locked: 0
   - name: Enemies
     uniqueID: 247353591
     locked: 0
-  - name: Player
-    uniqueID: 132758567
+  - name: Pick-Ups
+    uniqueID: 1554445023
     locked: 0
   - name: Bullets
     uniqueID: 3977889995
     locked: 0
-  - name: VFX
+  - name: Player
+    uniqueID: 132758567
+    locked: 0
+  - name: Bomb
     uniqueID: 123488237
     locked: 0
   - name: UI

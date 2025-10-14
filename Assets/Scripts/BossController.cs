@@ -2,19 +2,23 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour, IDamageable
 {
+    private static readonly int sr_Explode = Animator.StringToHash("Explode");
     [Header("Boss Settings")]
     [SerializeField] private int m_BaseMaxHp = 50; // Boss base HP
     [SerializeField] private int m_ScoreReward = 5000; // Points awarded for killing boss
     [SerializeField] private int m_MinFoodDrops = 10; // Minimum food drops
     [SerializeField] private int m_MaxFoodDrops = 20; // Maximum food drops
+    [SerializeField] private float m_ExplosionAnimationDuration = 1.5f; // Duration of explosion animation
     
     [Header("Components")]
     [SerializeField] private BossShooting m_BossShooting; // Boss shooting component
+    [SerializeField] private Animator m_Animator;
     
     private int m_MaxHp = 50; // Actual max HP after scaling
     private int m_Hp = 50;
     private bool m_IsDead = false; // Prevent multiple death calls
     private bool m_IsActive = false; // Track if boss is currently active
+    private Coroutine m_ExplosionCoroutine; // Track explosion animation coroutine
     
     // Debug properties for inspector visibility
     public int CurrentHP => m_Hp;
@@ -75,32 +79,49 @@ public class BossController : MonoBehaviour, IDamageable
         m_IsDead = true;
         m_IsActive = false;
         
-        // Disable shooting
+        // Disable shooting immediately
         if (m_BossShooting != null)
         {
             m_BossShooting.enabled = false;
         }
         
-        // Award score
-        GameManager.Instance?.AddScore(m_ScoreReward);
+        // Start explosion sequence - this will handle all the effects synchronously
+        m_ExplosionCoroutine = StartCoroutine(explosionSequence());
+    }
+    
+    /// <summary>
+    /// Handle the complete explosion sequence with proper timing
+    /// </summary>
+    private System.Collections.IEnumerator explosionSequence()
+    {
+        // Force immediate animation start by updating animator immediately
+        m_Animator.SetTrigger(sr_Explode);
+        m_Animator.Update(0f); // Force animator to process the trigger immediately
         
-        // Drop multiple food items
+        // Wait one frame to ensure animation has started
+        yield return null;
+        
+        // All effects happen at the exact moment the explosion animation starts
+        AudioManager.Instance?.Play(eSFXId.Explosion, 1.0f, 0.5f);
+        AudioManager.Instance?.Play(eSFXId.BossHit, 1.0f, 0.6f);
+        GameManager.Instance?.AddScore(m_ScoreReward);
         dropFood();
         
-        // Play boss death sound (using existing enemy hit sound for now)
-        AudioManager.Instance?.Play(eSFXId.BossHit, 1.0f, 0.6f);
-        
-        // Fade out boss music
+        // Notify systems
         AudioManager.Instance?.OnBossDefeated();
-        
-        // Notify wave director that boss is dead
         WaveDirector.Instance?.OnBossKilled();
         
-        // Destroy boss (since it's not pooled like regular enemies)
-        Destroy(gameObject, 0.1f); // Small delay to allow sound to play
-        
         Debug.Log($"Boss defeated! Awarded {m_ScoreReward} points and dropped food.");
+        
+        // Wait for explosion animation to complete (minus the frame we already waited)
+        yield return new WaitForSeconds(m_ExplosionAnimationDuration - Time.deltaTime);
+        
+        // Clean up
+        m_ExplosionCoroutine = null;
+        Destroy(gameObject);
+        Debug.Log("Boss explosion animation completed, boss destroyed.");
     }
+    
     
     private void dropFood()
     {
@@ -138,6 +159,13 @@ public class BossController : MonoBehaviour, IDamageable
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.StopMusic();
+        }
+        
+        // Stop explosion coroutine if it's running (for game resets)
+        if (m_ExplosionCoroutine != null)
+        {
+            StopCoroutine(m_ExplosionCoroutine);
+            m_ExplosionCoroutine = null;
         }
         
         // Destroy boss object

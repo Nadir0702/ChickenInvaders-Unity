@@ -963,7 +963,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000a7aed130f750be0e27bce907cbc819eded475c074f26a105
+  m_ApplyToSortingLayers: 00000000a7aed130f750be0e27bce907cbc819eded475c074f26a10551b71a0cdff2a65c
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1119,11 +1119,6 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1629893666034238930, guid: 267b3f4c50d62984590be61a3b6048d2, type: 3}
   m_PrefabInstance: {fileID: 764729452}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &894453736 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8174246642621706077, guid: 05a021251d228854ea260fb6171009a6, type: 3}
-  m_PrefabInstance: {fileID: 1403143098}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &942866732 stripped
 Transform:
@@ -1480,11 +1475,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a021251d228854ea260fb6171009a6, type: 3}
---- !u!4 &1398277826 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3284410427743708481, guid: 05a021251d228854ea260fb6171009a6, type: 3}
-  m_PrefabInstance: {fileID: 1403143098}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1403143098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1493,30 +1483,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1125447914}
     m_Modifications:
-    - target: {fileID: 2891522254432090248, guid: 05a021251d228854ea260fb6171009a6, type: 3}
-      propertyPath: m_FirstTile
-      value: 
-      objectReference: {fileID: 894453736}
-    - target: {fileID: 2891522254432090248, guid: 05a021251d228854ea260fb6171009a6, type: 3}
-      propertyPath: m_FirstLayer
-      value: 
-      objectReference: {fileID: 894453736}
-    - target: {fileID: 2891522254432090248, guid: 05a021251d228854ea260fb6171009a6, type: 3}
-      propertyPath: m_LayerIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2891522254432090248, guid: 05a021251d228854ea260fb6171009a6, type: 3}
-      propertyPath: m_SecondTile
-      value: 
-      objectReference: {fileID: 1398277826}
-    - target: {fileID: 2891522254432090248, guid: 05a021251d228854ea260fb6171009a6, type: 3}
-      propertyPath: m_ScrollSpeed
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2891522254432090248, guid: 05a021251d228854ea260fb6171009a6, type: 3}
-      propertyPath: m_SecondLayer
-      value: 
-      objectReference: {fileID: 1398277826}
     - target: {fileID: 2891522254432090248, guid: 05a021251d228854ea260fb6171009a6, type: 3}
       propertyPath: m_ParallaxManager
       value: 

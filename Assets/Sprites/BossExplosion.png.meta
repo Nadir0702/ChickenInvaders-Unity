@@ -1,0 +1,774 @@
+fileFormatVersion: 2
+guid: e6e31368ea677c641a32a46075eaa742
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5335141580266921477
+    second: BossExplosion_0
+  - first:
+      213: -5366005882151210623
+    second: BossExplosion_1
+  - first:
+      213: -5441334389336418782
+    second: BossExplosion_2
+  - first:
+      213: -4296608767593742089
+    second: BossExplosion_3
+  - first:
+      213: -1122879760627498707
+    second: BossExplosion_4
+  - first:
+      213: -743829905194970046
+    second: BossExplosion_5
+  - first:
+      213: -444602802393910847
+    second: BossExplosion_6
+  - first:
+      213: -1653305636864097637
+    second: BossExplosion_7
+  - first:
+      213: 1034834100747550395
+    second: BossExplosion_8
+  - first:
+      213: -3719670225651523435
+    second: BossExplosion_9
+  - first:
+      213: -4198564368095377558
+    second: BossExplosion_10
+  - first:
+      213: 2018125294765962809
+    second: BossExplosion_11
+  - first:
+      213: -3791435401399835792
+    second: BossExplosion_12
+  - first:
+      213: 6782126644241214107
+    second: BossExplosion_13
+  - first:
+      213: -7461788885361347988
+    second: BossExplosion_14
+  - first:
+      213: -6491519206053310174
+    second: BossExplosion_15
+  - first:
+      213: 6272941533525083928
+    second: BossExplosion_16
+  - first:
+      213: 5129433872489628529
+    second: BossExplosion_17
+  - first:
+      213: -4607897745589218247
+    second: BossExplosion_18
+  - first:
+      213: -336225925628039901
+    second: BossExplosion_19
+  - first:
+      213: 791602325159644169
+    second: BossExplosion_20
+  - first:
+      213: 2158743486048771196
+    second: BossExplosion_21
+  - first:
+      213: -7414117357724959690
+    second: BossExplosion_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BossExplosion_0
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 2274
+        width: 212
+        height: 214
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50ed93e100b3a0a40800000000000000
+      internalID: 5335141580266921477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_1
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 1378
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18178bb941e1885b0800000000000000
+      internalID: -5366005882151210623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_2
+      rect:
+        serializedVersion: 2
+        x: 2136
+        y: 1384
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2265c7bc33f7c74b0800000000000000
+      internalID: -5441334389336418782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_3
+      rect:
+        serializedVersion: 2
+        x: 3213
+        y: 1377
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f00fbc17116f54c0800000000000000
+      internalID: -4296608767593742089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_4
+      rect:
+        serializedVersion: 2
+        x: 4272
+        y: 1378
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2182569ecaba60f0800000000000000
+      internalID: -1122879760627498707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_5
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 236
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2449a8764a26da5f0800000000000000
+      internalID: -743829905194970046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_6
+      rect:
+        serializedVersion: 2
+        x: 2701
+        y: 54
+        width: 522
+        height: 541
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1fa295b1474d9f0800000000000000
+      internalID: -444602802393910847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_7
+      rect:
+        serializedVersion: 2
+        x: 2696
+        y: 73
+        width: 477
+        height: 385
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b92809968474e09e0800000000000000
+      internalID: -1653305636864097637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_8
+      rect:
+        serializedVersion: 2
+        x: 3060
+        y: 241
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbeb480c1287c5e00800000000000000
+      internalID: 1034834100747550395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_9
+      rect:
+        serializedVersion: 2
+        x: 2800
+        y: 165
+        width: 157
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 590a17e23a3116cc0800000000000000
+      internalID: -3719670225651523435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_10
+      rect:
+        serializedVersion: 2
+        x: 2767
+        y: 173
+        width: 267
+        height: 255
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a670011c3f3bbb5c0800000000000000
+      internalID: -4198564368095377558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_11
+      rect:
+        serializedVersion: 2
+        x: 4297
+        y: 183
+        width: 101
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93671ca5342d10c10800000000000000
+      internalID: 2018125294765962809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_12
+      rect:
+        serializedVersion: 2
+        x: 4523
+        y: 15
+        width: 80
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 073e8be179d126bc0800000000000000
+      internalID: -3791435401399835792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_13
+      rect:
+        serializedVersion: 2
+        x: 4227
+        y: 265
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9aa5bbef34fe1e50800000000000000
+      internalID: 6782126644241214107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_14
+      rect:
+        serializedVersion: 2
+        x: 4099
+        y: 36
+        width: 102
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6234130b86627890800000000000000
+      internalID: -7461788885361347988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_15
+      rect:
+        serializedVersion: 2
+        x: 1531
+        y: 248
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2211196fcad79e5a0800000000000000
+      internalID: -6491519206053310174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_16
+      rect:
+        serializedVersion: 2
+        x: 2846
+        y: 134
+        width: 300
+        height: 317
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8178e8ad617fd0750800000000000000
+      internalID: 6272941533525083928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_17
+      rect:
+        serializedVersion: 2
+        x: 2871
+        y: 101
+        width: 201
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 173c99c1ee86f2740800000000000000
+      internalID: 5129433872489628529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_18
+      rect:
+        serializedVersion: 2
+        x: 2704
+        y: 90
+        width: 444
+        height: 364
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 934d4d00a657d00c0800000000000000
+      internalID: -4607897745589218247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_19
+      rect:
+        serializedVersion: 2
+        x: 4339
+        y: 94
+        width: 101
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32de9a25d4c755bf0800000000000000
+      internalID: -336225925628039901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_20
+      rect:
+        serializedVersion: 2
+        x: 4467
+        y: 73
+        width: 90
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90c8382ee165cfa00800000000000000
+      internalID: 791602325159644169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_21
+      rect:
+        serializedVersion: 2
+        x: 2776
+        y: 128
+        width: 322
+        height: 291
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7c102753c565fd10800000000000000
+      internalID: 2158743486048771196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_22
+      rect:
+        serializedVersion: 2
+        x: 4264
+        y: 122
+        width: 124
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63cfeb97b83cb1990800000000000000
+      internalID: -7414117357724959690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1375
+        width: 1200
+        height: 1200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75420ede233e017448a495c7dd21f0ca
+      internalID: 359589456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossExplosion_24
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 2274
+        width: 212
+        height: 214
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad43c78b6f7d42545a50d67d7651ecba
+      internalID: -596258918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4b1658da57f215b44aeabcd4191ecdd0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BossExplosion_0: 5335141580266921477
+      BossExplosion_1: -5366005882151210623
+      BossExplosion_10: -4198564368095377558
+      BossExplosion_11: 2018125294765962809
+      BossExplosion_12: -3791435401399835792
+      BossExplosion_13: 6782126644241214107
+      BossExplosion_14: -7461788885361347988
+      BossExplosion_15: -6491519206053310174
+      BossExplosion_16: 6272941533525083928
+      BossExplosion_17: 5129433872489628529
+      BossExplosion_18: -4607897745589218247
+      BossExplosion_19: -336225925628039901
+      BossExplosion_2: -5441334389336418782
+      BossExplosion_20: 791602325159644169
+      BossExplosion_21: 2158743486048771196
+      BossExplosion_22: -7414117357724959690
+      BossExplosion_23: 359589456
+      BossExplosion_24: -596258918
+      BossExplosion_3: -4296608767593742089
+      BossExplosion_4: -1122879760627498707
+      BossExplosion_5: -743829905194970046
+      BossExplosion_6: -444602802393910847
+      BossExplosion_7: -1653305636864097637
+      BossExplosion_8: 1034834100747550395
+      BossExplosion_9: -3719670225651523435
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
