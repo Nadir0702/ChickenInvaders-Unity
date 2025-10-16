@@ -34,10 +34,7 @@ public class PlayerController : Singleton<PlayerController>
     private bool m_IsMovingLeft = false;
     private bool m_IsMovingRight = false;
 
-    private void Awake()
-    {
-        m_Camera = Camera.main;
-    }
+    private new void Awake() => m_Camera = Camera.main;
     
     private void Start()
     {
@@ -250,8 +247,6 @@ public class PlayerController : Singleton<PlayerController>
 
     public void GoToLightSpeed()
     {
-        Debug.Log("PlayerController: GoToLightSpeed() called");
-        
         if (m_JetAnimator == null) 
         {
             Debug.LogWarning("PlayerController: JetAnimator is null!");
@@ -259,9 +254,7 @@ public class PlayerController : Singleton<PlayerController>
         }
         
         m_JetAnimator.SetBool(sr_IsLightSpeed, true);
-        Debug.Log("PlayerController: Calling PlayLightSpeedSFX()");
         AudioManager.Instance?.PlayLightSpeedSFX(); // Play pausable SFX
-        Debug.Log("PlayerController: Calling OnLightSpeedStart()");
         AudioManager.Instance?.OnLightSpeedStart(); // Start LightSpeed music
         ParallaxManager.Instance?.AccelerateBackground(); // Accelerate background
     }
@@ -273,11 +266,6 @@ public class PlayerController : Singleton<PlayerController>
         m_JetAnimator.SetBool(sr_IsLightSpeed, false);
         AudioManager.Instance?.StopSFX(); // Stop light speed SFX
         ParallaxManager.Instance?.DecelerateBackground(); // Decelerate background
-    }
-
-    public void ToggleControls()
-    {
-        m_UseMouseControls = !m_UseMouseControls;
     }
     
     /// <summary>

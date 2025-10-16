@@ -25,21 +25,16 @@ public class LeaderboardUI : MonoBehaviour
     
     private void Start()
     {
-        // Initialize UI - both panels start hidden
-        if (m_LeaderboardContent) m_LeaderboardContent.SetActive(false);
-        if (m_NewHighScorePanel) m_NewHighScorePanel.SetActive(false);
-        
         // Set up submit button
         if (m_SubmitScoreButton)
         {
-            m_SubmitScoreButton.onClick.AddListener(SubmitScore);
+            m_SubmitScoreButton.onClick.AddListener(submitScore);
         }
         
         // Set up input field
         if (m_PlayerNameInput)
         {
-            m_PlayerNameInput.onEndEdit.AddListener(OnNameInputEndEdit);
-            m_PlayerNameInput.characterLimit = 12; // Reasonable name length limit
+            m_PlayerNameInput.characterLimit = 20; // Reasonable name length limit
         }
     }
     
@@ -48,14 +43,12 @@ public class LeaderboardUI : MonoBehaviour
     /// </summary>
     public void ShowLeaderboard()
     {
-        Debug.Log($"LeaderboardUI: ShowLeaderboard called - LeaderboardContent: {m_LeaderboardContent != null}, NewHighScorePanel: {m_NewHighScorePanel != null}");
-        
         // Hide new high score panel and show leaderboard
         if (m_NewHighScorePanel) m_NewHighScorePanel.SetActive(false);
         if (m_LeaderboardContent)
         {
             m_LeaderboardContent.SetActive(true);
-            RefreshLeaderboard();
+            refreshLeaderboard();
         }
         else
         {
@@ -83,8 +76,6 @@ public class LeaderboardUI : MonoBehaviour
     /// </summary>
     public void CheckForHighScore(int i_Score)
     {
-        Debug.Log($"LeaderboardUI: CheckForHighScore called with score {i_Score}");
-        
         if (LeaderboardManager.Instance == null)
         {
             Debug.LogError("LeaderboardUI: LeaderboardManager.Instance is null!");
@@ -93,12 +84,10 @@ public class LeaderboardUI : MonoBehaviour
         
         if (LeaderboardManager.Instance.IsHighScore(i_Score))
         {
-            Debug.Log($"LeaderboardUI: Score {i_Score} is a high score, showing input panel");
-            ShowNewHighScoreInput(i_Score);
+            showNewHighScoreInput(i_Score);
         }
         else
         {
-            Debug.Log($"LeaderboardUI: Score {i_Score} is not a high score, showing regular leaderboard");
             // Add the score to leaderboard (even if it doesn't qualify for top 5)
             LeaderboardManager.Instance.AddScore(i_Score);
             // Show the regular leaderboard
@@ -109,7 +98,7 @@ public class LeaderboardUI : MonoBehaviour
     /// <summary>
     /// Show the new high score input panel (embedded in game over panel)
     /// </summary>
-    private void ShowNewHighScoreInput(int i_Score)
+    private void showNewHighScoreInput(int i_Score)
     {
         m_PendingScore = i_Score;
         
@@ -138,7 +127,7 @@ public class LeaderboardUI : MonoBehaviour
     /// <summary>
     /// Submit the high score with player name
     /// </summary>
-    private void SubmitScore()
+    private void submitScore()
     {
         string playerName = m_PlayerNameInput?.text?.Trim() ?? "";
         
@@ -160,29 +149,26 @@ public class LeaderboardUI : MonoBehaviour
         }
         
         ShowLeaderboard();
-        
-        // Play UI sound
-        AudioManager.Instance?.OnUIButtonClick();
     }
     
     /// <summary>
     /// Handle input field submit (Enter key)
     /// </summary>
-    private void OnNameInputEndEdit(string i_Name)
+    public void OnNameInputEndEdit()
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            SubmitScore();
+            submitScore();
         }
     }
     
     /// <summary>
     /// Refresh the leaderboard display
     /// </summary>
-    public void RefreshLeaderboard()
+    private void refreshLeaderboard()
     {
         // Clear existing entries
-        ClearLeaderboardEntries();
+        clearLeaderboardEntries();
         
         if (LeaderboardManager.Instance == null) return;
         
@@ -207,14 +193,14 @@ public class LeaderboardUI : MonoBehaviour
         // Create leaderboard entries
         for (int i = 0; i < entries.Count; i++)
         {
-            CreateLeaderboardEntry(i + 1, entries[i]);
+            createLeaderboardEntry(i + 1, entries[i]);
         }
     }
     
     /// <summary>
     /// Create a single leaderboard entry UI element
     /// </summary>
-    private void CreateLeaderboardEntry(int i_Rank, LeaderboardManager.LeaderboardEntry i_Entry)
+    private void createLeaderboardEntry(int i_Rank, LeaderboardManager.LeaderboardEntry i_Entry)
     {
         if (m_LeaderboardEntryPrefab == null || m_LeaderboardContainer == null) return;
         
@@ -249,7 +235,7 @@ public class LeaderboardUI : MonoBehaviour
     /// <summary>
     /// Clear all leaderboard entry objects
     /// </summary>
-    private void ClearLeaderboardEntries()
+    private void clearLeaderboardEntries()
     {
         foreach (var entry in m_LeaderboardEntryObjects)
         {
@@ -267,7 +253,7 @@ public class LeaderboardUI : MonoBehaviour
     public void ClearAllScores()
     {
         LeaderboardManager.Instance?.ClearLeaderboard();
-        RefreshLeaderboard();
+        refreshLeaderboard();
         AudioManager.Instance?.OnUIButtonClick();
     }
 }

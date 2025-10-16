@@ -110,7 +110,6 @@ public class SettingsUI : MonoBehaviour
         if (m_SettingsPanel)
         {
             m_SettingsPanel.SetActive(true);
-            Debug.Log($"SettingsUI: Settings panel activated - Active: {m_SettingsPanel.activeInHierarchy}");
             LoadCurrentSettings();
         }
     }
@@ -268,24 +267,12 @@ public class SettingsUI : MonoBehaviour
     {
         if (toggle != null)
         {
-            // Try TextMeshProUGUI first
-            TextMeshProUGUI tmpText = toggle.GetComponentInChildren<TextMeshProUGUI>();
-            if (tmpText != null)
-            {
-                tmpText.text = text;
-                return;
-            }
-            
             // If not found, try regular Unity Text
             Text unityText = toggle.GetComponentInChildren<Text>();
             if (unityText != null)
             {
                 unityText.text = text;
-                return;
             }
-            
-            // Debug log if neither is found
-            Debug.LogWarning($"SettingsUI: No Text or TextMeshProUGUI component found in toggle {toggle.name}");
         }
     }
 }

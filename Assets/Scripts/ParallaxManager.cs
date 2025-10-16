@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class ParallaxManager : Singleton<ParallaxManager>
@@ -25,7 +24,6 @@ public class ParallaxManager : Singleton<ParallaxManager>
         if (!m_RegisteredLayers.Contains(i_Layer))
         {
             m_RegisteredLayers.Add(i_Layer);
-            Debug.Log($"Registered parallax layer: {i_Layer.name}");
         }
     }
     
@@ -37,7 +35,6 @@ public class ParallaxManager : Singleton<ParallaxManager>
         if (m_RegisteredLayers.Contains(i_Layer))
         {
             m_RegisteredLayers.Remove(i_Layer);
-            Debug.Log($"Unregistered parallax layer: {i_Layer.name}");
         }
     }
     
@@ -49,8 +46,6 @@ public class ParallaxManager : Singleton<ParallaxManager>
         if (m_IsAccelerating) return;
         
         m_IsAccelerating = true;
-        Debug.Log("Starting background acceleration for lightspeed");
-        
         foreach (var layer in m_RegisteredLayers)
         {
             if (layer != null)
@@ -69,8 +64,6 @@ public class ParallaxManager : Singleton<ParallaxManager>
         if (!m_IsAccelerating) return;
         
         m_IsAccelerating = false;
-        Debug.Log("Starting background deceleration from lightspeed");
-        
         foreach (var layer in m_RegisteredLayers)
         {
             if (layer != null)
@@ -79,11 +72,4 @@ public class ParallaxManager : Singleton<ParallaxManager>
             }
         }
     }
-    
-    /// <summary>
-    /// Get current acceleration settings for debugging
-    /// </summary>
-    public bool IsAccelerating => m_IsAccelerating;
-    public float AccelerationAmount => m_AccelerationAmount;
-    public float TransitionDuration => m_TransitionDuration;
 }

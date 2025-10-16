@@ -21,8 +21,6 @@ public class BossController : MonoBehaviour, IDamageable
     private Coroutine m_ExplosionCoroutine; // Track explosion animation coroutine
     
     // Debug properties for inspector visibility
-    public int CurrentHP => m_Hp;
-    public int MaxHP => m_MaxHp;
     public bool IsActive => m_IsActive;
     
     private void OnEnable()
@@ -52,8 +50,6 @@ public class BossController : MonoBehaviour, IDamageable
         {
             m_BossShooting.enabled = true;
         }
-        
-        Debug.Log($"Boss initialized with {m_MaxHp} HP (Difficulty Tier: {GameManager.Instance.CurrentDifficultyTier})");
     }
     
     public void TakeDamage(int i_Amount)
@@ -63,8 +59,6 @@ public class BossController : MonoBehaviour, IDamageable
         
         m_Hp -= i_Amount;
         AudioManager.Instance?.Play(eSFXId.BossHit, 0.3f, 0.8f); // Reduced volume for boss hits
-        
-        // Optional: Add boss hit visual effects here
         
         if (m_Hp <= 0)
         {
@@ -128,15 +122,12 @@ public class BossController : MonoBehaviour, IDamageable
         // Show boss defeated congratulations message after 0.5 seconds
         StartCoroutine(ShowBossDefeatedMessageDelayed());
         
-        Debug.Log($"Boss defeated! Awarded {m_ScoreReward} points and dropped food.");
-        
         // Wait for explosion animation to complete (minus the frame we already waited)
         yield return new WaitForSeconds(m_ExplosionAnimationDuration - Time.deltaTime);
         
         // Clean up
         m_ExplosionCoroutine = null;
         Destroy(gameObject);
-        Debug.Log("Boss explosion animation completed, boss destroyed.");
     }
     
     private System.Collections.IEnumerator ShowBossDefeatedMessageDelayed()

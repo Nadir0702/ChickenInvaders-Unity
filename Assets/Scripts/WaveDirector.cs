@@ -41,7 +41,7 @@ public class WaveDirector : Singleton<WaveDirector>
         GameManager.OnGameStateChanged += OnGameStateChanged; // Subscribe
     }
     
-    private void OnDestroy()
+    private new void OnDestroy()
     {
         GameManager.OnGameStateChanged -= OnGameStateChanged;
     }
@@ -66,7 +66,6 @@ public class WaveDirector : Singleton<WaveDirector>
             StopAllCoroutines();
             m_WaveCoroutine = null;
         }
-        // Note: We don't stop the coroutine when pausing - let it continue but wait in the loop
     }
     
     /// <summary>
@@ -95,8 +94,6 @@ public class WaveDirector : Singleton<WaveDirector>
         r_FormationEnemies.Clear();
         m_FormationMovingHorizontal = false;
         m_FormationDirection = 1f;
-        
-        // The next time Playing state is entered, it will start fresh from wave 1
     }
 
     private IEnumerator runWaves()
@@ -139,7 +136,6 @@ public class WaveDirector : Singleton<WaveDirector>
             bool shouldGoToLightSpeed = waveNumber % 6 == 0; // After boss battles
             if(shouldGoToLightSpeed)
             {
-                Debug.Log($"WaveDirector: Starting light speed sequence after wave {waveNumber}");
                 m_InterWaveDelay = 12;
                 PlayerController.Instance?.GoToLightSpeed();
             }
@@ -599,8 +595,6 @@ public class WaveDirector : Singleton<WaveDirector>
             
             yield return new WaitForSeconds(0.25f);
         }
-        
-        // Pincer wave spawning complete, but don't fade music yet - wait for wave to be cleared
     }
     
     // ---------- Pattern 6: Boss Battle ----------
@@ -633,7 +627,6 @@ public class WaveDirector : Singleton<WaveDirector>
         if (m_CurrentBoss != null)
         {
             m_CurrentBoss.InitializeBoss();
-            Debug.Log($"Boss spawned for wave {i_WaveNumber}!");
         }
         else
         {
@@ -650,7 +643,6 @@ public class WaveDirector : Singleton<WaveDirector>
     public void OnBossKilled()
     {
         m_CurrentBoss = null;
-        Debug.Log("Boss defeated! Wave cleared.");
     }
     
 }

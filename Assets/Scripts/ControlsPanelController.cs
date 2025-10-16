@@ -6,9 +6,4 @@ public class ControlsPanelController : MonoBehaviour
     {
         UIManager.Instance?.HideControlsPanel();
     }
-
-    public void OnToggleClicked()
-    {
-        PlayerController.Instance?.ToggleControls();
-    }
 }

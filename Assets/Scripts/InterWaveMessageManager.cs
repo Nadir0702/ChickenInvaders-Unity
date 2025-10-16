@@ -82,26 +82,11 @@ public class InterWaveMessageManager : Singleton<InterWaveMessageManager>
     }
     
     /// <summary>
-    /// Display custom message (for special events)
-    /// </summary>
-    public void ShowCustomMessage(string i_Title, string i_Message)
-    {
-        if (m_CurrentMessageCoroutine != null)
-        {
-            StopCoroutine(m_CurrentMessageCoroutine);
-        }
-        
-        m_CurrentMessageCoroutine = StartCoroutine(DisplayMessage(i_Title, i_Message, m_WaveDisplayDuration));
-    }
-    
-    /// <summary>
     /// Show boss defeated congratulations message
     /// </summary>
     public void ShowBossDefeatedMessage()
     {
         string message = GetRandomBossDefeatedMessage();
-        
-        Debug.Log($"InterWaveMessageManager: Showing boss defeated message: {message}");
         
         if (m_CurrentMessageCoroutine != null)
         {
@@ -179,20 +164,5 @@ public class InterWaveMessageManager : Singleton<InterWaveMessageManager>
     {
         if (m_BossDefeatedMessages.Length == 0) return "BOSS DEFEATED!";
         return m_BossDefeatedMessages[Random.Range(0, m_BossDefeatedMessages.Length)];
-    }
-    
-    /// <summary>
-    /// Hide any currently displayed message immediately
-    /// </summary>
-    public void HideMessage()
-    {
-        if (m_CurrentMessageCoroutine != null)
-        {
-            StopCoroutine(m_CurrentMessageCoroutine);
-            m_CurrentMessageCoroutine = null;
-        }
-        
-        if (m_MessagePanel) m_MessagePanel.SetActive(false);
-        if (m_MessageCanvasGroup) m_MessageCanvasGroup.alpha = 0f;
     }
 }

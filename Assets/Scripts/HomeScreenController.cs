@@ -25,9 +25,4 @@ public class HomeScreenController : MonoBehaviour
     {
         UIManager.Instance?.ShowControlsPanel();
     }
-
-    public void OnSettingsClick()
-    {
-        UIManager.Instance?.ShowSettingsPanel();
-    }
 }

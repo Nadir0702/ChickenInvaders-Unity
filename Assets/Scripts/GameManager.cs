@@ -47,7 +47,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
-   
     private void initializeGame()
     {
         m_Lives = m_StartingLives;

@@ -4,12 +4,10 @@ public class PlayerHitBox : MonoBehaviour
 {
     [SerializeField] private PlayerStats m_PlayerStats;
     
-    private Camera m_Camera;
     private PlayerRespawn m_PlayerRespawn;
 
     private void Awake() 
     {
-        m_Camera = Camera.main;
         m_PlayerRespawn = GetComponent<PlayerRespawn>();
     }
     

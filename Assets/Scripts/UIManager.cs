@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class UIManager : Singleton<UIManager>
@@ -47,7 +46,7 @@ public class UIManager : Singleton<UIManager>
         showState(GameManager.Instance?.GameState ?? eGameState.Menu);
     }
     
-    private void OnDestroy()
+    private new void OnDestroy()
     {
         GameManager.OnGameStateChanged -= showState;
         
@@ -76,7 +75,7 @@ public class UIManager : Singleton<UIManager>
     /// </summary>
     private void FixCanvasScaleIssue()
     {
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = FindFirstObjectByType<Canvas>();
         if (canvas == null) return;
         
         Vector3 currentScale = canvas.transform.localScale;
@@ -86,13 +85,6 @@ public class UIManager : Singleton<UIManager>
         {
             Debug.LogWarning($"UIManager: Canvas scale is {currentScale}, fixing to (1,1,1)");
             canvas.transform.localScale = Vector3.one;
-            
-            // Also check if Canvas Scaler is causing issues
-            var canvasScaler = canvas.GetComponent<UnityEngine.UI.CanvasScaler>();
-            if (canvasScaler != null && canvasScaler.uiScaleMode == UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize)
-            {
-                Debug.Log($"UIManager: Canvas Scaler reference resolution: {canvasScaler.referenceResolution}, current screen: {Screen.width}x{Screen.height}");
-            }
         }
     }
     
@@ -103,7 +95,6 @@ public class UIManager : Singleton<UIManager>
     
     public void SetLives(int i_Value)
     {
-        Debug.Log($"UIManager: SetLives called with {i_Value} lives. HUD Container active: {(m_HUDContainer ? m_HUDContainer.activeInHierarchy.ToString() : "null")}");
         UpdateImageDisplay(m_HeartInstances, m_HeartSprite, m_LivesContainer, i_Value);
     }       
 
@@ -273,17 +264,11 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowSettingsPanel()
     {
-        Debug.Log("UIManager: ShowSettingsPanel called");
         hideAllPanels();
         
         if (m_SettingsPanel)
         {
             m_SettingsPanel.SetActive(true);
-            Debug.Log($"UIManager: Settings panel activated - Active: {m_SettingsPanel.activeInHierarchy}");
-        }
-        else
-        {
-            Debug.LogError("UIManager: m_SettingsPanel is null!");
         }
     }
 

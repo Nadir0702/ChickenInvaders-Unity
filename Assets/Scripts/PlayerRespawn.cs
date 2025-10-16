@@ -13,7 +13,6 @@ public class PlayerRespawn : MonoBehaviour
     private Vector3 m_OffScreenPosition; // Position below screen where respawn starts
     private bool m_IsRespawning = false;
     
-    // Component references
     [Header("Component References")]
     [SerializeField] private PlayerController m_PlayerController;
     [SerializeField] private PlayerShooting m_PlayerShooting;
@@ -114,7 +113,6 @@ public class PlayerRespawn : MonoBehaviour
             Destroy(explosion, 2f);
         }
         
-        // Step 6: Remove player from screen (disable rendering and collision)
         disablePlayer();
         
         yield return null; // Wait one frame to ensure everything is processed
@@ -125,7 +123,6 @@ public class PlayerRespawn : MonoBehaviour
         // Hide player sprite
         if (m_SpriteRenderer) m_SpriteRenderer.enabled = false;
         
-        // Disable all colliders (including shield colliders)
         disableAllColliders();
         
         // Reset movement input and velocity to prevent lingering movement

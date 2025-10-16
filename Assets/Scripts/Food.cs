@@ -209,7 +209,6 @@ public class Food : MonoBehaviour, IPoolable
         
         AudioManager.Instance?.Play(eSFXId.Eat, 0.5f);
         
-        // Return to pool instead of destroying
         PoolManager.Instance?.ReturnFood(this);
     }
 }

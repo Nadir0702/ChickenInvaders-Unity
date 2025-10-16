@@ -15,7 +15,6 @@ public class Bullet : MonoBehaviour, IPoolable
         m_Direction = i_Direction.normalized;
         m_DeathTime = Time.time + m_LifeTime;
         m_Active = true;
-        // Don't set active here - pool will handle it
     }
     
     public void OnPoolGet()

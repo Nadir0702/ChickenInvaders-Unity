@@ -153,17 +153,6 @@ public class PoolManager : Singleton<PoolManager>
         return m_HUDIconPool != null;
     }
     
-    // Debug info
-    public void LogPoolStats()
-    {
-        Debug.Log($"Pool Stats - " +
-                  $"Enemies: {m_EnemyPool.PoolSize}/{m_EnemyPool.TotalCreated}, " +
-                  $"Food: {m_FoodPool.PoolSize}/{m_FoodPool.TotalCreated}, " +
-                  $"Bullets: {m_BulletPool.PoolSize}/{m_BulletPool.TotalCreated}, " +
-                  $"Bombs: {m_BombPool.PoolSize}/{m_BombPool.TotalCreated}, " +
-                  $"EnemyBullets: {m_EnemyBulletPool.PoolSize}/{m_EnemyBulletPool.TotalCreated}");
-    }
-    
     // Method to check if we have enough enemies available for a formation
     public bool HasEnoughEnemies(int i_RequiredCount)
     {

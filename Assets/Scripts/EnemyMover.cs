@@ -3,33 +3,30 @@ using Random = UnityEngine.Random;
 
 public class EnemyMover : MonoBehaviour
 {
-    [Header("Shared")]
     public eEnemyMoveType m_MoveType = eEnemyMoveType.StraightDown;
-    [SerializeField] private float m_Speed = 1f;
     public float Speed { get; set; }
     
-    [Header("Sine")]
+    // Sine wave
     public float SineAmplitude { get; set; } = 1.2f;
     public float SineFrequency { get; set; } = 2f;
-
     private float m_SinePhase;
     
-    [Header("Dive")]
-    [SerializeField] private float m_SpawnTime;
+    // Dive
+    private float m_SpawnTime;
     public float DiveDelay { get; set; } = 0.6f;
     public float DiveSpeed { get; set; } = 7f;
     private Transform m_Target;
     private Vector2 m_DiveDirection;
     private bool m_Dived;
 
-    [Header("Semicircle")]
+    // Semicircle
     private Vector2 m_SemicircleCenter;
     private float m_SemicircleRadius = 3f;
     private bool m_SemicircleClockwise = true;
     private float m_SemicircleCurrentAngle;
     private float m_SemicircleAngularSpeed;
     
-    [Header("Formation")]
+    // Formation
     private Vector3 m_FormationOffset; // Offset from formation center
     private static Vector3 s_FormationCenter; // Shared formation center position
     private static Vector3 s_FormationVelocity; // Shared formation velocity
@@ -70,11 +67,6 @@ public class EnemyMover : MonoBehaviour
     public static void SetFormationCenter(Vector3 i_Center)
     {
         s_FormationCenter = i_Center;
-    }
-    
-    public static void SetFormationVelocity(Vector3 i_Velocity)
-    {
-        s_FormationVelocity = i_Velocity;
     }
 
     private void Update()

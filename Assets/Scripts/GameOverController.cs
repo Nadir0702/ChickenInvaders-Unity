@@ -1,5 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Handles game over screen menu interactions
@@ -10,15 +12,34 @@ public class GameOverController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_FinalScoreText;
     [SerializeField] private LeaderboardUI m_LeaderboardUI;
     
+    [Header("Button Delay Settings")]
+    [SerializeField] private float m_ButtonDelayDuration = 1f; // Delay duration
+    [SerializeField] private Button m_RestartButton;
+    [SerializeField] private Button m_QuitButton;
+    
     private void OnEnable()
     {
         // Update final score display when game over panel is shown
-        UpdateFinalScore();
+        updateFinalScore();
         
         // Check for high score and show leaderboard
-        CheckHighScore();
+        checkHighScore();
+        
+        // Delay Button functionality to avoid accidental clicks
+        StartCoroutine(delayButtonFunctionality());
     }
-    
+
+    private IEnumerator delayButtonFunctionality()
+    {
+        m_QuitButton.interactable = false;
+        m_RestartButton.interactable = false;
+        
+        yield return new WaitForSeconds(m_ButtonDelayDuration);
+        
+        m_QuitButton.interactable = true;
+        m_RestartButton.interactable = true;
+    }
+
     private void OnDisable()
     {
         // Hide leaderboard content when game over panel is hidden
@@ -31,18 +52,18 @@ public class GameOverController : MonoBehaviour
     /// <summary>
     /// Update the final score display
     /// </summary>
-    private void UpdateFinalScore()
+    private void updateFinalScore()
     {
         if (m_FinalScoreText && GameManager.Instance != null)
         {
-            m_FinalScoreText.text = $"Final Score: {GameManager.Instance.CurrentScore:N0}";
+            m_FinalScoreText.text = $"{GameManager.Instance.CurrentScore:N0}";
         }
     }
     
     /// <summary>
     /// Check if player achieved a high score
     /// </summary>
-    private void CheckHighScore()
+    private void checkHighScore()
     {
         if (m_LeaderboardUI && GameManager.Instance != null)
         {
@@ -69,6 +90,5 @@ public class GameOverController : MonoBehaviour
     public void QuitToMenu()
     {
         GameManager.Instance?.ReturnToMenu();
-        AudioManager.Instance?.OnUIButtonClick();
     }
 }

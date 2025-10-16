@@ -10,7 +10,6 @@ public class BossMover : MonoBehaviour
 {
     [Header("Entrance Phase")]
     [SerializeField] private float m_EntranceSpeed = 2f; // Speed during entrance
-    [SerializeField] private float m_EntranceTargetY = 3f; // Y position to stop entrance (viewport relative)
     
     [Header("Combat Phase")]
     [SerializeField] private float m_CombatSpeed = 1.5f; // Speed during combat movement
@@ -65,8 +64,6 @@ public class BossMover : MonoBehaviour
         
         m_CurrentPhase = eBossMovePhase.Entrance;
         m_CurrentDirection = Vector3.down;
-        
-        Debug.Log("Boss entrance initialized");
     }
     
     private void handleEntranceMovement()
@@ -92,8 +89,6 @@ public class BossMover : MonoBehaviour
         m_CurrentPhase = eBossMovePhase.Combat;
         chooseRandomDirection();
         scheduleNextDirectionChange();
-        
-        Debug.Log("Boss entered combat phase");
     }
     
     private void handleCombatMovement()
@@ -172,42 +167,5 @@ public class BossMover : MonoBehaviour
         // Calculate screen bounds in world coordinates
         Vector3 screenBounds = m_Camera.ViewportToWorldPoint(new Vector3(1f, 1f, 0));
         m_ScreenBounds = new Vector3(screenBounds.x, screenBounds.y, 0f);
-    }
-    
-    /// <summary>
-    /// Force boss to change direction (can be called when taking damage for more dynamic movement)
-    /// </summary>
-    public void ForceDirectionChange()
-    {
-        if (m_CurrentPhase == eBossMovePhase.Combat)
-        {
-            chooseRandomDirection();
-            scheduleNextDirectionChange();
-        }
-    }
-    
-    /// <summary>
-    /// Increase movement speed (can be called when boss health is low)
-    /// </summary>
-    public void IncreaseSpeed(float i_Multiplier = 1.3f)
-    {
-        m_CombatSpeed *= i_Multiplier;
-        m_DirectionChangeInterval *= 0.8f; // Change direction more frequently
-    }
-    
-    /// <summary>
-    /// Set movement active state
-    /// </summary>
-    public void SetActive(bool i_Active)
-    {
-        m_IsActive = i_Active;
-    }
-    
-    /// <summary>
-    /// Get current movement phase
-    /// </summary>
-    public eBossMovePhase GetCurrentPhase()
-    {
-        return m_CurrentPhase;
     }
 }

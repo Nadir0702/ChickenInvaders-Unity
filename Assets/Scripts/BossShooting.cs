@@ -77,23 +77,4 @@ public class BossShooting : MonoBehaviour
         float interval = Random.Range(m_MinShootInterval, m_MaxShootInterval);
         m_NextShootTime = Time.time + interval;
     }
-    
-    /// <summary>
-    /// Increase shooting intensity (called when boss health is low)
-    /// </summary>
-    public void IncreaseIntensity()
-    {
-        // Make boss shoot faster when health is low
-        m_MinShootInterval = Mathf.Max(0.8f, m_MinShootInterval * 0.7f);
-        m_MaxShootInterval = Mathf.Max(2.0f, m_MaxShootInterval * 0.7f);
-        m_BurstCount = Mathf.Min(3, m_BurstCount + 1); // Increase burst count
-    }
-    
-    /// <summary>
-    /// Set shooting active state
-    /// </summary>
-    public void SetActive(bool i_Active)
-    {
-        m_IsActive = i_Active;
-    }
 }

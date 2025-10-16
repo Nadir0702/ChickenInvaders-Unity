@@ -89,8 +89,6 @@ public class ParallaxLayer : MonoBehaviour
         float startSpeed = m_CurrentSpeed;
         float timer = 0f;
         
-        Debug.Log($"Layer {m_LayerIndex}: Transitioning speed from {startSpeed:F2} to {m_TargetSpeed:F2} over {i_Duration:F1}s");
-        
         while (timer < i_Duration)
         {
             timer += Time.deltaTime;
@@ -106,27 +104,10 @@ public class ParallaxLayer : MonoBehaviour
         // Ensure we reach the exact target speed
         m_CurrentSpeed = m_TargetSpeed;
         m_SpeedTransitionCoroutine = null;
-        
-        Debug.Log($"Layer {m_LayerIndex}: Speed transition complete. Current speed: {m_CurrentSpeed:F2}");
     }
     
     /// <summary>
     /// Get the base (original) speed of this layer
     /// </summary>
     public float GetBaseSpeed() => m_BaseSpeed;
-    
-    /// <summary>
-    /// Get the current active speed of this layer
-    /// </summary>
-    public float GetCurrentSpeed() => m_CurrentSpeed;
-    
-    /// <summary>
-    /// Get the target speed this layer is transitioning to
-    /// </summary>
-    public float GetTargetSpeed() => m_TargetSpeed;
-    
-    /// <summary>
-    /// Check if this layer is currently transitioning speed
-    /// </summary>
-    public bool IsTransitioning => m_SpeedTransitionCoroutine != null;
 }

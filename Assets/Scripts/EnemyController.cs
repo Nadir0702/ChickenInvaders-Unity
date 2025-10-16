@@ -8,10 +8,6 @@ public class EnemyController : MonoBehaviour, IDamageable, IPoolable
     private int m_MaxHp = 1; // Actual max HP after scaling  
     private int m_Hp = 1;
     private bool m_IsDead = false; // Prevent multiple death calls
-    
-    // Debug property for inspector visibility
-    public int CurrentHP => m_Hp;
-    public int MaxHP => m_MaxHp;
 
     private void OnEnable() => m_Hp = m_MaxHp;
     
@@ -25,7 +21,6 @@ public class EnemyController : MonoBehaviour, IDamageable, IPoolable
     
     public void OnPoolReturn()
     {
-        // Clean up any state before returning to pool
     }
     
     public void TakeDamage(int i_Amount)
@@ -38,7 +33,6 @@ public class EnemyController : MonoBehaviour, IDamageable, IPoolable
         if (m_Hp <= 0)
         {
             die();
-            // (Optional) flash/hit VFX hook here
         }
     }
 

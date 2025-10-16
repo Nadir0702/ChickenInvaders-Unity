@@ -53,7 +53,7 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
     
-    private void OnDestroy()
+    private new void OnDestroy()
     {
         if (GameManager.Instance != null)
         {
@@ -140,28 +140,11 @@ public class AudioManager : Singleton<AudioManager>
         AudioClip clip = GetMusicClip(i_Music);
         if (!clip || !m_MusicAudioSource) return;
         
-        Debug.Log($"AudioManager: Playing music {i_Music}");
-        
         m_CurrentMusic = i_Music;
         m_MusicAudioSource.clip = clip;
         m_MusicAudioSource.loop = i_Loop;
         m_MusicAudioSource.volume = i_Volume * m_MusicVolume * m_MasterVolume;
         m_MusicAudioSource.time = 0f;
-        m_MusicAudioSource.Play();
-    }
-    
-    private void PlayMusicFromTime(eMusic i_Music, float i_StartTime, float i_Volume = DEFAULT_MUSIC_VOLUME, bool i_Loop = true)
-    {
-        AudioClip clip = GetMusicClip(i_Music);
-        if (!clip || !m_MusicAudioSource) return;
-        
-        Debug.Log($"AudioManager: Playing music {i_Music} from time {i_StartTime}");
-        
-        m_CurrentMusic = i_Music;
-        m_MusicAudioSource.clip = clip;
-        m_MusicAudioSource.loop = i_Loop;
-        m_MusicAudioSource.volume = i_Volume * m_MusicVolume * m_MasterVolume;
-        m_MusicAudioSource.time = i_StartTime;
         m_MusicAudioSource.Play();
     }
     
@@ -201,7 +184,6 @@ public class AudioManager : Singleton<AudioManager>
         if (m_CurrentMusic == eMusic.Theme && m_MusicAudioSource && m_MusicAudioSource.isPlaying)
         {
             m_ThemeMusicTime = m_MusicAudioSource.time;
-            Debug.Log($"AudioManager: Stored theme music time: {m_ThemeMusicTime}");
         }
         
         // Start fade out
@@ -218,7 +200,6 @@ public class AudioManager : Singleton<AudioManager>
         // If no music is playing, just call the callback immediately
         if (!m_MusicAudioSource || !m_MusicAudioSource.isPlaying)
         {
-            Debug.Log("AudioManager: No music playing, skipping fade out");
             i_OnComplete?.Invoke();
             return;
         }
@@ -233,7 +214,6 @@ public class AudioManager : Singleton<AudioManager>
             StopCoroutine(m_FadeCoroutine);
         }
         
-        Debug.Log($"AudioManager: Starting fade in for {i_Music} at time {i_StartTime}");
         m_FadeCoroutine = StartCoroutine(FadeInCoroutine(i_Music, i_StartTime));
     }
     
@@ -286,8 +266,6 @@ public class AudioManager : Singleton<AudioManager>
         // Calculate target volume for other music
         float targetVolume = DEFAULT_MUSIC_VOLUME * m_MusicVolume * m_MasterVolume;
         
-        Debug.Log($"AudioManager: Fading in {i_Music} to volume {targetVolume}");
-        
         // Fade in
         float elapsed = 0f;
         while (elapsed < FADE_DURATION)
@@ -300,31 +278,25 @@ public class AudioManager : Singleton<AudioManager>
         
         m_MusicAudioSource.volume = targetVolume;
         m_FadeCoroutine = null;
-        Debug.Log($"AudioManager: Fade in complete for {i_Music}");
     }
     
     public void OnBossWaveStart()
     {
-        Debug.Log("AudioManager: OnBossWaveStart called");
         FadeOut(() => FadeIn(eMusic.BossTheme));
     }
     
     public void OnBossDefeated()
     {
-        Debug.Log("AudioManager: OnBossDefeated called");
         // Fade out boss music quickly, light speed will take over soon
         FadeOut();
     }
     
     public void OnLightSpeedStart()
     {
-        Debug.Log("AudioManager: OnLightSpeedStart called");
-        
         // Store theme music time if currently playing theme
         if (m_CurrentMusic == eMusic.Theme && m_MusicAudioSource && m_MusicAudioSource.isPlaying)
         {
             m_ThemeMusicTime = m_MusicAudioSource.time;
-            Debug.Log($"AudioManager: Stored theme music time for light speed: {m_ThemeMusicTime}");
         }
         
         // Stop any fade coroutine immediately - this is critical
@@ -332,7 +304,6 @@ public class AudioManager : Singleton<AudioManager>
         {
             StopCoroutine(m_FadeCoroutine);
             m_FadeCoroutine = null;
-            Debug.Log("AudioManager: Stopped fade coroutine for lightspeed");
         }
         
         // Stop current music immediately and play light speed music directly
@@ -347,7 +318,6 @@ public class AudioManager : Singleton<AudioManager>
     
     public void OnNewWaveCycleStart()
     {
-        Debug.Log($"AudioManager: OnNewWaveCycleStart called - resuming theme at {m_ThemeMusicTime}");
         // Resume theme music from where it was stored with fade in
         FadeIn(eMusic.Theme, m_ThemeMusicTime);
     }
@@ -381,7 +351,6 @@ public class AudioManager : Singleton<AudioManager>
         {
             StopCoroutine(m_FadeCoroutine);
             m_FadeCoroutine = null;
-            Debug.Log("AudioManager: Stopped lingering fade coroutine before lightspeed music");
         }
         
         // Play immediately at full volume - no fade
@@ -391,8 +360,6 @@ public class AudioManager : Singleton<AudioManager>
         m_MusicAudioSource.time = 0f;
         m_MusicAudioSource.volume = DEFAULT_MUSIC_VOLUME * 5f * m_MusicVolume * m_MasterVolume; // Using boosted volume
         m_MusicAudioSource.Play();
-        
-        Debug.Log($"AudioManager: Playing light speed music directly at volume {m_MusicAudioSource.volume}");
     }
     
     public void PlayLightSpeedSFX()
@@ -402,7 +369,6 @@ public class AudioManager : Singleton<AudioManager>
             // Use PlayOneShot instead of directly modifying the AudioSource
             float lightSpeedVolume = 0.3f * DEFAULT_SFX_VOLUME * m_SFXVolume * m_MasterVolume;
             m_SFXAudioSource.PlayOneShot(m_LightSpeed, lightSpeedVolume);
-            Debug.Log($"AudioManager: Playing light speed SFX at volume {lightSpeedVolume}");
         }
     }
     
@@ -412,7 +378,6 @@ public class AudioManager : Singleton<AudioManager>
         {
             m_SFXAudioSource.Stop();
             m_SFXAudioSource.clip = null;
-            Debug.Log("AudioManager: Light speed SFX stopped");
         }
     }
     
@@ -443,8 +408,4 @@ public class AudioManager : Singleton<AudioManager>
             m_MusicAudioSource.volume = baseVolume * m_MusicVolume * m_MasterVolume;
         }
     }
-    
-    public float GetMasterVolume() => m_MasterVolume;
-    public float GetSFXVolume() => m_SFXVolume;
-    public float GetMusicVolume() => m_MusicVolume;
 }

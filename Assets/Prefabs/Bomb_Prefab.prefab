@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 3
-  m_BombDamage: 999
+  m_BombDamage: 100
   m_Animator: {fileID: 7621632908099084497}
   m_ExplosionAnimationDuration: 1.2
 --- !u!95 &7621632908099084497
