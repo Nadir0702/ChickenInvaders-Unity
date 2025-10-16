@@ -143,6 +143,9 @@ public class GameManager : Singleton<GameManager>
         else 
             Time.timeScale = 1f;
         
+        // Handle cursor visibility - hide during gameplay, show in menus
+        Cursor.visible = (GameState != eGameState.Playing);
+        
         OnGameStateChanged?.Invoke(GameState);
     }
 
