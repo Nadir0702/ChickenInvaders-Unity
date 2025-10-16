@@ -61,7 +61,6 @@ public class GameOverController : MonoBehaviour
     public void Restart()
     {
         GameManager.Instance?.RestartGame();
-        AudioManager.Instance?.OnUIButtonClick();
     }
     
     /// <summary>

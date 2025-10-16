@@ -35,7 +35,7 @@ public class SettingsUI : MonoBehaviour
         // Initialize panel as hidden
         if (m_SettingsPanel) m_SettingsPanel.SetActive(false);
         
-        // Set up control toggles
+        // Set up control toggles and their text
         if (m_MouseControlsToggle)
         {
             m_MouseControlsToggle.onValueChanged.AddListener(OnMouseControlsChanged);
@@ -50,6 +50,11 @@ public class SettingsUI : MonoBehaviour
         {
             m_KeyboardSmoothingToggle.onValueChanged.AddListener(OnKeyboardSmoothingChanged);
         }
+        
+        // Set toggle texts directly
+        setToggleText(m_MouseControlsToggle, "Use Mouse Controls");
+        setToggleText(m_MouseSmoothingToggle, "Mouse Smoothing");
+        setToggleText(m_KeyboardSmoothingToggle, "Keyboard Smoothing");
         
         // Set up volume sliders
         if (m_MasterVolumeSlider)
@@ -254,5 +259,33 @@ public class SettingsUI : MonoBehaviour
     {
         HideSettings();
         AudioManager.Instance?.OnUIButtonClick();
+    }
+    
+    /// <summary>
+    /// Helper method to set text for a toggle's label
+    /// </summary>
+    private void setToggleText(Toggle toggle, string text)
+    {
+        if (toggle != null)
+        {
+            // Try TextMeshProUGUI first
+            TextMeshProUGUI tmpText = toggle.GetComponentInChildren<TextMeshProUGUI>();
+            if (tmpText != null)
+            {
+                tmpText.text = text;
+                return;
+            }
+            
+            // If not found, try regular Unity Text
+            Text unityText = toggle.GetComponentInChildren<Text>();
+            if (unityText != null)
+            {
+                unityText.text = text;
+                return;
+            }
+            
+            // Debug log if neither is found
+            Debug.LogWarning($"SettingsUI: No Text or TextMeshProUGUI component found in toggle {toggle.name}");
+        }
     }
 }
