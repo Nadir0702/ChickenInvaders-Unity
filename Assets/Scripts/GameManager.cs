@@ -110,6 +110,12 @@ public class GameManager : Singleton<GameManager>
     {
         m_Lives += i_Amount;
         UIManager.Instance?.SetLives(m_Lives);
+        
+        // Play pickup sound when gaining lives
+        if (i_Amount > 0)
+        {
+            AudioManager.Instance?.Play(eSFXId.Pickup);
+        }
     }
 
     public void DamagePlayer(int i_Amount = 1)

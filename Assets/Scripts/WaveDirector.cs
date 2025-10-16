@@ -116,8 +116,6 @@ public class WaveDirector : Singleton<WaveDirector>
             // Update difficulty tier for enemy scaling
             GameManager.Instance.SetDifficultyTier(waveNumber);
             
-            // Update HUD with current wave number
-            UIManager.Instance?.SetWaveNumber(waveNumber);
             
             // Notify pickup manager of new wave
             PickupManager.Instance?.OnWaveStart();

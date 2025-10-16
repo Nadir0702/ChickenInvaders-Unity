@@ -18,7 +18,6 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        UIManager.Instance?.SetWeaponLevel(WeaponLevel);
         UIManager.Instance?.SetBombs(m_BombCount);
         
         // Create shield visual instance once at start and keep it disabled
@@ -41,13 +40,19 @@ public class PlayerStats : MonoBehaviour
     public void AddWeaponLevel(int i_Delta)
     {
         WeaponLevel = Mathf.Clamp(WeaponLevel + i_Delta, 1, 8);
-        UIManager.Instance?.SetWeaponLevel(WeaponLevel);
     }
     
     public void AddBomb(int i_Delta)
     {
+        int oldCount = m_BombCount;
         m_BombCount = Mathf.Clamp(m_BombCount + i_Delta, 0, k_MaxBombs);
         UIManager.Instance?.SetBombs(m_BombCount);
+        
+        // Play pickup sound when gaining bombs (not when using them)
+        if (i_Delta > 0 && m_BombCount > oldCount)
+        {
+            AudioManager.Instance?.Play(eSFXId.Pickup);
+        }
     }
     
     /// <summary>
@@ -68,7 +73,6 @@ public class PlayerStats : MonoBehaviour
         }
         
         // Update UI
-        UIManager.Instance?.SetWeaponLevel(WeaponLevel);
         UIManager.Instance?.SetBombs(m_BombCount);
     }
     

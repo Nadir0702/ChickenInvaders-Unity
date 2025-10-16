@@ -22,11 +22,16 @@ public class PoolManager : Singleton<PoolManager>
     [SerializeField] private EnemyBullet m_EnemyBulletPrefab;
     [SerializeField] private int m_EnemyBulletPoolSize = 20; // Enemies shoot less frequently than player
     
+    [Header("HUD Icon Pooling")]
+    [SerializeField] private HUDIcon m_HUDIconPrefab;
+    [SerializeField] private int m_HUDIconPoolSize = 20; // Max lives + bombs that could be displayed
+    
     private ObjectPool<EnemyController> m_EnemyPool;
     private ObjectPool<Food> m_FoodPool;
     private ObjectPool<Bullet> m_BulletPool;
     private ObjectPool<Bomb> m_BombPool;
     private ObjectPool<EnemyBullet> m_EnemyBulletPool;
+    private ObjectPool<HUDIcon> m_HUDIconPool;
     
     private void Start()
     {
@@ -37,12 +42,26 @@ public class PoolManager : Singleton<PoolManager>
         m_BombPool = new ObjectPool<Bomb>(m_BombPrefab, m_BombPoolSize, transform);
         m_EnemyBulletPool = new ObjectPool<EnemyBullet>(m_EnemyBulletPrefab, m_EnemyBulletPoolSize, transform);
         
+        // Create HUD Icon pool only if prefab is assigned
+        if (m_HUDIconPrefab != null)
+        {
+            m_HUDIconPool = new ObjectPool<HUDIcon>(m_HUDIconPrefab, m_HUDIconPoolSize, transform);
+        }
+        else
+        {
+            Debug.LogWarning("PoolManager: HUD Icon prefab not assigned! HUD icons will not work until prefab is created and assigned.");
+        }
+        
         Debug.Log($"Pools initialized - "
                   + $"Enemies: {m_EnemyPoolSize},"
                   + $" Food: {m_FoodPoolSize},"
                   + $" Bullets: {m_BulletPoolSize},"
                   + $" Bombs: {m_BombPoolSize},"
-                  + $" EnemyBullets: {m_EnemyBulletPoolSize}");
+                  + $" EnemyBullets: {m_EnemyBulletPoolSize},"
+                  + $" HUDIcons: {(m_HUDIconPool != null ? m_HUDIconPoolSize.ToString() : "DISABLED")}");
+        
+        // Refresh HUD display now that pools are ready
+        UIManager.Instance?.RefreshHUDDisplay();
     }
     
     public EnemyController GetEnemy(Vector3 i_Position, Quaternion i_Rotation = default)
@@ -106,6 +125,34 @@ public class PoolManager : Singleton<PoolManager>
         m_EnemyBulletPool.Return(i_EnemyBullet);
     }
     
+    public HUDIcon GetHUDIcon(Vector3 i_Position)
+    {
+        if (m_HUDIconPool == null)
+        {
+            Debug.LogWarning("PoolManager: HUD Icon pool not initialized yet!");
+            return null;
+        }
+        return m_HUDIconPool.Get(i_Position);
+    }
+    
+    public void ReturnHUDIcon(HUDIcon i_HUDIcon)
+    {
+        if (m_HUDIconPool == null)
+        {
+            Debug.LogWarning("PoolManager: HUD Icon pool not initialized yet!");
+            return;
+        }
+        m_HUDIconPool.Return(i_HUDIcon);
+    }
+    
+    /// <summary>
+    /// Check if HUD Icon pool is ready for use
+    /// </summary>
+    public bool IsHUDIconPoolReady()
+    {
+        return m_HUDIconPool != null;
+    }
+    
     // Debug info
     public void LogPoolStats()
     {
@@ -143,6 +190,16 @@ public class PoolManager : Singleton<PoolManager>
         resetBulletPool();
         resetBombPool();
         resetEnemyBulletPool();
+        // Note: HUD icons are NOT reset here as they need to persist during game state changes
+        // They are managed separately by UIManager based on game state
+    }
+    
+    /// <summary>
+    /// Reset only HUD icon pool - called separately when needed
+    /// </summary>
+    public void ResetHUDIconPool()
+    {
+        resetHUDIconPool();
     }
 
     private void resetBombPool()
@@ -201,6 +258,18 @@ public class PoolManager : Singleton<PoolManager>
             if (enemyBullet.gameObject.activeInHierarchy)
             {
                 ReturnEnemyBullet(enemyBullet);
+            }
+        }
+    }
+    
+    private void resetHUDIconPool()
+    {
+        var activeHUDIcons = FindObjectsByType<HUDIcon>(FindObjectsSortMode.None);
+        foreach (var hudIcon in activeHUDIcons)
+        {
+            if (hudIcon.gameObject.activeInHierarchy)
+            {
+                ReturnHUDIcon(hudIcon);
             }
         }
     }
