@@ -8,6 +8,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private int m_StartingLives = 3;
     private int m_Lives;
     private int m_Score;
+    
+    // Public properties for external access
+    public int CurrentScore => m_Score;
+    public int CurrentLives => m_Lives;
     public eGameState GameState { get; private set; } = eGameState.Menu;
     
     // Enemy scaling system
@@ -144,9 +148,6 @@ public class GameManager : Singleton<GameManager>
     {
         // Reset wave director to start from wave 1
         WaveDirector.Instance?.ResetWaves();
-        
-        // Reset music paused time but don't restart (continue from menu)
-        AudioManager.Instance?.ResetMusicTime();
         
         initializeGame();
         setGameState(eGameState.Playing);

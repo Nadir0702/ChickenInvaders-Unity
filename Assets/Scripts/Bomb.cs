@@ -49,6 +49,12 @@ public class Bomb : MonoBehaviour, IPoolable
             if(enemy) enemy.TakeDamage(m_BombDamage);
         }
         
+        // Damage all bosses on screen
+        foreach(var boss in FindObjectsByType<BossController>(FindObjectsSortMode.None))
+        {
+            if(boss && boss.IsActive) boss.TakeDamage(m_BombDamage);
+        }
+        
         // Clear all enemy bullets (eggs) from the screen
         foreach(var enemyBullet in FindObjectsByType<EnemyBullet>(FindObjectsSortMode.None))
         {

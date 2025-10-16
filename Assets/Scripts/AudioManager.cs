@@ -28,24 +28,27 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioClip m_LightSpeedTheme;
     [SerializeField] private AudioClip m_GameOverTheme;
     
-    // Music state management
+    // Simple state tracking
     private eMusic m_CurrentMusic = eMusic.Theme;
-    private bool m_IsMusicPaused = false;
-    private Coroutine m_FadeCoroutine;
-    private float m_CurrentMusicTime = 0f; // Time position of currently playing music (for pause/resume)
-    private float m_ThemeMusicTime = 0f; // Time position of theme music (for restoration between rounds)
-    private eGameState m_PreviousGameState = eGameState.Menu;
+    private float m_ThemeMusicTime = 0f; // For resuming theme music after boss/lightspeed
+    private Coroutine m_FadeCoroutine; // Simple fade system
     
-    // Constants
-    private const float DEFAULT_MUSIC_VOLUME = 0.3f;
-    private const float DEFAULT_FADE_DURATION = 2f;
+    // Volume settings
+    private float m_MasterVolume = 1.0f;
+    private float m_SFXVolume = 1.0f;
+    private float m_MusicVolume = 1.0f;
+    
+    // Constants - Rebalanced for better SFX/Music ratio
+    private const float DEFAULT_MUSIC_VOLUME = 0.15f; // Reduced from 0.3f
+    private const float DEFAULT_SFX_VOLUME = 0.8f; // New base SFX volume
+    private const float FADE_DURATION = 1.5f;
     
     protected override void Awake()
     {
         base.Awake();
         if (this == Instance)
         {
-            initializeAudioSources();
+            InitializeAudio();
             GameManager.OnGameStateChanged += OnGameStateChanged;
         }
     }
@@ -60,15 +63,15 @@ public class AudioManager : Singleton<AudioManager>
     
     private void Start()
     {
-        PlayThemeMusic();
+        PlayMusic(eMusic.Theme);
     }
     
-    private void initializeAudioSources()
+    private void InitializeAudio()
     {
         if (m_MusicAudioSource != null)
         {
             m_MusicAudioSource.loop = true;
-            m_MusicAudioSource.volume = DEFAULT_MUSIC_VOLUME;
+            m_MusicAudioSource.volume = DEFAULT_MUSIC_VOLUME * m_MusicVolume * m_MasterVolume;
         }
     }
     
@@ -76,11 +79,12 @@ public class AudioManager : Singleton<AudioManager>
     
     public void Play(eSFXId i_SfxId, float i_Volume = 1f, float i_Pitch = 1f)
     {
-        AudioClip clip = getSFXClip(i_SfxId);
-        if (!clip) return;
+        AudioClip clip = GetSFXClip(i_SfxId);
+        if (!clip || !m_SFXAudioSource) return;
         
         m_SFXAudioSource.pitch = i_Pitch;
-        m_SFXAudioSource.PlayOneShot(clip, i_Volume);
+        float finalVolume = i_Volume * DEFAULT_SFX_VOLUME * m_SFXVolume * m_MasterVolume;
+        m_SFXAudioSource.PlayOneShot(clip, finalVolume);
     }
     
     public void OnUIButtonClick()
@@ -88,7 +92,7 @@ public class AudioManager : Singleton<AudioManager>
         Play(eSFXId.UIClick, 0.5f, 1.5f);
     }
     
-    private AudioClip getSFXClip(eSFXId i_SfxId)
+    private AudioClip GetSFXClip(eSFXId i_SfxId)
     {
         return i_SfxId switch
         {
@@ -117,439 +121,330 @@ public class AudioManager : Singleton<AudioManager>
         switch (i_NewState)
         {
             case eGameState.Menu:
-                handleMenuState();
-                break;
-            case eGameState.Playing:
-                handlePlayingState();
-                break;
-            case eGameState.Paused:
-                handlePausedState();
+                PlayMusic(eMusic.Theme);
                 break;
             case eGameState.GameOver:
-                handleGameOverState();
+                PlayMusic(eMusic.GameOverTheme, DEFAULT_MUSIC_VOLUME, false);
+                break;
+            case eGameState.Paused:
+                PauseMusic();
+                break;
+            case eGameState.Playing:
+                ResumeMusic();
                 break;
         }
+    }
+    
+    private void PlayMusic(eMusic i_Music, float i_Volume = DEFAULT_MUSIC_VOLUME, bool i_Loop = true)
+    {
+        AudioClip clip = GetMusicClip(i_Music);
+        if (!clip || !m_MusicAudioSource) return;
         
-        m_PreviousGameState = i_NewState;
-    }
-    
-    private void handleMenuState()
-    {
-        if (m_PreviousGameState != eGameState.Menu)
-        {
-            PlayThemeMusic();
-        }
-    }
-    
-    private void handlePlayingState()
-    {
-        if (m_IsMusicPaused && m_PreviousGameState == eGameState.Paused)
-        {
-            ResumeMusic();
-            ResumeSFX(); // Also resume SFX if it was paused
-        }
-        else if (m_PreviousGameState == eGameState.Menu && isThemePlaying())
-        {
-            // Continue theme music from menu
-        }
-        else if (!isBackgroundMusicPlaying())
-        {
-            PlayThemeMusic();
-        }
-    }
-    
-    private void handlePausedState()
-    {
-        // Pause any music except GameOver music
-        if (m_CurrentMusic != eMusic.GameOverTheme)
-        {
-            PauseMusic();
-        }
+        Debug.Log($"AudioManager: Playing music {i_Music}");
         
-        // Also pause SFX if light speed is playing
-        PauseSFX();
-    }
-    
-    private void handleGameOverState()
-    {
-        PlayGameOverMusic();
-    }
-    
-    private bool isThemePlaying()
-    {
-        return m_CurrentMusic == eMusic.Theme && m_MusicAudioSource.isPlaying;
-    }
-    
-    private bool isBackgroundMusicPlaying()
-    {
-        return m_CurrentMusic == eMusic.Theme || m_CurrentMusic == eMusic.BossTheme || m_CurrentMusic == eMusic.LightSpeedTheme;
-    }
-    
-    public void PlayMusic(eMusic i_Music, float i_Volume = DEFAULT_MUSIC_VOLUME, bool i_Loop = true, bool i_RestartFromBeginning = true)
-    {
-        AudioClip clip = getMusicClip(i_Music);
-        if (!clip || m_MusicAudioSource == null) return;
-        
-        stopFadeCoroutine();
-        
-        if (shouldPlayMusic(i_Music, i_RestartFromBeginning))
-        {
-            startMusic(i_Music, clip, i_Volume, i_Loop);
-        }
-    }
-    
-    private AudioClip getMusicClip(eMusic i_Music)
-    {
-        return i_Music switch
-            {
-                eMusic.Theme => m_Theme,
-                eMusic.BossTheme => m_BossTheme,
-                eMusic.LightSpeedTheme => m_LightSpeedTheme,
-                eMusic.GameOverTheme => m_GameOverTheme,
-                _ => null
-            };
-    }
-    
-    private bool shouldPlayMusic(eMusic i_Music, bool i_RestartFromBeginning)
-    {
-        return m_CurrentMusic != i_Music || i_RestartFromBeginning || !m_MusicAudioSource.isPlaying;
-    }
-    
-    private void startMusic(eMusic i_Music, AudioClip i_Clip, float i_Volume, bool i_Loop)
-    {
         m_CurrentMusic = i_Music;
-        m_MusicAudioSource.clip = i_Clip;
+        m_MusicAudioSource.clip = clip;
         m_MusicAudioSource.loop = i_Loop;
-        m_MusicAudioSource.volume = i_Volume;
+        m_MusicAudioSource.volume = i_Volume * m_MusicVolume * m_MasterVolume;
+        m_MusicAudioSource.time = 0f;
         m_MusicAudioSource.Play();
-        m_IsMusicPaused = false;
+    }
+    
+    private void PlayMusicFromTime(eMusic i_Music, float i_StartTime, float i_Volume = DEFAULT_MUSIC_VOLUME, bool i_Loop = true)
+    {
+        AudioClip clip = GetMusicClip(i_Music);
+        if (!clip || !m_MusicAudioSource) return;
         
-        Debug.Log($"Playing music: {i_Music} (Loop: {i_Loop})");
-    }
-    
-    private void stopFadeCoroutine()
-    {
-        if (m_FadeCoroutine != null)
-        {
-            StopCoroutine(m_FadeCoroutine);
-            m_FadeCoroutine = null;
-        }
-    }
-    
-    // ========== PUBLIC MUSIC METHODS ==========
-    
-    public void PlayThemeMusic()
-    {
-        stopMusicAndResetState();
-        PlayMusic(eMusic.Theme);
-    }
-    
-    public void ContinueThemeMusic()
-    {
-        // Continue theme music from its stored position
-        FadeInMusicFromPosition(eMusic.Theme, DEFAULT_FADE_DURATION, m_ThemeMusicTime);
-        Debug.Log($"Continuing theme music from time: {m_ThemeMusicTime}");
-    }
-    
-    public void PlayBossMusic()
-    {
-        // Theme music time already stored by FadeMusic() before boss battle
-        stopMusicAndResetPauseState(); // Don't reset theme time
-        PlayMusic(eMusic.BossTheme, DEFAULT_MUSIC_VOLUME, true, true);
-        m_CurrentMusicTime = 0f; // Reset current music time for new boss music
-    }
-    
-    public void PlayLightSpeedMusic()
-    {
-        // Don't reset theme music time when playing light speed music
-        PlayMusic(eMusic.LightSpeedTheme, DEFAULT_MUSIC_VOLUME, false, true); // No loop
-    }
-    
-    public void PlayGameOverMusic()
-    {
-        PlayMusic(eMusic.GameOverTheme, DEFAULT_MUSIC_VOLUME, false, true); // No loop
-    }
-    
-    public void OnGameRestart()
-    {
-        stopMusicAndResetState();
-        PlayThemeMusic();
-    }
-    
-    public void ResetMusicTime()
-    {
-        m_CurrentMusicTime = 0f;
-        m_ThemeMusicTime = 0f;
-    }
-    
-    private void stopMusicAndResetState()
-    {
-        if (m_MusicAudioSource != null)
-        {
-            m_MusicAudioSource.Stop();
-        }
+        Debug.Log($"AudioManager: Playing music {i_Music} from time {i_StartTime}");
         
-        m_IsMusicPaused = false;
-        m_CurrentMusicTime = 0f;
-        m_ThemeMusicTime = 0f;
-    }
-    
-    private void stopMusicAndResetPauseState()
-    {
-        if (m_MusicAudioSource != null)
-        {
-            m_MusicAudioSource.Stop();
-        }
-        
-        m_IsMusicPaused = false;
-        m_CurrentMusicTime = 0f;
-        // Don't reset m_ThemeMusicTime here - it's preserved for restoration
-    }
-    
-    // ========== MUSIC CONTROL METHODS ==========
-    
-    public void PauseMusic()
-    {
-        if (m_MusicAudioSource != null && m_MusicAudioSource.isPlaying)
-        {
-            m_CurrentMusicTime = m_MusicAudioSource.time;
-            
-            // Also update theme music time if we're pausing theme music
-            if (m_CurrentMusic == eMusic.Theme)
-            {
-                m_ThemeMusicTime = m_CurrentMusicTime;
-            }
-            
-            m_MusicAudioSource.Pause();
-            m_IsMusicPaused = true;
-            Debug.Log($"Music paused at time: {m_CurrentMusicTime} (Current: {m_CurrentMusic})");
-        }
-    }
-    
-    public void ResumeMusic()
-    {
-        if (m_MusicAudioSource != null && m_IsMusicPaused)
-        {
-            m_MusicAudioSource.UnPause();
-            m_IsMusicPaused = false;
-            Debug.Log("Music resumed");
-        }
-    }
-    
-    public void StopMusic()
-    {
-        if (m_MusicAudioSource != null)
-        {
-            m_MusicAudioSource.Stop();
-            m_IsMusicPaused = false;
-            Debug.Log("Music stopped");
-        }
-    }
-    
-    // ========== FADE SYSTEM ==========
-    
-    public void FadeOutMusic(float i_FadeDuration = DEFAULT_FADE_DURATION, System.Action i_OnComplete = null)
-    {
-        if (m_MusicAudioSource != null && m_FadeCoroutine == null)
-        {
-            storeCurrentMusicTime();
-            m_FadeCoroutine = StartCoroutine(FadeOutCoroutine(i_FadeDuration, i_OnComplete));
-        }
-    }
-    
-    public void FadeInMusic(eMusic i_Music, float i_FadeDuration = DEFAULT_FADE_DURATION, float i_TargetVolume = DEFAULT_MUSIC_VOLUME)
-    {
-        if (m_MusicAudioSource != null && m_FadeCoroutine == null)
-        {
-            m_FadeCoroutine = StartCoroutine(FadeInCoroutine(i_Music, i_FadeDuration, i_TargetVolume, 0f));
-        }
-    }
-    
-    public void FadeInMusicFromPosition(eMusic i_Music, float i_FadeDuration = DEFAULT_FADE_DURATION, float i_StartTime = 0f, float i_TargetVolume = DEFAULT_MUSIC_VOLUME)
-    {
-        if (m_MusicAudioSource != null && m_FadeCoroutine == null)
-        {
-            m_FadeCoroutine = StartCoroutine(FadeInCoroutine(i_Music, i_FadeDuration, i_TargetVolume, i_StartTime));
-        }
-    }
-    
-    private void storeCurrentMusicTime()
-    {
-        if (m_MusicAudioSource.isPlaying)
-        {
-            m_CurrentMusicTime = m_MusicAudioSource.time;
-            
-            // Also update theme music time if we're storing theme music
-            if (m_CurrentMusic == eMusic.Theme)
-            {
-                m_ThemeMusicTime = m_CurrentMusicTime;
-            }
-        }
-    }
-    
-    private System.Collections.IEnumerator FadeOutCoroutine(float i_Duration, System.Action i_OnComplete)
-    {
-        float startVolume = m_MusicAudioSource.volume;
-        float timer = 0f;
-        
-        while (timer < i_Duration && m_MusicAudioSource != null)
-        {
-            timer += Time.unscaledDeltaTime;
-            float normalizedTime = timer / i_Duration;
-            m_MusicAudioSource.volume = Mathf.Lerp(startVolume, 0f, normalizedTime);
-            yield return null;
-        }
-        
-        if (m_MusicAudioSource != null)
-        {
-            m_MusicAudioSource.volume = 0f;
-            m_MusicAudioSource.Stop();
-        }
-        
-        m_FadeCoroutine = null;
-        i_OnComplete?.Invoke();
-        
-        Debug.Log("Music fade out complete");
-    }
-    
-    private System.Collections.IEnumerator FadeInCoroutine(eMusic i_Music, float i_Duration, float i_TargetVolume, float i_StartTime)
-    {
-        AudioClip clip = getMusicClip(i_Music);
-        if (!clip || m_MusicAudioSource == null) yield break;
-        
-        setupMusicForFadeIn(i_Music, clip, i_StartTime);
-        
-        yield return fadeInVolume(i_Duration, i_TargetVolume);
-        
-        m_FadeCoroutine = null;
-        Debug.Log($"Music fade in complete: {i_Music} from time {i_StartTime}");
-    }
-    
-    private void setupMusicForFadeIn(eMusic i_Music, AudioClip i_Clip, float i_StartTime)
-    {
         m_CurrentMusic = i_Music;
-        m_MusicAudioSource.clip = i_Clip;
-        m_MusicAudioSource.loop = (i_Music == eMusic.Theme || i_Music == eMusic.BossTheme);
-        m_MusicAudioSource.volume = 0f;
+        m_MusicAudioSource.clip = clip;
+        m_MusicAudioSource.loop = i_Loop;
+        m_MusicAudioSource.volume = i_Volume * m_MusicVolume * m_MasterVolume;
         m_MusicAudioSource.time = i_StartTime;
         m_MusicAudioSource.Play();
-        m_IsMusicPaused = false;
     }
     
-    private System.Collections.IEnumerator fadeInVolume(float i_Duration, float i_TargetVolume)
+    private AudioClip GetMusicClip(eMusic i_Music)
     {
-        float timer = 0f;
-        while (timer < i_Duration && m_MusicAudioSource != null)
+        return i_Music switch
         {
-            timer += Time.unscaledDeltaTime;
-            float normalizedTime = timer / i_Duration;
-            m_MusicAudioSource.volume = Mathf.Lerp(0f, i_TargetVolume, normalizedTime);
-            yield return null;
+            eMusic.Theme => m_Theme,
+            eMusic.BossTheme => m_BossTheme,
+            eMusic.LightSpeedTheme => m_LightSpeedTheme,
+            eMusic.GameOverTheme => m_GameOverTheme,
+            _ => null
+        };
+    }
+    
+    private void PauseMusic()
+    {
+        if (m_MusicAudioSource && m_MusicAudioSource.isPlaying)
+        {
+            m_MusicAudioSource.Pause();
         }
-        
-        if (m_MusicAudioSource != null)
+    }
+    
+    private void ResumeMusic()
+    {
+        if (m_MusicAudioSource && !m_MusicAudioSource.isPlaying && m_MusicAudioSource.clip)
         {
-            m_MusicAudioSource.volume = i_TargetVolume;
+            m_MusicAudioSource.UnPause();
         }
     }
     
     // ========== GAME EVENT HANDLERS ==========
     
-    public void FadeMusic(float i_FadeDuration = DEFAULT_FADE_DURATION)
+    public void FadeMusic()
     {
-        // Store theme music time before fading out (for restoration after lightspeed)
-        if (m_MusicAudioSource != null && m_MusicAudioSource.isPlaying && m_CurrentMusic == eMusic.Theme)
+        // Store theme music time before boss battle
+        if (m_CurrentMusic == eMusic.Theme && m_MusicAudioSource && m_MusicAudioSource.isPlaying)
         {
             m_ThemeMusicTime = m_MusicAudioSource.time;
-            Debug.Log($"Stored theme music time before fade: {m_ThemeMusicTime}");
+            Debug.Log($"AudioManager: Stored theme music time: {m_ThemeMusicTime}");
         }
-        FadeOutMusic(i_FadeDuration);
+        
+        // Start fade out
+        FadeOut();
+    }
+    
+    private void FadeOut(System.Action i_OnComplete = null)
+    {
+        if (m_FadeCoroutine != null)
+        {
+            StopCoroutine(m_FadeCoroutine);
+        }
+        
+        // If no music is playing, just call the callback immediately
+        if (!m_MusicAudioSource || !m_MusicAudioSource.isPlaying)
+        {
+            Debug.Log("AudioManager: No music playing, skipping fade out");
+            i_OnComplete?.Invoke();
+            return;
+        }
+        
+        m_FadeCoroutine = StartCoroutine(FadeOutCoroutine(i_OnComplete));
+    }
+    
+    private void FadeIn(eMusic i_Music, float i_StartTime = 0f)
+    {
+        if (m_FadeCoroutine != null)
+        {
+            StopCoroutine(m_FadeCoroutine);
+        }
+        
+        Debug.Log($"AudioManager: Starting fade in for {i_Music} at time {i_StartTime}");
+        m_FadeCoroutine = StartCoroutine(FadeInCoroutine(i_Music, i_StartTime));
+    }
+    
+    private System.Collections.IEnumerator FadeOutCoroutine(System.Action i_OnComplete)
+    {
+        if (!m_MusicAudioSource || !m_MusicAudioSource.isPlaying) yield break;
+        
+        float startVolume = m_MusicAudioSource.volume;
+        float elapsed = 0f;
+        
+        while (elapsed < FADE_DURATION)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = elapsed / FADE_DURATION;
+            m_MusicAudioSource.volume = Mathf.Lerp(startVolume, 0f, progress);
+            yield return null;
+        }
+        
+        m_MusicAudioSource.volume = 0f;
+        m_MusicAudioSource.Stop();
+        m_FadeCoroutine = null;
+        
+        i_OnComplete?.Invoke();
+    }
+    
+    private System.Collections.IEnumerator FadeInCoroutine(eMusic i_Music, float i_StartTime)
+    {
+        AudioClip clip = GetMusicClip(i_Music);
+        if (!clip || !m_MusicAudioSource) 
+        {
+            Debug.LogError($"AudioManager: Cannot fade in {i_Music} - missing clip or audio source");
+            yield break;
+        }
+        
+        // Setup music
+        m_CurrentMusic = i_Music;
+        m_MusicAudioSource.clip = clip;
+        m_MusicAudioSource.loop = (i_Music != eMusic.LightSpeedTheme && i_Music != eMusic.GameOverTheme);
+        m_MusicAudioSource.time = i_StartTime;
+        m_MusicAudioSource.volume = 0f;
+        m_MusicAudioSource.Play();
+        
+        // Light speed music should never use fade in - it's handled directly
+        if (i_Music == eMusic.LightSpeedTheme)
+        {
+            Debug.LogError("AudioManager: Light speed music should not use fade in system!");
+            yield break;
+        }
+        
+        // Calculate target volume for other music
+        float targetVolume = DEFAULT_MUSIC_VOLUME * m_MusicVolume * m_MasterVolume;
+        
+        Debug.Log($"AudioManager: Fading in {i_Music} to volume {targetVolume}");
+        
+        // Fade in
+        float elapsed = 0f;
+        while (elapsed < FADE_DURATION)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = elapsed / FADE_DURATION;
+            m_MusicAudioSource.volume = Mathf.Lerp(0f, targetVolume, progress);
+            yield return null;
+        }
+        
+        m_MusicAudioSource.volume = targetVolume;
+        m_FadeCoroutine = null;
+        Debug.Log($"AudioManager: Fade in complete for {i_Music}");
     }
     
     public void OnBossWaveStart()
     {
-        PlayBossMusic();
+        Debug.Log("AudioManager: OnBossWaveStart called");
+        FadeOut(() => FadeIn(eMusic.BossTheme));
     }
     
     public void OnBossDefeated()
     {
-        FadeOutMusic(DEFAULT_FADE_DURATION, () => {
-            Debug.Log("Boss music faded out after boss defeat");
-        });
-    }
-    
-    public void OnNewWaveCycleStart()
-    {
-        // Wait for light speed music to finish, then fade in theme from stored position
-        StartCoroutine(waitForLightSpeedThenFadeTheme());
-    }
-    
-    private System.Collections.IEnumerator waitForLightSpeedThenFadeTheme()
-    {
-        // Wait for light speed music to finish (if it's currently playing)
-        while (m_CurrentMusic == eMusic.LightSpeedTheme && m_MusicAudioSource.isPlaying)
-        {
-            yield return null;
-        }
-        
-        // Now continue theme from its stored position
-        ContinueThemeMusic();
+        Debug.Log("AudioManager: OnBossDefeated called");
+        // Fade out boss music quickly, light speed will take over soon
+        FadeOut();
     }
     
     public void OnLightSpeedStart()
     {
-        // Theme music time should already be stored from boss music or fade
-        // Just play light speed music
-        PlayLightSpeedMusic();
+        Debug.Log("AudioManager: OnLightSpeedStart called");
+        
+        // Store theme music time if currently playing theme
+        if (m_CurrentMusic == eMusic.Theme && m_MusicAudioSource && m_MusicAudioSource.isPlaying)
+        {
+            m_ThemeMusicTime = m_MusicAudioSource.time;
+            Debug.Log($"AudioManager: Stored theme music time for light speed: {m_ThemeMusicTime}");
+        }
+        
+        // Stop any fade coroutine immediately - this is critical
+        if (m_FadeCoroutine != null)
+        {
+            StopCoroutine(m_FadeCoroutine);
+            m_FadeCoroutine = null;
+            Debug.Log("AudioManager: Stopped fade coroutine for lightspeed");
+        }
+        
+        // Stop current music immediately and play light speed music directly
+        if (m_MusicAudioSource)
+        {
+            m_MusicAudioSource.Stop();
+        }
+        
+        // Add a small delay to ensure clean transition
+        StartCoroutine(PlayLightSpeedMusicDelayed());
     }
     
+    public void OnNewWaveCycleStart()
+    {
+        Debug.Log($"AudioManager: OnNewWaveCycleStart called - resuming theme at {m_ThemeMusicTime}");
+        // Resume theme music from where it was stored with fade in
+        FadeIn(eMusic.Theme, m_ThemeMusicTime);
+    }
     
-    /// <summary>
-    /// Play LightSpeed SFX that can be paused/resumed like music
-    /// </summary>
+    public void OnGameRestart()
+    {
+        m_ThemeMusicTime = 0f;
+        FadeIn(eMusic.Theme, 0f);
+    }
+    
+    // ========== LIGHT SPEED MUSIC & SFX ==========
+    
+    private System.Collections.IEnumerator PlayLightSpeedMusicDelayed()
+    {
+        // Small delay to ensure clean transition from any previous music
+        yield return new WaitForSeconds(0.1f);
+        PlayLightSpeedMusicDirect();
+    }
+    
+    private void PlayLightSpeedMusicDirect()
+    {
+        AudioClip clip = GetMusicClip(eMusic.LightSpeedTheme);
+        if (!clip || !m_MusicAudioSource)
+        {
+            Debug.LogError("AudioManager: Cannot play light speed music - missing clip or audio source");
+            return;
+        }
+        
+        // Ensure no fade coroutine is running that could interfere
+        if (m_FadeCoroutine != null)
+        {
+            StopCoroutine(m_FadeCoroutine);
+            m_FadeCoroutine = null;
+            Debug.Log("AudioManager: Stopped lingering fade coroutine before lightspeed music");
+        }
+        
+        // Play immediately at full volume - no fade
+        m_CurrentMusic = eMusic.LightSpeedTheme;
+        m_MusicAudioSource.clip = clip;
+        m_MusicAudioSource.loop = false; // Light speed doesn't loop
+        m_MusicAudioSource.time = 0f;
+        m_MusicAudioSource.volume = DEFAULT_MUSIC_VOLUME * 5f * m_MusicVolume * m_MasterVolume; // Using boosted volume
+        m_MusicAudioSource.Play();
+        
+        Debug.Log($"AudioManager: Playing light speed music directly at volume {m_MusicAudioSource.volume}");
+    }
+    
     public void PlayLightSpeedSFX()
     {
-        // Use a separate method to play light speed SFX that can be controlled
-        if (m_SFXAudioSource != null && m_LightSpeed != null)
+        if (m_SFXAudioSource && m_LightSpeed)
         {
-            m_SFXAudioSource.clip = m_LightSpeed;
-            m_SFXAudioSource.loop = false;
-            m_SFXAudioSource.Play();
+            // Use PlayOneShot instead of directly modifying the AudioSource
+            float lightSpeedVolume = 0.3f * DEFAULT_SFX_VOLUME * m_SFXVolume * m_MasterVolume;
+            m_SFXAudioSource.PlayOneShot(m_LightSpeed, lightSpeedVolume);
+            Debug.Log($"AudioManager: Playing light speed SFX at volume {lightSpeedVolume}");
         }
     }
     
-    /// <summary>
-    /// Pause SFX (for light speed SFX during pause)
-    /// </summary>
-    public void PauseSFX()
-    {
-        if (m_SFXAudioSource != null && m_SFXAudioSource.isPlaying)
-        {
-            m_SFXAudioSource.Pause();
-        }
-    }
-    
-    /// <summary>
-    /// Resume SFX (for light speed SFX after pause)
-    /// </summary>
-    public void ResumeSFX()
-    {
-        if (m_SFXAudioSource != null && !m_SFXAudioSource.isPlaying && m_SFXAudioSource.clip != null)
-        {
-            m_SFXAudioSource.UnPause();
-        }
-    }
-    
-    /// <summary>
-    /// Stop SFX (for light speed SFX cleanup)
-    /// </summary>
     public void StopSFX()
     {
-        if (m_SFXAudioSource != null)
+        if (m_SFXAudioSource)
         {
             m_SFXAudioSource.Stop();
             m_SFXAudioSource.clip = null;
+            Debug.Log("AudioManager: Light speed SFX stopped");
         }
     }
+    
+    // ========== VOLUME CONTROL ==========
+    
+    public void SetMasterVolume(float i_Volume)
+    {
+        m_MasterVolume = Mathf.Clamp01(i_Volume);
+        UpdateMusicVolume();
+    }
+    
+    public void SetSFXVolume(float i_Volume)
+    {
+        m_SFXVolume = Mathf.Clamp01(i_Volume);
+    }
+    
+    public void SetMusicVolume(float i_Volume)
+    {
+        m_MusicVolume = Mathf.Clamp01(i_Volume);
+        UpdateMusicVolume();
+    }
+    
+    private void UpdateMusicVolume()
+    {
+        if (m_MusicAudioSource && m_MusicAudioSource.isPlaying)
+        {
+            float baseVolume = m_CurrentMusic == eMusic.LightSpeedTheme ? DEFAULT_MUSIC_VOLUME * 5f : DEFAULT_MUSIC_VOLUME;
+            m_MusicAudioSource.volume = baseVolume * m_MusicVolume * m_MasterVolume;
+        }
+    }
+    
+    public float GetMasterVolume() => m_MasterVolume;
+    public float GetSFXVolume() => m_SFXVolume;
+    public float GetMusicVolume() => m_MusicVolume;
 }
-

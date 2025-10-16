@@ -62,7 +62,7 @@ public class BossController : MonoBehaviour, IDamageable
         if (m_IsDead || !m_IsActive) return;
         
         m_Hp -= i_Amount;
-        AudioManager.Instance?.Play(eSFXId.BossHit, 0.7f, 0.8f); // Slightly different pitch for boss
+        AudioManager.Instance?.Play(eSFXId.BossHit, 0.3f, 0.8f); // Reduced volume for boss hits
         
         // Optional: Add boss hit visual effects here
         
@@ -85,6 +85,20 @@ public class BossController : MonoBehaviour, IDamageable
             m_BossShooting.enabled = false;
         }
         
+        // Disable collider to prevent collision with player during death animation
+        var collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+        
+        // Stop movement by disabling BossMover component
+        var bossMover = GetComponent<BossMover>();
+        if (bossMover != null)
+        {
+            bossMover.enabled = false;
+        }
+        
         // Start explosion sequence - this will handle all the effects synchronously
         m_ExplosionCoroutine = StartCoroutine(explosionSequence());
     }
@@ -102,14 +116,17 @@ public class BossController : MonoBehaviour, IDamageable
         yield return null;
         
         // All effects happen at the exact moment the explosion animation starts
-        AudioManager.Instance?.Play(eSFXId.Explosion, 1.0f, 0.5f);
-        AudioManager.Instance?.Play(eSFXId.BossHit, 1.0f, 0.6f);
+        AudioManager.Instance?.Play(eSFXId.Explosion, 0.4f, 0.5f); // Reduced from 0.7f
+        AudioManager.Instance?.Play(eSFXId.BossHit, 0.5f, 0.6f);   // Reduced from 0.8f
         GameManager.Instance?.AddScore(m_ScoreReward);
         dropFood();
         
         // Notify systems
         AudioManager.Instance?.OnBossDefeated();
         WaveDirector.Instance?.OnBossKilled();
+        
+        // Show boss defeated congratulations message after 0.5 seconds
+        StartCoroutine(ShowBossDefeatedMessageDelayed());
         
         Debug.Log($"Boss defeated! Awarded {m_ScoreReward} points and dropped food.");
         
@@ -122,6 +139,11 @@ public class BossController : MonoBehaviour, IDamageable
         Debug.Log("Boss explosion animation completed, boss destroyed.");
     }
     
+    private System.Collections.IEnumerator ShowBossDefeatedMessageDelayed()
+    {
+        yield return new WaitForSeconds(0.5f);
+        InterWaveMessageManager.Instance?.ShowBossDefeatedMessage();
+    }
     
     private void dropFood()
     {
@@ -153,12 +175,6 @@ public class BossController : MonoBehaviour, IDamageable
         if (m_BossShooting != null)
         {
             m_BossShooting.enabled = false;
-        }
-        
-        // Stop boss music if it's playing (for game resets)
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.StopMusic();
         }
         
         // Stop explosion coroutine if it's running (for game resets)

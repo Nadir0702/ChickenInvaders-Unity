@@ -3,17 +3,25 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
+    [Header("HUD Elements")]
     [SerializeField] private TextMeshProUGUI m_ScoreText;
     [SerializeField] private TextMeshProUGUI m_LivesText;
     [SerializeField] private TextMeshProUGUI m_WeaponLevelText;
     [SerializeField] private TextMeshProUGUI m_BombsAmountText;
+    [SerializeField] private TextMeshProUGUI m_WaveNumberText;
+    
+    [Header("UI Panels")]
     [SerializeField] private GameObject m_GameOverPanel;
     [SerializeField] private GameObject m_PausePanel;
     [SerializeField] private GameObject m_HomeScreenPanel;
     [SerializeField] private GameObject m_ControlsPanel;
+    [SerializeField] private GameObject m_SettingsPanel;
 
     private void Start()
     {
+        // Fix Canvas scale issue that can make UI invisible
+        FixCanvasScaleIssue();
+        
         // Initialize all panels as inactive
         hideAllPanels();
         
@@ -28,6 +36,31 @@ public class UIManager : Singleton<UIManager>
     private void OnDestroy()
     {
         GameManager.OnGameStateChanged -= showState;
+    }
+    
+    /// <summary>
+    /// Fix Canvas scale issue that can occur with Canvas Scaler in "Scale With Screen Size" mode
+    /// </summary>
+    private void FixCanvasScaleIssue()
+    {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null) return;
+        
+        Vector3 currentScale = canvas.transform.localScale;
+        
+        // If Canvas scale is zero, this makes all UI invisible
+        if (currentScale.x == 0f || currentScale.y == 0f || currentScale.z == 0f)
+        {
+            Debug.LogWarning($"UIManager: Canvas scale is {currentScale}, fixing to (1,1,1)");
+            canvas.transform.localScale = Vector3.one;
+            
+            // Also check if Canvas Scaler is causing issues
+            var canvasScaler = canvas.GetComponent<UnityEngine.UI.CanvasScaler>();
+            if (canvasScaler != null && canvasScaler.uiScaleMode == UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize)
+            {
+                Debug.Log($"UIManager: Canvas Scaler reference resolution: {canvasScaler.referenceResolution}, current screen: {Screen.width}x{Screen.height}");
+            }
+        }
     }
     
     public void SetScore(int i_Value)
@@ -69,6 +102,7 @@ public class UIManager : Singleton<UIManager>
         m_PausePanel?.SetActive(false);
         m_HomeScreenPanel?.SetActive(false);
         m_ControlsPanel?.SetActive(false);
+        m_SettingsPanel?.SetActive(false);
     }
 
     public void SetWeaponLevel(int i_WeaponLevel)
@@ -80,6 +114,11 @@ public class UIManager : Singleton<UIManager>
     {
         if (m_BombsAmountText) m_BombsAmountText.text = $"Bombs: {i_Amount}";
     }
+    
+    public void SetWaveNumber(int i_WaveNumber)
+    {
+        if (m_WaveNumberText) m_WaveNumberText.text = $"Wave: {i_WaveNumber}";
+    }
 
     public void ShowControlsPanel()
     {
@@ -89,6 +128,29 @@ public class UIManager : Singleton<UIManager>
     }
 
     public void HideControlsPanel()
+    {
+        hideAllPanels();
+        
+        m_HomeScreenPanel?.SetActive(true);
+    }
+
+    public void ShowSettingsPanel()
+    {
+        Debug.Log("UIManager: ShowSettingsPanel called");
+        hideAllPanels();
+        
+        if (m_SettingsPanel)
+        {
+            m_SettingsPanel.SetActive(true);
+            Debug.Log($"UIManager: Settings panel activated - Active: {m_SettingsPanel.activeInHierarchy}");
+        }
+        else
+        {
+            Debug.LogError("UIManager: m_SettingsPanel is null!");
+        }
+    }
+
+    public void HideSettingsPanel()
     {
         hideAllPanels();
         

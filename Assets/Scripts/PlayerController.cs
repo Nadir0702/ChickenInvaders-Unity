@@ -250,10 +250,18 @@ public class PlayerController : Singleton<PlayerController>
 
     public void GoToLightSpeed()
     {
-        if (m_JetAnimator == null) return;
+        Debug.Log("PlayerController: GoToLightSpeed() called");
+        
+        if (m_JetAnimator == null) 
+        {
+            Debug.LogWarning("PlayerController: JetAnimator is null!");
+            return;
+        }
         
         m_JetAnimator.SetBool(sr_IsLightSpeed, true);
+        Debug.Log("PlayerController: Calling PlayLightSpeedSFX()");
         AudioManager.Instance?.PlayLightSpeedSFX(); // Play pausable SFX
+        Debug.Log("PlayerController: Calling OnLightSpeedStart()");
         AudioManager.Instance?.OnLightSpeedStart(); // Start LightSpeed music
         ParallaxManager.Instance?.AccelerateBackground(); // Accelerate background
     }
@@ -270,5 +278,29 @@ public class PlayerController : Singleton<PlayerController>
     public void ToggleControls()
     {
         m_UseMouseControls = !m_UseMouseControls;
+    }
+    
+    /// <summary>
+    /// Set control type (called by SettingsManager)
+    /// </summary>
+    public void SetUseMouseControls(bool i_UseMouseControls)
+    {
+        m_UseMouseControls = i_UseMouseControls;
+    }
+    
+    /// <summary>
+    /// Set mouse smoothing (called by SettingsManager)
+    /// </summary>
+    public void SetMouseSmoothing(bool i_UseMouseSmoothing)
+    {
+        m_UseMouseSmoothing = i_UseMouseSmoothing;
+    }
+    
+    /// <summary>
+    /// Set keyboard smoothing (called by SettingsManager)
+    /// </summary>
+    public void SetKeyboardSmoothing(bool i_UseKeyboardSmoothing)
+    {
+        m_UseKeyboardSmoothing = i_UseKeyboardSmoothing;
     }
 }

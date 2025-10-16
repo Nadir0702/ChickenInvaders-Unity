@@ -116,6 +116,9 @@ public class WaveDirector : Singleton<WaveDirector>
             // Update difficulty tier for enemy scaling
             GameManager.Instance.SetDifficultyTier(waveNumber);
             
+            // Update HUD with current wave number
+            UIManager.Instance?.SetWaveNumber(waveNumber);
+            
             // Notify pickup manager of new wave
             PickupManager.Instance?.OnWaveStart();
             
@@ -138,16 +141,28 @@ public class WaveDirector : Singleton<WaveDirector>
             bool shouldGoToLightSpeed = waveNumber % 6 == 0; // After boss battles
             if(shouldGoToLightSpeed)
             {
+                Debug.Log($"WaveDirector: Starting light speed sequence after wave {waveNumber}");
                 m_InterWaveDelay = 12;
                 PlayerController.Instance?.GoToLightSpeed();
             }
             else
             {
                 m_InterWaveDelay = 3;
+                
+                // For regular waves, show next wave message after 0.5 seconds
+                yield return new WaitForSeconds(0.5f);
+                int nextWaveNumber = waveNumber + 1;
+                InterWaveMessageManager.Instance?.ShowWaveMessage(nextWaveNumber);
+                
+                // Wait remaining time
+                yield return new WaitForSeconds(m_InterWaveDelay - 0.5f);
             }
             
-            // Banner/UI hook later (e.g., "Wave X cleared!")
-            yield return new WaitForSeconds(m_InterWaveDelay);
+            if(shouldGoToLightSpeed)
+            {
+                // For light speed, just wait the full delay (no message during light speed)
+                yield return new WaitForSeconds(m_InterWaveDelay);
+            }
             if(shouldGoToLightSpeed)
             {
                 PlayerController.Instance?.ExitLightSpeed();
