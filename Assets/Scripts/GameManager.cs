@@ -5,7 +5,14 @@ public class GameManager : Singleton<GameManager>
 {
     public static event Action<eGameState> OnGameStateChanged;
     
+    [Header("Game Settings")]
     [SerializeField] private int m_StartingLives = 3;
+    
+    [Header("Resolution Settings")]
+    [SerializeField] private int m_TargetWidth = 1920;
+    [SerializeField] private int m_TargetHeight = 1440;
+    [SerializeField] private bool m_ForceResolution = true;
+    
     private int m_Lives;
     private int m_Score;
     
@@ -22,13 +29,30 @@ public class GameManager : Singleton<GameManager>
     private int m_LastLifeScoreThreshold;
     private const int k_BombScoreInterval = 10000;
     private const int k_LifeScoreInterval = 50000;
-
+    
     protected override void Awake()
     {
         base.Awake(); // Call singleton Awake first
         if (this == Instance) // Only initialize if we're the active instance
         {
+            // Force resolution before anything else initializes
+            if (m_ForceResolution)
+            {
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                Screen.SetResolution(m_TargetWidth, m_TargetHeight, true);
+            }
+            
             initializeGame();
+        }
+    }
+    
+    private void Start()
+    {
+        // Apply resolution again in Start to ensure it takes effect
+        if (m_ForceResolution && this == Instance)
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+            Screen.SetResolution(m_TargetWidth, m_TargetHeight, false);
         }
     }
     

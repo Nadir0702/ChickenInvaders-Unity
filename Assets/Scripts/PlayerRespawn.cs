@@ -20,6 +20,7 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private SpriteRenderer m_SpriteRenderer;
     [SerializeField] private Collider2D m_Collider;
     [SerializeField] private Rigidbody2D m_Rigidbody2D;
+    [SerializeField] private GameObject m_Jet;
 
     private void Awake()
     {
@@ -136,6 +137,7 @@ public class PlayerRespawn : MonoBehaviour
         if (m_Rigidbody2D) m_Rigidbody2D.linearVelocity = Vector2.zero;
         if (m_PlayerShooting) m_PlayerShooting.enabled = false;
         if (m_PlayerBombing) m_PlayerBombing.enabled = false;
+        if (m_Jet) m_Jet.SetActive(false); // Hide jet effect if applicable
         
         // Move player off-screen
         transform.position = m_OffScreenPosition;
@@ -153,6 +155,7 @@ public class PlayerRespawn : MonoBehaviour
         if (m_PlayerController) m_PlayerController.enabled = true;
         if (m_PlayerShooting) m_PlayerShooting.enabled = true;
         if (m_PlayerBombing) m_PlayerBombing.enabled = true;
+        if (m_Jet) m_Jet.SetActive(true); // Show jet effect if applicable
     }
 
     private IEnumerator respawnFromBottom()

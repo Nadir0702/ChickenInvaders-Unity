@@ -7,9 +7,6 @@ using UnityEngine.UI;
 /// </summary>
 public class SettingsUI : MonoBehaviour
 {
-    [Header("Settings Panel")]
-    [SerializeField] private GameObject m_SettingsPanel;
-    
     [Header("Control Settings")]
     [SerializeField] private Toggle m_MouseControlsToggle;
     [SerializeField] private Toggle m_MouseSmoothingToggle;
@@ -32,9 +29,6 @@ public class SettingsUI : MonoBehaviour
     
     private void Start()
     {
-        // Initialize panel as hidden
-        if (m_SettingsPanel) m_SettingsPanel.SetActive(false);
-        
         // Set up control toggles and their text
         if (m_MouseControlsToggle)
         {
@@ -104,14 +98,11 @@ public class SettingsUI : MonoBehaviour
     /// </summary>
     public void ShowSettings()
     {
-        // Use UIManager to properly hide other panels
+        // Use UIManager to properly hide other panels and show settings
         UIManager.Instance?.ShowSettingsPanel();
         
-        if (m_SettingsPanel)
-        {
-            m_SettingsPanel.SetActive(true);
-            LoadCurrentSettings();
-        }
+        // Load current settings into UI controls
+        LoadCurrentSettings();
     }
     
     /// <summary>
@@ -119,12 +110,7 @@ public class SettingsUI : MonoBehaviour
     /// </summary>
     public void HideSettings()
     {
-        if (m_SettingsPanel)
-        {
-            m_SettingsPanel.SetActive(false);
-        }
-        
-        // Return to home screen
+        // Use UIManager to properly hide settings and show home screen
         UIManager.Instance?.HideSettingsPanel();
     }
     

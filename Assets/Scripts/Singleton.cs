@@ -3,6 +3,7 @@
 public abstract class Singleton<T> : MonoBehaviour where T: MonoBehaviour
 {
     private static T _instance;
+    private static bool _isQuitting = false;
 
     protected virtual void Awake()
     {
@@ -14,12 +15,19 @@ public abstract class Singleton<T> : MonoBehaviour where T: MonoBehaviour
         }
         
         _instance = this as T;
+        DontDestroyOnLoad(gameObject);
     }
 
     public static T Instance
     {
         get
         {
+            // Don't create instances when application is quitting
+            if (_isQuitting)
+            {
+                return null;
+            }
+            
             if (_instance != null)
             {
                 return _instance;
@@ -44,6 +52,7 @@ public abstract class Singleton<T> : MonoBehaviour where T: MonoBehaviour
             // Create new instance if none exists
             var singletonObject = new GameObject(typeof(T).Name);
             _instance = singletonObject.AddComponent<T>();
+            DontDestroyOnLoad(singletonObject);
                 
             return _instance;
         }
@@ -55,5 +64,10 @@ public abstract class Singleton<T> : MonoBehaviour where T: MonoBehaviour
         {
             _instance = null;
         }
+    }
+    
+    protected virtual void OnApplicationQuit()
+    {
+        _isQuitting = true;
     }
 }
