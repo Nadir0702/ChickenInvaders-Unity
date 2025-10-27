@@ -17,7 +17,7 @@ A modern recreation of the classic Chicken Invaders arcade shooter, built in Uni
 -   **Boss Battles**: Large boss enemies with increased HP, multiple attack patterns, and generous rewards
 -   **Power-Up System**:
     -   Weapon upgrades (8 levels)
-    -   Shield pickups for temporary invulnerability
+    -   Shield on respawn for temporary invulnerability
     -   Bomb system for screen-clearing attacks
     -   Food drops from enemies for scoring
 
@@ -115,9 +115,9 @@ This is a **school project** created for educational purposes. While the game is
 1. Open the project in Unity 6 (2023.3+)
 2. Load the main scene from `Assets/Scenes/`
 3. Press Play to start the game
-4. Use mouse or WASD/Arrow keys to move
-5. Click or Space to shoot
-6. Press B to use bombs (when available)
+4. Use mouse or Arrow keys to move
+5. Left Click or Space to shoot
+6. Right Click or Left Shift to use bombs (when available)
 
 ---
 
